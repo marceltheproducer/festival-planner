@@ -32,7 +32,9 @@ export default function FestivalCard({ festival }: { festival: Festival }) {
       <div className="flex items-start justify-between gap-2 sm:gap-3 mb-3">
         <div className="min-w-0">
           <h3 className="font-semibold text-base sm:text-lg text-film-50 leading-tight truncate">
-            {festival.name}
+            <a href={`/festivals/${festival.id}`} className="hover:text-gold-400 transition-colors">
+              {festival.name}
+            </a>
           </h3>
           <p className="text-sm text-film-400 mt-0.5">
             {festival.location.city}, {festival.location.country}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://festivalplanner.app/sitemap-index.xml

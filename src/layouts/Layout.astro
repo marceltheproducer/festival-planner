@@ -46,10 +46,29 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://festival
     <meta name="twitter:image" content={new URL("/og-image.svg", canonicalUrl.origin).href} />
 
     <title>{pageTitle}</title>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": siteName,
+      "url": canonicalUrl.origin,
+      "description": description,
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+      },
+    })} />
   </head>
   <body class="min-h-screen bg-film-950 text-film-100 flex flex-col antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-gold-500 focus:text-film-950 focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold">
+      Skip to main content
+    </a>
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     <Footer />

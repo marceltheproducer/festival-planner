@@ -2,14 +2,22 @@
  * Centralized genre taxonomy and smart matching.
  *
  * Genres have parent-child relationships (e.g., Drama is a sub-genre of Narrative).
- * Matching uses OR logic with automatic expansion:
- *   - A "Horror" film matches festivals accepting "Narrative"
- *   - A festival accepting "Narrative" matches films tagged "Drama", "Comedy", etc.
+ * Matching uses asymmetric expansion:
+ *   - Film genres expand BOTH ways: Horror film → also matches "Narrative" festivals
+ *   - Festival genres expand DOWNWARD only: "Narrative" festival → accepts Drama, Comedy, etc.
+ *     but a "Horror" festival does NOT auto-expand to match all Narrative sub-genres
+ *
+ * This prevents genre-specific festivals (Fantasia, Sitges) from matching
+ * unrelated sub-genres like Drama or Romance through the shared parent.
  */
 
 /** Parent → children genre relationships */
 const GENRE_PARENTS: Record<string, string[]> = {
-  Narrative: ["Drama", "Comedy", "Horror", "Sci-Fi", "Thriller", "Romance"],
+  Narrative: ["Drama", "Comedy", "Horror", "Sci-Fi", "Fantasy", "Thriller", "Romance"],
+  Documentary: [],
+  Animation: [],
+  Experimental: [],
+  "LGBTQ+": [],
 };
 
 /** Inverse lookup: child → parent */
@@ -21,7 +29,7 @@ for (const [parent, children] of Object.entries(GENRE_PARENTS)) {
 }
 
 /**
- * Expands a genre list to include smart matches.
+ * Expands a genre list bidirectionally (for film matching).
  * - Sub-genres get their parent added (Horror → +Narrative)
  * - Parents get their children added (Narrative → +Drama, +Comedy, etc.)
  */
@@ -42,9 +50,34 @@ export function expandGenres(genres: string[]): Set<string> {
 }
 
 /**
- * Smart genre matching with OR logic.
- * Returns true if ANY film genre overlaps with ANY festival genre
- * after expanding both sides through the genre taxonomy.
+ * Expands a genre list downward only (for festival matching).
+ * Parents get their children added, but children do NOT get their parent added.
+ * This prevents genre-specific festivals from matching unrelated sub-genres.
+ */
+function expandGenresDown(genres: string[]): Set<string> {
+  const expanded = new Set(genres);
+
+  for (const genre of genres) {
+    const children = GENRE_PARENTS[genre];
+    if (children) {
+      for (const child of children) expanded.add(child);
+    }
+  }
+
+  return expanded;
+}
+
+/**
+ * Smart genre matching with asymmetric expansion.
+ *
+ * Film genres expand both ways (child→parent AND parent→children).
+ * Festival genres expand downward only (parent→children).
+ *
+ * This means:
+ *   - A "Drama" film matches a "Narrative" festival (film expands up to Narrative)
+ *   - A "Horror" film matches a "Narrative" festival (film expands up to Narrative)
+ *   - A "Drama" film does NOT match a "Horror"-only festival
+ *     (festival doesn't expand Horror→Narrative, so no parent-level overlap)
  *
  * Empty filmGenres matches everything (= "any genre").
  */
@@ -55,7 +88,7 @@ export function genresMatch(
   if (filmGenres.length === 0) return true;
 
   const expandedFilm = expandGenres(filmGenres);
-  const expandedFestival = expandGenres(festivalGenres);
+  const expandedFestival = expandGenresDown(festivalGenres);
 
   for (const genre of expandedFilm) {
     if (expandedFestival.has(genre)) return true;

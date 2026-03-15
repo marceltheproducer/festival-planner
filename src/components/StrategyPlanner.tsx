@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { Festival, FilmProfile, StrategyResult, StrategyOptions } from "../lib/types";
 import { generateStrategy } from "../lib/strategy";
+import { genresMatch } from "../lib/genres";
 import StrategyResults from "./StrategyResults";
 import GenreTagPicker from "./GenreTagPicker";
 
@@ -30,9 +31,23 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
   };
 
   const update = (partial: Partial<FilmProfile>) => {
-    setProfile((prev) => ({ ...prev, ...partial }));
+    setProfile((prev) => {
+      const next = { ...prev, ...partial };
+      if (partial.genres && next.targetFestivalIds.length > 0) {
+        next.targetFestivalIds = next.targetFestivalIds.filter((id) => {
+          const f = festivals.find((fest) => fest.id === id);
+          return f ? genresMatch(f.genres, next.genres) : false;
+        });
+      }
+      return next;
+    });
     setResults(null);
   };
+
+  const genreFilteredFestivals = useMemo(() => {
+    if (profile.genres.length === 0) return festivals;
+    return festivals.filter((f) => genresMatch(f.genres, profile.genres));
+  }, [festivals, profile.genres]);
 
   const hasTargets = profile.targetFestivalIds.length > 0;
 
@@ -148,8 +163,13 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
           <label className="block text-sm font-medium text-film-300 mb-2">
             Target specific festivals (optional)
           </label>
+          {profile.genres.length > 0 && (
+            <p className="text-xs text-film-400 mb-2">
+              Showing {genreFilteredFestivals.length} of {festivals.length} festivals matching your genres
+            </p>
+          )}
           <div className="flex flex-wrap gap-1.5">
-            {festivals.map((f) => {
+            {genreFilteredFestivals.map((f) => {
               const isSelected = profile.targetFestivalIds.includes(f.id);
               return (
                 <button

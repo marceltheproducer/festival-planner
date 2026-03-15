@@ -3,6 +3,17 @@ import { TIER_ORDER } from "./types";
 import { getNextDeadline } from "./festivals";
 import { genresMatch } from "./genres";
 
+function fuzzyMatch(target: string, query: string): boolean {
+  const t = target.toLowerCase();
+  const q = query.toLowerCase();
+  if (t.includes(q)) return true;
+  let qi = 0;
+  for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+    if (t[ti] === q[qi]) qi++;
+  }
+  return qi === q.length;
+}
+
 export function createDefaultFilters(): Filters {
   return {
     search: "",
@@ -13,6 +24,7 @@ export function createDefaultFilters(): Filters {
     premiereRequirements: [],
     maxFee: null,
     deadlineWindow: null,
+    submissionPlatforms: [],
   };
 }
 
@@ -21,12 +33,18 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
 
   return festivals.filter((f) => {
     if (filters.search) {
-      const q = filters.search.toLowerCase();
+      const q = filters.search;
       const match =
-        f.name.toLowerCase().includes(q) ||
-        f.location.city.toLowerCase().includes(q) ||
-        f.location.country.toLowerCase().includes(q);
+        fuzzyMatch(f.name, q) ||
+        fuzzyMatch(f.location.city, q) ||
+        fuzzyMatch(f.location.country, q) ||
+        (f.notes ? fuzzyMatch(f.notes, q) : false);
       if (!match) return false;
+    }
+
+    if (filters.submissionPlatforms.length > 0) {
+      const platform = f.submissionPlatform === "withoutabox" ? "other" : f.submissionPlatform;
+      if (!filters.submissionPlatforms.includes(platform as "filmfreeway" | "direct" | "other")) return false;
     }
 
     if (filters.filmType.length > 0) {

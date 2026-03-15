@@ -58,6 +58,7 @@ function CheckboxGroup<T extends string>({
                     : [...selected, opt]
                 )
               }
+              aria-pressed={isSelected}
               className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
                 isSelected
                   ? "bg-gold-500 text-film-950 border-gold-500"
@@ -95,6 +96,7 @@ export default function FilterPanel({
       premiereRequirements: [],
       maxFee: null,
       deadlineWindow: null,
+      submissionPlatforms: [],
     });
   };
 
@@ -106,7 +108,8 @@ export default function FilterPanel({
     filters.tiers.length > 0 ||
     filters.premiereRequirements.length > 0 ||
     filters.maxFee !== null ||
-    filters.deadlineWindow !== null;
+    filters.deadlineWindow !== null ||
+    filters.submissionPlatforms.length > 0;
 
   return (
     <div className="bg-film-800/60 rounded-xl border border-film-700/50 p-4">
@@ -114,6 +117,7 @@ export default function FilterPanel({
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
+          aria-expanded={expanded}
           className="font-semibold text-film-50 flex items-center gap-1"
         >
           Filters
@@ -200,6 +204,16 @@ export default function FilterPanel({
             selected={filters.premiereRequirements}
             onChange={(premiereRequirements) => update({ premiereRequirements })}
             formatLabel={(v) => (v === "none" ? "None" : v.charAt(0).toUpperCase() + v.slice(1))}
+          />
+
+          <CheckboxGroup
+            label="Submission platform"
+            options={["filmfreeway", "direct", "other"] as const}
+            selected={filters.submissionPlatforms}
+            onChange={(submissionPlatforms) => update({ submissionPlatforms })}
+            formatLabel={(v) =>
+              v === "filmfreeway" ? "FilmFreeway" : v === "direct" ? "Direct" : "Other"
+            }
           />
 
           <div>

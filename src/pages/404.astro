@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Page Not Found" description="The page you're looking for doesn't exist.">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+    <p class="text-gold-400 text-6xl font-bold mb-4">404</p>
+    <h1 class="text-2xl font-bold text-film-50 mb-3">Page not found</h1>
+    <p class="text-film-400 mb-8">
+      The page you're looking for doesn't exist or has been moved.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a
+        href="/"
+        class="inline-flex items-center px-6 py-3 bg-gold-500 text-film-950 font-semibold rounded-lg hover:bg-gold-400 transition-colors"
+      >
+        Go home
+      </a>
+      <a
+        href="/browse"
+        class="inline-flex items-center px-6 py-3 bg-film-800 text-film-300 font-semibold rounded-lg border border-film-600 hover:border-gold-500/50 transition-colors"
+      >
+        Browse festivals
+      </a>
+    </div>
+  </div>
+</Layout>

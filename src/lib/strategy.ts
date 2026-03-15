@@ -31,7 +31,11 @@ function meetsPremiereRequirement(festival: Festival, profile: FilmProfile): boo
     case "international":
       return profile.premiereStatus === "unscreened" || profile.premiereStatus === "screened_domestically";
     case "national":
-      return profile.premiereStatus !== "screened_internationally" || festival.location.country !== profile.country;
+      if (profile.premiereStatus === "unscreened") return true;
+      if (profile.premiereStatus === "screened_domestically") {
+        return festival.location.country !== profile.country;
+      }
+      return festival.location.country === profile.country;
     case "regional":
     case "none":
       return true;
@@ -59,8 +63,8 @@ function premiereLabel(req: string): string {
 }
 
 function daysBetween(date1: string, date2: string): number {
-  const d1 = new Date(date1 + "T00:00:00");
-  const d2 = new Date(date2 + "T00:00:00");
+  const d1 = new Date(date1 + "T00:00:00Z");
+  const d2 = new Date(date2 + "T00:00:00Z");
   return Math.round((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24));
 }
 

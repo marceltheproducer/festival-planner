@@ -4,7 +4,7 @@
     "name": "Sundance Film Festival",
     "location": { "city": "Park City", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "Drama", "Comedy", "Horror", "Thriller", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "LGBTQ+"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -23,7 +23,7 @@
     "name": "Festival de Cannes",
     "location": { "city": "Cannes", "country": "France", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -41,7 +41,7 @@
     "name": "Berlin International Film Festival (Berlinale)",
     "location": { "city": "Berlin", "country": "Germany", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "Drama", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "LGBTQ+"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -59,7 +59,7 @@
     "name": "Venice Film Festival",
     "location": { "city": "Venice", "country": "Italy", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -77,7 +77,7 @@
     "name": "Toronto International Film Festival (TIFF)",
     "location": { "city": "Toronto", "country": "Canada", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy", "Thriller", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
@@ -96,7 +96,7 @@
     "name": "Telluride Film Festival",
     "location": { "city": "Telluride", "country": "USA", "region": "North America" },
     "type": "feature",
-    "genres": ["Narrative", "Documentary", "Drama"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -114,7 +114,7 @@
     "name": "SXSW Film & TV Festival",
     "location": { "city": "Austin", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Comedy", "Horror", "Sci-Fi", "Drama", "Thriller", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "world",
     "deadlines": [
@@ -134,7 +134,7 @@
     "name": "Tribeca Film Festival",
     "location": { "city": "New York", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy", "Thriller", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "world",
     "deadlines": [
@@ -154,7 +154,7 @@
     "name": "Locarno Film Festival",
     "location": { "city": "Locarno", "country": "Switzerland", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Drama"],
+    "genres": ["Narrative", "Documentary", "Experimental"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -174,7 +174,7 @@
     "name": "International Film Festival Rotterdam",
     "location": { "city": "Rotterdam", "country": "Netherlands", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "Drama"],
+    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -193,7 +193,7 @@
     "name": "Busan International Film Festival",
     "location": { "city": "Busan", "country": "South Korea", "region": "Asia" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
@@ -248,15 +248,16 @@
     "name": "Palm Springs International ShortFest",
     "location": { "city": "Palm Springs", "country": "USA", "region": "North America" },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Comedy", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2026-02-07", "fee": 50 }
+      { "type": "earlybird", "date": "2026-12-01", "fee": 35 },
+      { "type": "regular", "date": "2027-02-07", "fee": 50 }
     ],
-    "fees": { "regular": 50, "currency": "USD" },
-    "notificationDate": "2026-04-15",
-    "festivalDates": { "start": "2026-06-23", "end": "2026-06-29" },
+    "fees": { "earlybird": 35, "regular": 50, "currency": "USD" },
+    "notificationDate": "2027-04-15",
+    "festivalDates": { "start": "2027-06-24", "end": "2027-06-30" },
     "website": "https://www.psfilmfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "32nd edition. Oscar-qualifying. Films must be completed in 2025 or 2026, max 40 minutes."
@@ -323,7 +324,7 @@
     "name": "Fantasia International Film Festival",
     "location": { "city": "Montreal", "country": "Canada", "region": "North America" },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Animation", "Experimental", "Thriller"],
+    "genres": ["Horror", "Sci-Fi", "Fantasy", "Animation", "Experimental", "Thriller"],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
@@ -343,7 +344,7 @@
     "name": "Sitges Film Festival",
     "location": { "city": "Sitges", "country": "Spain", "region": "Europe" },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Experimental", "Thriller"],
+    "genres": ["Horror", "Sci-Fi", "Fantasy", "Experimental", "Thriller"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -363,7 +364,7 @@
     "name": "Raindance Film Festival",
     "location": { "city": "London", "country": "UK", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
@@ -384,7 +385,7 @@
     "name": "Austin Film Festival",
     "location": { "city": "Austin", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Comedy", "Drama"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -403,7 +404,7 @@
     "name": "Cinequest Film & Creativity Festival",
     "location": { "city": "San Jose", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama", "Sci-Fi", "Thriller"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
@@ -422,7 +423,7 @@
     "name": "Flickers' Rhode Island International Film Festival",
     "location": { "city": "Providence", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
@@ -462,7 +463,7 @@
     "name": "Aspen Shortsfest",
     "location": { "city": "Aspen", "country": "USA", "region": "North America" },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
@@ -482,7 +483,7 @@
     "name": "San Sebasti\u00e1n International Film Festival",
     "location": { "city": "San Sebasti\u00e1n", "country": "Spain", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -500,7 +501,7 @@
     "name": "Karlovy Vary International Film Festival",
     "location": { "city": "Karlovy Vary", "country": "Czech Republic", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Animation"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
@@ -518,7 +519,7 @@
     "name": "Tokyo International Film Festival",
     "location": { "city": "Tokyo", "country": "Japan", "region": "Asia" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
@@ -536,7 +537,7 @@
     "name": "Slamdance Film Festival",
     "location": { "city": "Park City", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Horror", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "mid",
     "premiereRequirement": "world",
     "deadlines": [
@@ -556,7 +557,7 @@
     "name": "AFI Fest",
     "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
@@ -613,7 +614,7 @@
     "name": "Outfest Los Angeles LGBTQ+ Film Festival",
     "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "LGBTQ+", "Drama", "Comedy", "Experimental"],
+    "genres": ["LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -633,7 +634,7 @@
     "name": "Frameline San Francisco International LGBTQ+ Film Festival",
     "location": { "city": "San Francisco", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "LGBTQ+", "Drama", "Comedy"],
+    "genres": ["LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -653,7 +654,7 @@
     "name": "BFI Flare: London LGBTIQ+ Film Festival",
     "location": { "city": "London", "country": "UK", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "LGBTQ+", "Drama", "Comedy", "Experimental"],
+    "genres": ["LGBTQ+"],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
@@ -671,7 +672,7 @@
     "name": "New York Film Festival",
     "location": { "city": "New York", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Drama", "Animation"],
+    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
     "tier": "A-list",
     "premiereRequirement": "national",
     "deadlines": [
@@ -689,7 +690,7 @@
     "name": "Mar del Plata International Film Festival",
     "location": { "city": "Mar del Plata", "country": "Argentina", "region": "South America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
@@ -707,7 +708,7 @@
     "name": "Hamptons International Film Festival",
     "location": { "city": "East Hampton", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -727,7 +728,7 @@
     "name": "New Orleans Film Festival",
     "location": { "city": "New Orleans", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -747,7 +748,7 @@
     "name": "Cleveland International Film Festival",
     "location": { "city": "Cleveland", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -767,7 +768,7 @@
     "name": "Atlanta Film Festival",
     "location": { "city": "Atlanta", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -787,7 +788,7 @@
     "name": "Hong Kong International Film Festival",
     "location": { "city": "Hong Kong", "country": "China", "region": "Asia" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -805,7 +806,7 @@
     "name": "Cairo International Film Festival",
     "location": { "city": "Cairo", "country": "Egypt", "region": "Middle East" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
@@ -823,7 +824,7 @@
     "name": "Durban International Film Festival",
     "location": { "city": "Durban", "country": "South Africa", "region": "Africa" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
@@ -841,7 +842,7 @@
     "name": "Melbourne International Film Festival",
     "location": { "city": "Melbourne", "country": "Australia", "region": "Oceania" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
@@ -878,7 +879,7 @@
     "name": "Mumbai Film Festival (MAMI)",
     "location": { "city": "Mumbai", "country": "India", "region": "Asia" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Animation"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -896,7 +897,7 @@
     "name": "Zurich Film Festival",
     "location": { "city": "Zurich", "country": "Switzerland", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -914,7 +915,7 @@
     "name": "BFI London Film Festival",
     "location": { "city": "London", "country": "UK", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "LGBTQ+"],
+    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
     "tier": "A-list",
     "premiereRequirement": "national",
     "deadlines": [
@@ -932,7 +933,7 @@
     "name": "Woodstock Film Festival",
     "location": { "city": "Woodstock", "country": "USA", "region": "North America" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary", "Animation"],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
@@ -952,16 +953,16 @@
     "name": "Edinburgh International Film Festival",
     "location": { "city": "Edinburgh", "country": "UK", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-01-15", "fee": 15 },
-      { "type": "regular", "date": "2026-03-01", "fee": 30 }
+      { "type": "earlybird", "date": "2027-01-15", "fee": 15 },
+      { "type": "regular", "date": "2027-03-01", "fee": 30 }
     ],
     "fees": { "earlybird": 15, "regular": 30, "currency": "GBP" },
-    "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-08-12", "end": "2026-08-23" },
+    "notificationDate": "2027-05-15",
+    "festivalDates": { "start": "2027-08-11", "end": "2027-08-22" },
     "website": "https://www.edfilmfest.org.uk",
     "submissionPlatform": "filmfreeway",
     "notes": "One of the longest-running film festivals in the world. UK or European premiere preferred."
@@ -971,7 +972,7 @@
     "name": "G\u00f6teborg Film Festival",
     "location": { "city": "Gothenburg", "country": "Sweden", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Experimental"],
+    "genres": ["Narrative", "Documentary", "Experimental"],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
@@ -989,16 +990,451 @@
     "name": "BFI Southbank (Sundance London)",
     "location": { "city": "London", "country": "UK", "region": "Europe" },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Comedy"],
+    "genres": ["Narrative", "Documentary"],
     "tier": "mid",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "regular", "date": "2026-03-01", "fee": 0 }
+      { "type": "regular", "date": "2027-03-01", "fee": 0 }
     ],
     "fees": { "regular": 0, "currency": "GBP" },
-    "festivalDates": { "start": "2026-06-04", "end": "2026-06-07" },
+    "notificationDate": "2027-04-15",
+    "festivalDates": { "start": "2027-06-05", "end": "2027-06-08" },
     "website": "https://www.sundance.org/festivals/sundance-film-festival-london",
     "submissionPlatform": "direct",
     "notes": "UK premieres of Sundance selections. No open submissions — films curated from Sundance program."
+  },
+  {
+    "id": "thessaloniki",
+    "name": "Thessaloniki International Film Festival",
+    "location": { "city": "Thessaloniki", "country": "Greece", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Experimental"],
+    "tier": "A-list",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-05-01", "fee": 20 },
+      { "type": "regular", "date": "2026-07-01", "fee": 40 }
+    ],
+    "fees": { "earlybird": 20, "regular": 40, "currency": "EUR" },
+    "notificationDate": "2026-09-15",
+    "festivalDates": { "start": "2026-10-29", "end": "2026-11-08" },
+    "website": "https://www.filmfestival.gr",
+    "submissionPlatform": "direct",
+    "notes": "FIAPF A-list festival. One of the oldest in Europe (founded 1960). Golden Alexander is the top prize. Strong focus on independent first and second features."
+  },
+  {
+    "id": "warsaw",
+    "name": "Warsaw Film Festival",
+    "location": { "city": "Warsaw", "country": "Poland", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "A-list",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-05-15", "fee": 20 },
+      { "type": "regular", "date": "2026-07-15", "fee": 35 }
+    ],
+    "fees": { "earlybird": 20, "regular": 35, "currency": "EUR" },
+    "notificationDate": "2026-09-01",
+    "festivalDates": { "start": "2026-10-09", "end": "2026-10-18" },
+    "website": "https://wff.pl",
+    "submissionPlatform": "direct",
+    "notes": "FIAPF A-list festival. Features 1-2 Competition for debut/second films. Oscar-qualifying for short films."
+  },
+  {
+    "id": "tallinn-poff",
+    "name": "Tallinn Black Nights Film Festival (PÖFF)",
+    "location": { "city": "Tallinn", "country": "Estonia", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation"],
+    "tier": "A-list",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-06-01", "fee": 15 },
+      { "type": "regular", "date": "2026-08-01", "fee": 30 },
+      { "type": "late", "date": "2026-09-15", "fee": 50 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "late": 50, "currency": "EUR" },
+    "notificationDate": "2026-10-01",
+    "festivalDates": { "start": "2026-11-13", "end": "2026-11-29" },
+    "website": "https://poff.ee",
+    "submissionPlatform": "direct",
+    "notes": "FIAPF A-list festival. Northernmost A-list festival. Includes PÖFF Shorts sub-festival. European or world premiere required for Official Competition."
+  },
+  {
+    "id": "camerimage",
+    "name": "EnergaCAMERIMAGE",
+    "location": { "city": "Toruń", "country": "Poland", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-05-01", "fee": 30 },
+      { "type": "regular", "date": "2026-07-15", "fee": 50 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "currency": "USD" },
+    "notificationDate": "2026-10-01",
+    "festivalDates": { "start": "2026-11-14", "end": "2026-11-21" },
+    "website": "https://www.camerimage.pl",
+    "submissionPlatform": "direct",
+    "notes": "World's premier festival dedicated to the art of cinematography. Awards the Golden Frog. No premiere requirement — focuses on cinematographic excellence."
+  },
+  {
+    "id": "torino",
+    "name": "Torino Film Festival",
+    "location": { "city": "Turin", "country": "Italy", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Experimental"],
+    "tier": "mid",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-05-15", "fee": 15 },
+      { "type": "regular", "date": "2026-07-31", "fee": 30 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "currency": "EUR" },
+    "notificationDate": "2026-10-01",
+    "festivalDates": { "start": "2026-11-20", "end": "2026-11-28" },
+    "website": "https://www.torinofilmfest.org",
+    "submissionPlatform": "direct",
+    "notes": "Strong focus on independent, avant-garde, and debut cinema. Italian premiere typically required."
+  },
+  {
+    "id": "hollyshorts",
+    "name": "HollyShorts Film Festival",
+    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "type": "short",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-01-15", "fee": 35 },
+      { "type": "regular", "date": "2026-03-15", "fee": 50 },
+      { "type": "late", "date": "2026-05-15", "fee": 65 }
+    ],
+    "fees": { "earlybird": 35, "regular": 50, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-07-01",
+    "festivalDates": { "start": "2026-08-13", "end": "2026-08-22" },
+    "website": "https://www.hollyshorts.com",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Oscar-qualifying, BAFTA-qualifying. Held at TCL Chinese Theatre in Hollywood. Films 40 minutes or under. Strong industry attendance."
+  },
+  {
+    "id": "nashville",
+    "name": "Nashville Film Festival",
+    "location": { "city": "Nashville", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation"],
+    "tier": "mid",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-02-01", "fee": 30 },
+      { "type": "regular", "date": "2026-04-01", "fee": 50 },
+      { "type": "late", "date": "2026-05-15", "fee": 65 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-07-01",
+    "festivalDates": { "start": "2026-09-24", "end": "2026-09-30" },
+    "website": "https://nashvillefilmfestival.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "One of the oldest US festivals (founded 1969). Oscar-qualifying for short films. Strong music and culture crossover."
+  },
+  {
+    "id": "heartland",
+    "name": "Heartland International Film Festival",
+    "location": { "city": "Indianapolis", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-03-01", "fee": 30 },
+      { "type": "regular", "date": "2026-05-15", "fee": 50 },
+      { "type": "late", "date": "2026-07-01", "fee": 65 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-08-15",
+    "festivalDates": { "start": "2026-10-08", "end": "2026-10-18" },
+    "website": "https://www.heartlandfilm.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Oscar-qualifying for narrative and documentary shorts. Known for championing uplifting and socially conscious cinema."
+  },
+  {
+    "id": "ottawa-animation",
+    "name": "Ottawa International Animation Festival",
+    "location": { "city": "Ottawa", "country": "Canada", "region": "North America" },
+    "type": "both",
+    "genres": ["Animation"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-03-01", "fee": 25 },
+      { "type": "regular", "date": "2026-05-01", "fee": 40 },
+      { "type": "late", "date": "2026-06-15", "fee": 55 }
+    ],
+    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "CAD" },
+    "notificationDate": "2026-08-01",
+    "festivalDates": { "start": "2026-09-23", "end": "2026-09-27" },
+    "website": "https://www.animationfestival.ca",
+    "submissionPlatform": "filmfreeway",
+    "notes": "One of the world's leading animation festivals. Oscar-qualifying for animated short films. Major industry component with TAC trade forum."
+  },
+  {
+    "id": "guadalajara",
+    "name": "Guadalajara International Film Festival (FICG)",
+    "location": { "city": "Guadalajara", "country": "Mexico", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "tier": "major",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-09-01", "fee": 0 },
+      { "type": "regular", "date": "2026-11-15", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "MXN" },
+    "notificationDate": "2027-02-01",
+    "festivalDates": { "start": "2027-03-13", "end": "2027-03-21" },
+    "website": "https://www.ficg.mx",
+    "submissionPlatform": "direct",
+    "notes": "Most important film festival in Latin America by attendance. Free to submit. Features the Mezcal competition for Mexican cinema."
+  },
+  {
+    "id": "havana",
+    "name": "Havana Film Festival",
+    "location": { "city": "Havana", "country": "Cuba", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "major",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "regular", "date": "2026-09-01", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "USD" },
+    "notificationDate": "2026-11-01",
+    "festivalDates": { "start": "2026-12-03", "end": "2026-12-13" },
+    "website": "https://www.habanafilmfestival.com",
+    "submissionPlatform": "direct",
+    "notes": "Founded 1979. Key platform for Latin American and Caribbean cinema. Free to submit."
+  },
+  {
+    "id": "cartagena",
+    "name": "Cartagena International Film Festival (FICCI)",
+    "location": { "city": "Cartagena", "country": "Colombia", "region": "South America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "mid",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "regular", "date": "2026-11-15", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "USD" },
+    "notificationDate": "2027-01-15",
+    "festivalDates": { "start": "2027-03-11", "end": "2027-03-16" },
+    "website": "https://ficcifestival.com",
+    "submissionPlatform": "direct",
+    "notes": "Oldest film festival in Latin America (founded 1960). Free to submit. Strong focus on Ibero-American cinema."
+  },
+  {
+    "id": "carthage",
+    "name": "Carthage Film Festival (JCC)",
+    "location": { "city": "Tunis", "country": "Tunisia", "region": "Africa" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "major",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "regular", "date": "2026-07-15", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "TND" },
+    "notificationDate": "2026-09-15",
+    "festivalDates": { "start": "2026-10-28", "end": "2026-11-04" },
+    "website": "https://www.jfrcc.tn",
+    "submissionPlatform": "direct",
+    "notes": "Founded 1966. Key platform for African and Arab cinema. The Tanit d'Or is its top prize. Free to submit."
+  },
+  {
+    "id": "fespaco",
+    "name": "FESPACO",
+    "location": { "city": "Ouagadougou", "country": "Burkina Faso", "region": "Africa" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "major",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "regular", "date": "2026-10-01", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "XOF" },
+    "notificationDate": "2026-12-15",
+    "festivalDates": { "start": "2027-02-20", "end": "2027-02-27" },
+    "website": "https://www.fespaco.bf",
+    "submissionPlatform": "direct",
+    "notes": "Pan-African Film and Television Festival of Ouagadougou. The most prestigious film festival in Africa. Biennial (held every two years). The Étalon de Yennenga is its top prize. Free to submit."
+  },
+  {
+    "id": "zanzibar",
+    "name": "Zanzibar International Film Festival (ZIFF)",
+    "location": { "city": "Zanzibar", "country": "Tanzania", "region": "Africa" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "regular", "date": "2026-04-01", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "USD" },
+    "notificationDate": "2026-05-15",
+    "festivalDates": { "start": "2026-07-04", "end": "2026-07-12" },
+    "website": "https://www.ziff.or.tz",
+    "submissionPlatform": "direct",
+    "notes": "East Africa's premier film festival. Also features music, art, and dhow boat races. Free to submit."
+  },
+  {
+    "id": "shanghai",
+    "name": "Shanghai International Film Festival",
+    "location": { "city": "Shanghai", "country": "China", "region": "Asia" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation"],
+    "tier": "A-list",
+    "premiereRequirement": "world",
+    "deadlines": [
+      { "type": "regular", "date": "2026-03-31", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "CNY" },
+    "notificationDate": "2026-05-15",
+    "festivalDates": { "start": "2026-06-12", "end": "2026-06-21" },
+    "website": "https://www.siff.com",
+    "submissionPlatform": "direct",
+    "notes": "FIAPF A-list festival. One of the most important film festivals in Asia. The Golden Goblet is its top prize. Free to submit."
+  },
+  {
+    "id": "jeonju",
+    "name": "Jeonju International Film Festival",
+    "location": { "city": "Jeonju", "country": "South Korea", "region": "Asia" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
+    "tier": "major",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "regular", "date": "2026-12-15", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "KRW" },
+    "notificationDate": "2027-02-15",
+    "festivalDates": { "start": "2027-04-30", "end": "2027-05-09" },
+    "website": "https://www.jeonjufest.kr",
+    "submissionPlatform": "direct",
+    "notes": "Known for championing independent and alternative cinema. Features the Jeonju Cinema Project — commissions original short/mid-length films. Free to submit."
+  },
+  {
+    "id": "golden-horse",
+    "name": "Golden Horse Film Festival",
+    "location": { "city": "Taipei", "country": "Taiwan", "region": "Asia" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation"],
+    "tier": "major",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "regular", "date": "2026-08-01", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "TWD" },
+    "notificationDate": "2026-10-01",
+    "festivalDates": { "start": "2026-11-06", "end": "2026-11-22" },
+    "website": "https://www.goldenhorse.org.tw",
+    "submissionPlatform": "direct",
+    "notes": "Often called the 'Chinese-language Oscars.' The Golden Horse Awards are the most prestigious awards for Chinese-language cinema. Free to submit."
+  },
+  {
+    "id": "bucheon",
+    "name": "Bucheon International Fantastic Film Festival (BIFAN)",
+    "location": { "city": "Bucheon", "country": "South Korea", "region": "Asia" },
+    "type": "both",
+    "genres": ["Horror", "Sci-Fi", "Fantasy", "Thriller"],
+    "tier": "major",
+    "premiereRequirement": "international",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-02-01", "fee": 15 },
+      { "type": "regular", "date": "2026-04-01", "fee": 30 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "currency": "USD" },
+    "notificationDate": "2026-05-15",
+    "festivalDates": { "start": "2026-07-02", "end": "2026-07-12" },
+    "website": "https://www.bifan.kr",
+    "submissionPlatform": "filmfreeway",
+    "notes": "One of Asia's premier genre film festivals. Specializes in fantastic, horror, sci-fi, and thriller cinema. Bucheon Choice Award is the top prize."
+  },
+  {
+    "id": "osaka",
+    "name": "Osaka Asian Film Festival",
+    "location": { "city": "Osaka", "country": "Japan", "region": "Asia" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "regular", "date": "2026-10-31", "fee": 0 }
+    ],
+    "fees": { "regular": 0, "currency": "JPY" },
+    "notificationDate": "2027-01-15",
+    "festivalDates": { "start": "2027-03-06", "end": "2027-03-15" },
+    "website": "https://www.oaff.jp",
+    "submissionPlatform": "direct",
+    "notes": "Focused exclusively on Asian cinema. Features the Grand Prix and ABC Award. Free to submit. Good launching pad for Asian filmmakers."
+  },
+  {
+    "id": "bifff",
+    "name": "Brussels International Fantastic Film Festival (BIFFF)",
+    "location": { "city": "Brussels", "country": "Belgium", "region": "Europe" },
+    "type": "both",
+    "genres": ["Horror", "Sci-Fi", "Fantasy", "Thriller"],
+    "tier": "major",
+    "premiereRequirement": "national",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-10-01", "fee": 10 },
+      { "type": "regular", "date": "2026-12-15", "fee": 20 },
+      { "type": "late", "date": "2027-01-31", "fee": 30 }
+    ],
+    "fees": { "earlybird": 10, "regular": 20, "late": 30, "currency": "EUR" },
+    "notificationDate": "2027-02-15",
+    "festivalDates": { "start": "2027-04-07", "end": "2027-04-19" },
+    "website": "https://www.bifff.net",
+    "submissionPlatform": "filmfreeway",
+    "notes": "One of the most prestigious genre film festivals in Europe. Specializes in fantasy, horror, sci-fi, and thriller. Known for its rowdy, enthusiastic audience. Golden Raven awards."
+  },
+  {
+    "id": "vilnius",
+    "name": "Vilnius International Film Festival (Kino Pavasaris)",
+    "location": { "city": "Vilnius", "country": "Lithuania", "region": "Europe" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Experimental"],
+    "tier": "mid",
+    "premiereRequirement": "regional",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-09-01", "fee": 10 },
+      { "type": "regular", "date": "2026-11-01", "fee": 20 }
+    ],
+    "fees": { "earlybird": 10, "regular": 20, "currency": "EUR" },
+    "notificationDate": "2027-01-15",
+    "festivalDates": { "start": "2027-03-18", "end": "2027-04-01" },
+    "website": "https://kinopavasaris.lt",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Largest film festival in the Baltic states. 'Cinema Spring' in Lithuanian. Screens 200+ films. Lithuanian premiere typically required."
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney Film Festival",
+    "location": { "city": "Sydney", "country": "Australia", "region": "Oceania" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "tier": "major",
+    "premiereRequirement": "national",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-12-01", "fee": 20 },
+      { "type": "regular", "date": "2026-02-01", "fee": 35 }
+    ],
+    "fees": { "earlybird": 20, "regular": 35, "currency": "AUD" },
+    "notificationDate": "2026-04-15",
+    "festivalDates": { "start": "2026-06-03", "end": "2026-06-14" },
+    "website": "https://www.sff.org.au",
+    "submissionPlatform": "direct",
+    "notes": "One of the longest-running festivals in the world (founded 1954). The A$60,000 Sydney Film Prize is one of the richest globally. Australian premiere required."
   }
 ]

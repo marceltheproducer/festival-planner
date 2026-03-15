@@ -246,6 +246,7 @@ export default function StrategyResults({
           <button
             type="button"
             onClick={() => setShowPremiereGuide((v) => !v)}
+            aria-expanded={showPremiereGuide}
             className="w-full px-5 py-3 flex items-center justify-between text-left hover:bg-film-700/20 transition-colors"
           >
             <span className="text-sm font-medium text-film-200 flex items-center gap-2">
@@ -322,6 +323,9 @@ export default function StrategyResults({
               <div className={`${colors.bg} px-3 sm:px-5 py-3 flex flex-wrap items-center gap-2 sm:gap-3`}>
                 <button
                   type="button"
+                  role="checkbox"
+                  aria-checked={allSelected ? "true" : someSelected ? "mixed" : "false"}
+                  aria-label={`Select all festivals in ${rec.label}`}
                   onClick={() => togglePhase(rec)}
                   className="flex items-center gap-2 group"
                 >
@@ -376,6 +380,9 @@ export default function StrategyResults({
                         {/* Checkbox */}
                         <button
                           type="button"
+                          role="checkbox"
+                          aria-checked={isChecked}
+                          aria-label={`Select ${entry.festival.name}`}
                           onClick={() => toggleFestival(entry.festival.id)}
                           className="mt-0.5 shrink-0 group"
                         >
@@ -399,7 +406,7 @@ export default function StrategyResults({
                           <div className="flex items-start justify-between gap-3">
                             <div className="min-w-0">
                               <h4 className="font-medium text-film-50 flex items-center gap-2 flex-wrap">
-                                <span className="truncate">{entry.festival.name}</span>
+                                <a href={`/festivals/${entry.festival.id}`} className="truncate hover:text-gold-400 transition-colors" onClick={(e) => e.stopPropagation()}>{entry.festival.name}</a>
                                 {startHereIds.has(entry.festival.id) && (
                                   <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30">
                                     Start here

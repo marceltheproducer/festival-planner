@@ -14,6 +14,6 @@ const festivals = getAllFestivals();
         Visualize all festival submission deadlines. Click on a date to see details.
       </p>
     </div>
-    <DeadlineCalendar festivals={festivals} client:load />
+    <DeadlineCalendar festivals={festivals} client:idle />
   </div>
 </Layout>

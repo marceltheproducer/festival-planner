@@ -42,6 +42,7 @@ export interface Filters {
   premiereRequirements: ("world" | "international" | "national" | "regional" | "none")[];
   maxFee: number | null;
   deadlineWindow: number | null; // days from now
+  submissionPlatforms: ("filmfreeway" | "direct" | "other")[];
 }
 
 export type SortOption = "deadline" | "prestige" | "fee" | "name";
@@ -101,9 +102,9 @@ export const ALL_GENRES = [
   "Horror",
   "Thriller",
   "Sci-Fi",
+  "Fantasy",
   "Romance",
   "LGBTQ+",
-  "Music Video",
 ] as const;
 
 export const ALL_REGIONS: Festival["location"]["region"][] = [

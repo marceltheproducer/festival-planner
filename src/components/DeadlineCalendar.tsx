@@ -88,10 +88,16 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
         const cell = calendarRef.current.querySelector(`[data-date="${selectedDate}"]`);
         if (cell) {
           cell.scrollIntoView({ behavior: "smooth", block: "center" });
-          // After scrolling to the cell, also scroll to details once they render
-          setTimeout(() => {
+          // After scrolling to the cell, wait for scroll to settle then scroll to details
+          const onScrollEnd = () => {
             detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }, 400);
+          };
+          // Use scrollend event if available, fallback to timeout
+          if ("onscrollend" in window) {
+            window.addEventListener("scrollend", onScrollEnd, { once: true });
+          } else {
+            setTimeout(onScrollEnd, 400);
+          }
         }
       }
       setScrollTarget(null);

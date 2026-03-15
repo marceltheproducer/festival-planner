@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { StrategyRecommendation, StrategyEntry } from "../lib/types";
 
 interface SelectedEntry {
@@ -213,9 +213,77 @@ function generatePlanText(entries: SelectedEntry[], steps: TimelineStep[]): stri
   return lines.join("\n");
 }
 
+function downloadFile(content: string, filename: string, mimeType: string) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function generateICS(entries: SelectedEntry[]): string {
+  const lines: string[] = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//FestivalPlanner//EN",
+    "CALSCALE:GREGORIAN",
+  ];
+
+  for (const { entry, phase } of entries) {
+    const dateStr = entry.deadline.date.replace(/-/g, "");
+    const feeStr = entry.deadline.fee === 0 ? "Free" : `$${entry.deadline.fee}`;
+    const summary = `${entry.festival.name} - ${entry.deadline.type} deadline`;
+    const description = `Fee: ${feeStr}\\nTier: ${entry.festival.tier}\\nPhase: ${PHASE_LABELS[phase]}\\nWebsite: ${entry.festival.website}`;
+    const location = `${entry.festival.location.city}, ${entry.festival.location.country}`;
+    const uid = `${entry.festival.id}-${entry.deadline.type}@festivalplanner.app`;
+
+    lines.push("BEGIN:VEVENT");
+    lines.push(`DTSTART;VALUE=DATE:${dateStr}`);
+    lines.push(`SUMMARY:${summary}`);
+    lines.push(`DESCRIPTION:${description}`);
+    lines.push(`LOCATION:${location}`);
+    lines.push(`URL:${entry.festival.website}`);
+    lines.push(`UID:${uid}`);
+    lines.push("END:VEVENT");
+  }
+
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n");
+}
+
+function generateCSV(entries: SelectedEntry[]): string {
+  const headers = ["Festival", "City", "Country", "Tier", "Deadline Type", "Date", "Fee", "Currency", "Premiere Req", "Website", "Platform", "Phase"];
+  const rows = entries.map(({ entry, phase }) => [
+    `"${entry.festival.name}"`,
+    `"${entry.festival.location.city}"`,
+    `"${entry.festival.location.country}"`,
+    entry.festival.tier,
+    entry.deadline.type,
+    entry.deadline.date,
+    entry.deadline.fee,
+    entry.festival.fees.currency,
+    entry.festival.premiereRequirement,
+    entry.festival.website,
+    entry.festival.submissionPlatform,
+    PHASE_LABELS[phase],
+  ]);
+  return [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+}
+
 export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPlanProps) {
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const timeline = buildTimeline(selectedEntries);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    };
+  }, []);
 
   const totalFees = selectedEntries.reduce((sum, e) => sum + e.entry.deadline.fee, 0);
   const deadlines = selectedEntries.map((e) => e.entry.deadline.date).sort();
@@ -241,7 +309,8 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                 const text = generatePlanText(selectedEntries, timeline);
                 navigator.clipboard.writeText(text).then(() => {
                   setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
+                  if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+                  copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
                 });
               }}
               className={`text-sm px-3 py-1.5 rounded-lg border transition-colors flex items-center gap-1.5 ${
@@ -265,6 +334,28 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                   Copy plan
                 </>
               )}
+            </button>
+            <button
+              type="button"
+              onClick={() => downloadFile(generateICS(selectedEntries), "festival-deadlines.ics", "text/calendar")}
+              className="text-sm px-3 py-1.5 rounded-lg border bg-film-700/50 border-film-600 text-film-300 hover:border-gold-400 hover:text-gold-400 transition-colors flex items-center gap-1.5"
+              title="Download calendar file"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Calendar
+            </button>
+            <button
+              type="button"
+              onClick={() => downloadFile(generateCSV(selectedEntries), "festival-plan.csv", "text/csv")}
+              className="text-sm px-3 py-1.5 rounded-lg border bg-film-700/50 border-film-600 text-film-300 hover:border-gold-400 hover:text-gold-400 transition-colors flex items-center gap-1.5"
+              title="Download CSV spreadsheet"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              CSV
             </button>
             <button
               type="button"

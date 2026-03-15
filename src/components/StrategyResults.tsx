@@ -83,17 +83,6 @@ export default function StrategyResults({
     rec.festivals.some((e) => e.source.type !== "discovery")
   );
 
-  if (recommendations.length === 0) {
-    return (
-      <div className="text-center py-12 bg-film-800/60 rounded-xl border border-film-700/50">
-        <p className="text-film-300 text-lg mb-2">No eligible festivals found</p>
-        <p className="text-film-500 text-sm">
-          Try adjusting your film profile or selecting fewer target festivals.
-        </p>
-      </div>
-    );
-  }
-
   const toggleFestival = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
@@ -144,6 +133,36 @@ export default function StrategyResults({
     return entries;
   }, [selectedIds, recommendations]);
 
+  // Compute "Start here" — top 3 highest-impact festivals by priority:
+  // targets first, then A-list/free, sorted by earliest deadline
+  // NOTE: Must be above the showPlan early return to respect Rules of Hooks
+  const startHereIds = useMemo(() => {
+    const allEntries = recommendations.flatMap((rec) => rec.festivals);
+    const scored = allEntries.map((e) => {
+      let score = 0;
+      if (e.source.type === "target") score += 100;
+      score += (3 - TIER_ORDER[e.festival.tier]) * 20; // A-list=60, major=40, mid=20, emerging=0
+      if (e.deadline.fee === 0) score += 30;
+      // Prefer earlier deadlines (lower date = higher priority)
+      return { id: e.festival.id, score, deadline: e.deadline.date };
+    });
+    scored.sort((a, b) => b.score - a.score || a.deadline.localeCompare(b.deadline));
+    return new Set(scored.slice(0, 3).map((s) => s.id));
+  }, [recommendations]);
+
+  // All hooks must be above this line — React requires consistent hook ordering
+
+  if (recommendations.length === 0) {
+    return (
+      <div className="text-center py-12 bg-film-800/60 rounded-xl border border-film-700/50">
+        <p className="text-film-300 text-lg mb-2">No eligible festivals found</p>
+        <p className="text-film-500 text-sm">
+          Try adjusting your film profile or selecting fewer target festivals.
+        </p>
+      </div>
+    );
+  }
+
   if (showPlan && selectedEntries.length > 0) {
     return (
       <SubmissionPlan
@@ -165,22 +184,6 @@ export default function StrategyResults({
     ? recommendations.reduce((sum, rec) => sum + rec.festivals.filter((e) => e.source.type === "target").length, 0)
     : 0;
   const suggestedCount = hasTargetMode ? totalFestivals - targetCount : 0;
-
-  // Compute "Start here" — top 3 highest-impact festivals by priority:
-  // targets first, then A-list/free, sorted by earliest deadline
-  const startHereIds = useMemo(() => {
-    const allEntries = recommendations.flatMap((rec) => rec.festivals);
-    const scored = allEntries.map((e) => {
-      let score = 0;
-      if (e.source.type === "target") score += 100;
-      score += (3 - TIER_ORDER[e.festival.tier]) * 20; // A-list=60, major=40, mid=20, emerging=0
-      if (e.deadline.fee === 0) score += 30;
-      // Prefer earlier deadlines (lower date = higher priority)
-      return { id: e.festival.id, score, deadline: e.deadline.date };
-    });
-    scored.sort((a, b) => b.score - a.score || a.deadline.localeCompare(b.deadline));
-    return new Set(scored.slice(0, 3).map((s) => s.id));
-  }, [recommendations]);
 
   return (
     <div>

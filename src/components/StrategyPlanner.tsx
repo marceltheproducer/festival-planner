@@ -23,6 +23,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     maxSuggestions: 5,
   });
   const [results, setResults] = useState<StrategyResult | null>(null);
+  const [targetSearch, setTargetSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -198,25 +199,38 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
             </div>
           )}
 
-          {/* Scrollable festival picker */}
-          <div className="max-h-32 overflow-y-auto rounded-lg border border-film-700/40 bg-film-900/50 p-2 scrollbar-thin">
-            <div className="flex flex-wrap gap-1.5">
-              {genreFilteredFestivals
-                .filter((f) => !profile.targetFestivalIds.includes(f.id))
-                .map((f) => (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() =>
-                      update({
-                        targetFestivalIds: [...profile.targetFestivalIds, f.id],
-                      })
-                    }
-                    className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-film-800 text-film-300 border-film-600 hover:border-gold-400"
-                  >
-                    {f.name}
-                  </button>
-                ))}
+          {/* Search + scrollable festival picker */}
+          <div className="rounded-lg border border-film-700/40 bg-film-900/50 overflow-hidden">
+            <div className="px-2 pt-2 pb-1">
+              <input
+                type="text"
+                value={targetSearch}
+                onChange={(e) => setTargetSearch(e.target.value)}
+                placeholder="Search festivals..."
+                className="w-full px-2.5 py-1.5 text-xs bg-film-800 border border-film-600 text-film-100 rounded-md placeholder:text-film-500 focus:outline-none focus:ring-1 focus:ring-gold-500 focus:border-gold-500"
+              />
+            </div>
+            <div className="max-h-32 overflow-y-auto p-2 pt-1 scrollbar-thin">
+              <div className="flex flex-wrap gap-1.5">
+                {genreFilteredFestivals
+                  .filter((f) => !profile.targetFestivalIds.includes(f.id))
+                  .filter((f) => !targetSearch || f.name.toLowerCase().includes(targetSearch.toLowerCase()) || f.location.city.toLowerCase().includes(targetSearch.toLowerCase()) || f.location.country.toLowerCase().includes(targetSearch.toLowerCase()))
+                  .map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => {
+                        update({
+                          targetFestivalIds: [...profile.targetFestivalIds, f.id],
+                        });
+                        setTargetSearch("");
+                      }}
+                      className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-film-800 text-film-300 border-film-600 hover:border-gold-400"
+                    >
+                      {f.name}
+                    </button>
+                  ))}
+              </div>
             </div>
           </div>
           {!hasTargets && (

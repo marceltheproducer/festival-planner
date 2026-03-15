@@ -72,5 +72,11 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://festival
       <slot />
     </main>
     <Footer />
+    <script>
+      import { inject } from "@vercel/analytics";
+      import { injectSpeedInsights } from "@vercel/speed-insights";
+      inject();
+      injectSpeedInsights();
+    </script>
   </body>
 </html>

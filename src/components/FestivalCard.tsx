@@ -87,7 +87,9 @@ export default function FestivalCard({ festival }: { festival: Festival }) {
         )}
         <div className="font-medium text-gold-400 shrink-0">
           {nextDeadline && nextDeadline.fee > 0
-            ? `$${nextDeadline.fee}`
+            ? (nextDeadline.shortFee !== undefined
+                ? `$${nextDeadline.shortFee}–$${nextDeadline.fee}`
+                : `$${nextDeadline.fee}`)
             : "Free"}
         </div>
       </div>

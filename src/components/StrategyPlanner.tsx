@@ -34,10 +34,13 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
   const update = (partial: Partial<FilmProfile>) => {
     setProfile((prev) => {
       const next = { ...prev, ...partial };
-      if (partial.genres && next.targetFestivalIds.length > 0) {
+      if ((partial.genres || partial.type) && next.targetFestivalIds.length > 0) {
         next.targetFestivalIds = next.targetFestivalIds.filter((id) => {
           const f = festivals.find((fest) => fest.id === id);
-          return f ? genresMatch(f.genres, next.genres) : false;
+          if (!f) return false;
+          if (f.type !== "both" && f.type !== next.type) return false;
+          if (next.genres.length > 0 && !genresMatch(f.genres, next.genres)) return false;
+          return true;
         });
       }
       return next;
@@ -46,9 +49,12 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
   };
 
   const genreFilteredFestivals = useMemo(() => {
-    if (profile.genres.length === 0) return festivals;
-    return festivals.filter((f) => genresMatch(f.genres, profile.genres));
-  }, [festivals, profile.genres]);
+    return festivals.filter((f) => {
+      if (f.type !== "both" && f.type !== profile.type) return false;
+      if (profile.genres.length > 0 && !genresMatch(f.genres, profile.genres)) return false;
+      return true;
+    });
+  }, [festivals, profile.genres, profile.type]);
 
   const hasTargets = profile.targetFestivalIds.length > 0;
 

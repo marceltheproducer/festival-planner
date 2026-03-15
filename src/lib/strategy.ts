@@ -1,6 +1,7 @@
 import type {
   Festival,
   FilmProfile,
+  Deadline,
   StrategyRecommendation,
   StrategyEntry,
   StrategyOptions,
@@ -68,10 +69,19 @@ function daysBetween(date1: string, date2: string): number {
   return Math.round((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-function getLatestDeadline(festival: Festival): { type: string; date: string; fee: number } | null {
+function getLatestDeadline(festival: Festival): Deadline | null {
   if (festival.deadlines.length === 0) return null;
   const sorted = [...festival.deadlines].sort((a, b) => b.date.localeCompare(a.date));
   return sorted[0];
+}
+
+function resolveDeadline(
+  deadline: Deadline,
+  filmType: FilmProfile["type"]
+): { type: string; date: string; fee: number } {
+  const fee = filmType === "short" && deadline.shortFee !== undefined
+    ? deadline.shortFee : deadline.fee;
+  return { type: deadline.type, date: deadline.date, fee };
 }
 
 // ── Main entry point ─────────────────────────────────────────────────────
@@ -93,7 +103,7 @@ export function generateStrategy(
 
 // ── No targets: original behavior with source field ──────────────────────
 
-function getRecentlyPassedDeadline(festival: Festival): { type: string; date: string; fee: number } | null {
+function getRecentlyPassedDeadline(festival: Festival): Deadline | null {
   const now = new Date().toISOString().split("T")[0];
   const cutoff = new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
   const recent = festival.deadlines
@@ -123,7 +133,7 @@ function generateDiscoveryStrategy(
   const totalEligible = withUpcoming.length;
   const freeCount = withUpcoming.filter((f) => {
     const d = getNextDeadline(f);
-    return d && d.fee === 0;
+    return d && resolveDeadline(d, profile.type).fee === 0;
   }).length;
 
   const worldPremiere: StrategyEntry[] = [];
@@ -134,8 +144,9 @@ function generateDiscoveryStrategy(
   let excludedByBudget = 0;
 
   for (const festival of withUpcoming) {
-    const deadline = getNextDeadline(festival);
-    if (!deadline) continue;
+    const rawDeadline = getNextDeadline(festival);
+    if (!rawDeadline) continue;
+    const deadline = resolveDeadline(rawDeadline, profile.type);
 
     if (profile.budget !== null && totalFees + deadline.fee > profile.budget) {
       excludedByBudget++;
@@ -163,8 +174,9 @@ function generateDiscoveryStrategy(
 
   // Add recently-passed festivals at the end of their respective phase groups
   for (const festival of recentlyPassed) {
-    const deadline = getRecentlyPassedDeadline(festival);
-    if (!deadline) continue;
+    const rawDeadline = getRecentlyPassedDeadline(festival);
+    if (!rawDeadline) continue;
+    const deadline = resolveDeadline(rawDeadline, profile.type);
 
     const source: EntrySource = { type: "discovery", detail: "Deadline recently passed — contact festival for late submission" };
     const entry: StrategyEntry = {
@@ -229,8 +241,9 @@ function generateTargetedStrategy(
       warning = "All submission deadlines have passed. Some festivals accept late submissions — contact them directly to inquire.";
     }
 
-    const displayDeadline = deadline ?? getLatestDeadline(festival);
-    if (!displayDeadline) continue;
+    const rawDisplayDeadline = deadline ?? getLatestDeadline(festival);
+    if (!rawDisplayDeadline) continue;
+    const displayDeadline = resolveDeadline(rawDisplayDeadline, profile.type);
 
     const source: EntrySource = { type: "target" };
     anchorEntries.push({
@@ -256,7 +269,7 @@ function generateTargetedStrategy(
   const anchorPhases = new Set(anchorEntries.map((e) => toPhase(e.festival.premiereRequirement)));
 
   const scored = pool.map((festival) => {
-    const deadline = getNextDeadline(festival)!;
+    const deadline = resolveDeadline(getNextDeadline(festival)!, profile.type);
     let score = 0;
     let detail = "";
 

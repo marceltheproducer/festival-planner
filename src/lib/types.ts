@@ -2,6 +2,7 @@ export interface Deadline {
   type: "earlybird" | "regular" | "late" | "extended";
   date: string; // ISO date string YYYY-MM-DD
   fee: number;
+  shortFee?: number;
 }
 
 export interface Festival {

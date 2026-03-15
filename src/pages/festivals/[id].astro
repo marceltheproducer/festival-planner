@@ -145,7 +145,11 @@ const related = allFestivals
                   <p class="text-xs text-film-400">{formatDate(d.date)}</p>
                 </div>
                 <span class="text-sm font-medium text-gold-400">
-                  {d.fee === 0 ? "Free" : `${d.fee} ${festival.fees.currency}`}
+                  {d.fee === 0 ? "Free" : (
+                    d.shortFee !== undefined
+                      ? `Shorts ${d.shortFee} / Features ${d.fee} ${festival.fees.currency}`
+                      : `${d.fee} ${festival.fees.currency}`
+                  )}
                 </span>
               </div>
             );
@@ -178,7 +182,11 @@ const related = allFestivals
                 Next deadline: {formatDate(nextDeadline.date)}
               </p>
               <p class="text-xs text-film-400">
-                {nextDeadline.type} &middot; {nextDeadline.fee === 0 ? "Free" : `${nextDeadline.fee} ${festival.fees.currency}`}
+                {nextDeadline.type} &middot; {nextDeadline.fee === 0 ? "Free" : (
+                  nextDeadline.shortFee !== undefined
+                    ? `Shorts ${nextDeadline.shortFee} / Features ${nextDeadline.fee} ${festival.fees.currency}`
+                    : `${nextDeadline.fee} ${festival.fees.currency}`
+                )}
               </p>
             </div>
           )}

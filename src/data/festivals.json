@@ -2,18 +2,45 @@
   {
     "id": "sundance",
     "name": "Sundance Film Festival",
-    "location": { "city": "Park City", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Park City",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-08-15", "fee": 70 },
-      { "type": "regular", "date": "2026-09-30", "fee": 80 }
+      {
+        "type": "earlybird",
+        "date": "2026-08-15",
+        "fee": 70,
+        "shortFee": 50
+      },
+      {
+        "type": "regular",
+        "date": "2026-09-30",
+        "fee": 80,
+        "shortFee": 60
+      }
     ],
-    "fees": { "earlybird": 70, "regular": 80, "currency": "USD" },
+    "fees": {
+      "earlybird": 70,
+      "regular": 80,
+      "currency": "USD"
+    },
     "notificationDate": "2026-12-01",
-    "festivalDates": { "start": "2027-01-21", "end": "2027-01-31" },
+    "festivalDates": {
+      "start": "2027-01-21",
+      "end": "2027-01-31"
+    },
     "website": "https://www.sundance.org",
     "submissionPlatform": "filmfreeway",
     "notes": "World or North American premiere required. Submissions via FilmFreeway. One of the most prestigious festivals worldwide."
@@ -21,17 +48,35 @@
   {
     "id": "cannes",
     "name": "Festival de Cannes",
-    "location": { "city": "Cannes", "country": "France", "region": "Europe" },
+    "location": {
+      "city": "Cannes",
+      "country": "France",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-03-13", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-03-13",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-04-15",
-    "festivalDates": { "start": "2026-05-12", "end": "2026-05-23" },
+    "festivalDates": {
+      "start": "2026-05-12",
+      "end": "2026-05-23"
+    },
     "website": "https://www.festival-cannes.com",
     "submissionPlatform": "direct",
     "notes": "No submission fee. Features deadline March 13; shorts deadline March 2. World premiere strictly required for Official Selection."
@@ -39,17 +84,38 @@
   {
     "id": "berlin",
     "name": "Berlin International Film Festival (Berlinale)",
-    "location": { "city": "Berlin", "country": "Germany", "region": "Europe" },
+    "location": {
+      "city": "Berlin",
+      "country": "Germany",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-09-15", "fee": 175 }
+      {
+        "type": "regular",
+        "date": "2026-09-15",
+        "fee": 175,
+        "shortFee": 75
+      }
     ],
-    "fees": { "regular": 175, "currency": "EUR" },
+    "fees": {
+      "regular": 175,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-12-15",
-    "festivalDates": { "start": "2027-02-11", "end": "2027-02-21" },
+    "festivalDates": {
+      "start": "2027-02-11",
+      "end": "2027-02-21"
+    },
     "website": "https://www.berlinale.de",
     "submissionPlatform": "direct",
     "notes": "Fee: 175 EUR features, 75 EUR shorts. Competition requires world premiere; Panorama accepts international premieres. Films must not be available online."
@@ -57,17 +123,34 @@
   {
     "id": "venice",
     "name": "Venice Film Festival",
-    "location": { "city": "Venice", "country": "Italy", "region": "Europe" },
+    "location": {
+      "city": "Venice",
+      "country": "Italy",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-04", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-04",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-07-20",
-    "festivalDates": { "start": "2026-09-02", "end": "2026-09-12" },
+    "festivalDates": {
+      "start": "2026-09-02",
+      "end": "2026-09-12"
+    },
     "website": "https://www.labiennale.org/en/cinema",
     "submissionPlatform": "direct",
     "notes": "83rd edition. No fee. Features deadline June 4; shorts May 28; immersive May 7. World premiere required. Registration opens February 9."
@@ -75,18 +158,44 @@
   {
     "id": "toronto",
     "name": "Toronto International Film Festival (TIFF)",
-    "location": { "city": "Toronto", "country": "Canada", "region": "North America" },
+    "location": {
+      "city": "Toronto",
+      "country": "Canada",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-27", "fee": 95 },
-      { "type": "regular", "date": "2026-05-08", "fee": 155 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-27",
+        "fee": 95,
+        "shortFee": 55
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-08",
+        "fee": 155,
+        "shortFee": 75
+      }
     ],
-    "fees": { "earlybird": 95, "regular": 155, "currency": "CAD" },
+    "fees": {
+      "earlybird": 95,
+      "regular": 155,
+      "currency": "CAD"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-09-10", "end": "2026-09-20" },
+    "festivalDates": {
+      "start": "2026-09-10",
+      "end": "2026-09-20"
+    },
     "website": "https://www.tiff.net",
     "submissionPlatform": "filmfreeway",
     "notes": "Submissions via FilmFreeway. Fees: Features $155 CAD ($131.75 industry members); Shorts $75-95 CAD. World or international premiere preferred."
@@ -94,17 +203,34 @@
   {
     "id": "telluride",
     "name": "Telluride Film Festival",
-    "location": { "city": "Telluride", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Telluride",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "feature",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-09-04", "end": "2026-09-07" },
+    "festivalDates": {
+      "start": "2026-09-04",
+      "end": "2026-09-07"
+    },
     "website": "https://www.telluridefilmfestival.org",
     "submissionPlatform": "direct",
     "notes": "Does not have a traditional open submission process. Films selected by invitation and curatorial outreach. North American premiere preferred."
@@ -112,19 +238,52 @@
   {
     "id": "sxsw",
     "name": "SXSW Film & TV Festival",
-    "location": { "city": "Austin", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Austin",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-08-26", "fee": 70 },
-      { "type": "regular", "date": "2026-09-16", "fee": 90 },
-      { "type": "late", "date": "2026-10-01", "fee": 120 }
+      {
+        "type": "earlybird",
+        "date": "2026-08-26",
+        "fee": 70,
+        "shortFee": 50
+      },
+      {
+        "type": "regular",
+        "date": "2026-09-16",
+        "fee": 90,
+        "shortFee": 65
+      },
+      {
+        "type": "late",
+        "date": "2026-10-01",
+        "fee": 120,
+        "shortFee": 85
+      }
     ],
-    "fees": { "earlybird": 70, "regular": 90, "late": 120, "currency": "USD" },
+    "fees": {
+      "earlybird": 70,
+      "regular": 90,
+      "late": 120,
+      "currency": "USD"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-07", "end": "2027-03-15" },
+    "festivalDates": {
+      "start": "2027-03-07",
+      "end": "2027-03-15"
+    },
     "website": "https://www.sxsw.com",
     "submissionPlatform": "direct",
     "notes": "Feature fees shown. Shorts: $50/$65/$85. World, North American, or US premiere required. Submissions open ~late July."
@@ -132,19 +291,52 @@
   {
     "id": "tribeca",
     "name": "Tribeca Film Festival",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-10-22", "fee": 65 },
-      { "type": "regular", "date": "2026-11-19", "fee": 85 },
-      { "type": "late", "date": "2026-12-17", "fee": 110 }
+      {
+        "type": "earlybird",
+        "date": "2026-10-22",
+        "fee": 65,
+        "shortFee": 50
+      },
+      {
+        "type": "regular",
+        "date": "2026-11-19",
+        "fee": 85,
+        "shortFee": 60
+      },
+      {
+        "type": "late",
+        "date": "2026-12-17",
+        "fee": 110,
+        "shortFee": 75
+      }
     ],
-    "fees": { "earlybird": 65, "regular": 85, "late": 110, "currency": "USD" },
+    "fees": {
+      "earlybird": 65,
+      "regular": 85,
+      "late": 110,
+      "currency": "USD"
+    },
     "notificationDate": "2027-03-01",
-    "festivalDates": { "start": "2027-06-04", "end": "2027-06-15" },
+    "festivalDates": {
+      "start": "2027-06-04",
+      "end": "2027-06-15"
+    },
     "website": "https://www.tribecafilm.com",
     "submissionPlatform": "direct",
     "notes": "Feature fees shown. Shorts: $50/$60/$75. Student shorts: $35. World, international, or North American premiere required."
@@ -152,19 +344,50 @@
   {
     "id": "locarno",
     "name": "Locarno Film Festival",
-    "location": { "city": "Locarno", "country": "Switzerland", "region": "Europe" },
+    "location": {
+      "city": "Locarno",
+      "country": "Switzerland",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-19", "fee": 100 },
-      { "type": "regular", "date": "2026-04-09", "fee": 150 },
-      { "type": "late", "date": "2026-04-23", "fee": 200 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-19",
+        "fee": 100,
+        "shortFee": 35
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-09",
+        "fee": 150,
+        "shortFee": 55
+      },
+      {
+        "type": "late",
+        "date": "2026-04-23",
+        "fee": 200,
+        "shortFee": 75
+      }
     ],
-    "fees": { "earlybird": 100, "regular": 150, "late": 200, "currency": "CHF" },
+    "fees": {
+      "earlybird": 100,
+      "regular": 150,
+      "late": 200,
+      "currency": "CHF"
+    },
     "notificationDate": "2026-06-30",
-    "festivalDates": { "start": "2026-08-05", "end": "2026-08-15" },
+    "festivalDates": {
+      "start": "2026-08-05",
+      "end": "2026-08-15"
+    },
     "website": "https://www.locarnofestival.ch",
     "submissionPlatform": "direct",
     "notes": "Feature fees shown. Shorts: 35-75 CHF. World premiere required for Competition; international premiere for other sections. 79th edition."
@@ -172,18 +395,41 @@
   {
     "id": "rotterdam",
     "name": "International Film Festival Rotterdam",
-    "location": { "city": "Rotterdam", "country": "Netherlands", "region": "Europe" },
+    "location": {
+      "city": "Rotterdam",
+      "country": "Netherlands",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-08-15", "fee": 0 },
-      { "type": "regular", "date": "2026-10-01", "fee": 0 }
+      {
+        "type": "earlybird",
+        "date": "2026-08-15",
+        "fee": 0
+      },
+      {
+        "type": "regular",
+        "date": "2026-10-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-12-01",
-    "festivalDates": { "start": "2027-01-28", "end": "2027-02-07" },
+    "festivalDates": {
+      "start": "2027-01-28",
+      "end": "2027-02-07"
+    },
     "website": "https://iffr.com",
     "submissionPlatform": "direct",
     "notes": "No fee. Tiger Competition requires world premiere (first/second features only). Other sections accept international/European premieres."
@@ -191,18 +437,40 @@
   {
     "id": "busan",
     "name": "Busan International Film Festival",
-    "location": { "city": "Busan", "country": "South Korea", "region": "Asia" },
+    "location": {
+      "city": "Busan",
+      "country": "South Korea",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-02", "fee": 0 },
-      { "type": "late", "date": "2026-07-08", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-02",
+        "fee": 0
+      },
+      {
+        "type": "late",
+        "date": "2026-07-08",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "KRW" },
+    "fees": {
+      "regular": 0,
+      "currency": "KRW"
+    },
     "notificationDate": "2026-08-20",
-    "festivalDates": { "start": "2026-10-06", "end": "2026-10-15" },
+    "festivalDates": {
+      "start": "2026-10-06",
+      "end": "2026-10-15"
+    },
     "website": "https://www.biff.kr",
     "submissionPlatform": "direct",
     "notes": "31st edition. No fee. Shorts deadline June 2; features deadline July 8. International or world premiere required for competition."
@@ -210,17 +478,36 @@
   {
     "id": "clermont",
     "name": "Clermont-Ferrand Short Film Festival",
-    "location": { "city": "Clermont-Ferrand", "country": "France", "region": "Europe" },
+    "location": {
+      "city": "Clermont-Ferrand",
+      "country": "France",
+      "region": "Europe"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "A-list",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2026-09-25", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-09-25",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-11-15",
-    "festivalDates": { "start": "2027-01-31", "end": "2027-02-08" },
+    "festivalDates": {
+      "start": "2027-01-31",
+      "end": "2027-02-08"
+    },
     "website": "https://www.lecourt-clermont.org",
     "submissionPlatform": "direct",
     "notes": "Largest short film festival in the world. Submit via Short Film Depot or festival website. International premiere preferred but not strictly required."
@@ -228,17 +515,36 @@
   {
     "id": "oberhausen",
     "name": "International Short Film Festival Oberhausen",
-    "location": { "city": "Oberhausen", "country": "Germany", "region": "Europe" },
+    "location": {
+      "city": "Oberhausen",
+      "country": "Germany",
+      "region": "Europe"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2027-01-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2027-01-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2027-03-15",
-    "festivalDates": { "start": "2027-04-29", "end": "2027-05-04" },
+    "festivalDates": {
+      "start": "2027-04-29",
+      "end": "2027-05-04"
+    },
     "website": "https://www.kurzfilmtage.de",
     "submissionPlatform": "direct",
     "notes": "No fee. No strict premiere requirement. German premiere preferred for German Competition. Films should not have been on German TV or freely online in Germany."
@@ -246,18 +552,42 @@
   {
     "id": "palm-springs-shorts",
     "name": "Palm Springs International ShortFest",
-    "location": { "city": "Palm Springs", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Palm Springs",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-12-01", "fee": 35 },
-      { "type": "regular", "date": "2027-02-07", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-12-01",
+        "fee": 35
+      },
+      {
+        "type": "regular",
+        "date": "2027-02-07",
+        "fee": 50
+      }
     ],
-    "fees": { "earlybird": 35, "regular": 50, "currency": "USD" },
+    "fees": {
+      "earlybird": 35,
+      "regular": 50,
+      "currency": "USD"
+    },
     "notificationDate": "2027-04-15",
-    "festivalDates": { "start": "2027-06-24", "end": "2027-06-30" },
+    "festivalDates": {
+      "start": "2027-06-24",
+      "end": "2027-06-30"
+    },
     "website": "https://www.psfilmfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "32nd edition. Oscar-qualifying. Films must be completed in 2025 or 2026, max 40 minutes."
@@ -265,17 +595,33 @@
   {
     "id": "annecy",
     "name": "Annecy International Animation Film Festival",
-    "location": { "city": "Annecy", "country": "France", "region": "Europe" },
+    "location": {
+      "city": "Annecy",
+      "country": "France",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Animation"],
+    "genres": [
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2027-02-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2027-02-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2027-04-15",
-    "festivalDates": { "start": "2027-06-14", "end": "2027-06-19" },
+    "festivalDates": {
+      "start": "2027-06-14",
+      "end": "2027-06-19"
+    },
     "website": "https://www.annecy.org",
     "submissionPlatform": "direct",
     "notes": "No fee. Premier animation festival. Oscar-qualifying. Features: intl premiere required. Shorts: world premiere preferred. Shorts deadline typically earlier (~Jan)."
@@ -283,18 +629,41 @@
   {
     "id": "hot-docs",
     "name": "Hot Docs Canadian International Documentary Festival",
-    "location": { "city": "Toronto", "country": "Canada", "region": "North America" },
+    "location": {
+      "city": "Toronto",
+      "country": "Canada",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Documentary"],
+    "genres": [
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-09-15", "fee": 35 },
-      { "type": "regular", "date": "2026-11-15", "fee": 60 }
+      {
+        "type": "earlybird",
+        "date": "2026-09-15",
+        "fee": 35,
+        "shortFee": 21
+      },
+      {
+        "type": "regular",
+        "date": "2026-11-15",
+        "fee": 60,
+        "shortFee": 33
+      }
     ],
-    "fees": { "earlybird": 35, "regular": 60, "currency": "CAD" },
+    "fees": {
+      "earlybird": 35,
+      "regular": 60,
+      "currency": "CAD"
+    },
     "notificationDate": "2027-02-28",
-    "festivalDates": { "start": "2027-04-24", "end": "2027-05-04" },
+    "festivalDates": {
+      "start": "2027-04-24",
+      "end": "2027-05-04"
+    },
     "website": "https://www.hotdocs.ca",
     "submissionPlatform": "filmfreeway",
     "notes": "Features/mid-lengths must be Ontario premieres. Shorts must be Toronto premieres. Must not be available online in Ontario. Films completed after Jan 1, 2025."
@@ -302,19 +671,48 @@
   {
     "id": "sheffield",
     "name": "Sheffield DocFest",
-    "location": { "city": "Sheffield", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "Sheffield",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Documentary"],
+    "genres": [
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-11-07", "fee": 25 },
-      { "type": "regular", "date": "2026-12-15", "fee": 40 },
-      { "type": "late", "date": "2027-01-31", "fee": 60 }
+      {
+        "type": "earlybird",
+        "date": "2026-11-07",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-12-15",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2027-01-31",
+        "fee": 60,
+        "shortFee": 33
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 40, "late": 60, "currency": "GBP" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 40,
+      "late": 60,
+      "currency": "GBP"
+    },
     "notificationDate": "2027-03-15",
-    "festivalDates": { "start": "2027-06-10", "end": "2027-06-15" },
+    "festivalDates": {
+      "start": "2027-06-10",
+      "end": "2027-06-15"
+    },
     "website": "https://www.sheffielddocfest.com",
     "submissionPlatform": "filmfreeway",
     "notes": "UK premiere required for competition. Fee waivers may be available for under-represented filmmakers."
@@ -322,19 +720,53 @@
   {
     "id": "fantasia",
     "name": "Fantasia International Film Festival",
-    "location": { "city": "Montreal", "country": "Canada", "region": "North America" },
+    "location": {
+      "city": "Montreal",
+      "country": "Canada",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Fantasy", "Animation", "Experimental", "Thriller"],
+    "genres": [
+      "Horror",
+      "Sci-Fi",
+      "Fantasy",
+      "Animation",
+      "Experimental",
+      "Thriller"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-01", "fee": 20 },
-      { "type": "regular", "date": "2026-04-15", "fee": 40 },
-      { "type": "late", "date": "2026-05-15", "fee": 60 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-01",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-15",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2026-05-15",
+        "fee": 60,
+        "shortFee": 33
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 40, "late": 60, "currency": "CAD" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 40,
+      "late": 60,
+      "currency": "CAD"
+    },
     "notificationDate": "2026-06-15",
-    "festivalDates": { "start": "2026-07-16", "end": "2026-08-04" },
+    "festivalDates": {
+      "start": "2026-07-16",
+      "end": "2026-08-04"
+    },
     "website": "https://fantasiafestival.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Leading genre/fantastic cinema festival. Canadian premiere preferred."
@@ -342,19 +774,52 @@
   {
     "id": "sitges",
     "name": "Sitges Film Festival",
-    "location": { "city": "Sitges", "country": "Spain", "region": "Europe" },
+    "location": {
+      "city": "Sitges",
+      "country": "Spain",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Fantasy", "Experimental", "Thriller"],
+    "genres": [
+      "Horror",
+      "Sci-Fi",
+      "Fantasy",
+      "Experimental",
+      "Thriller"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-04-01", "fee": 25 },
-      { "type": "regular", "date": "2026-06-01", "fee": 45 },
-      { "type": "late", "date": "2026-07-15", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-04-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "late",
+        "date": "2026-07-15",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "EUR" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 45,
+      "late": 65,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-10-01", "end": "2026-10-11" },
+    "festivalDates": {
+      "start": "2026-10-01",
+      "end": "2026-10-11"
+    },
     "website": "https://sitgesfilmfestival.com",
     "submissionPlatform": "filmfreeway",
     "notes": "International or Spanish premiere preferred for competition. Specializes in fantastic/genre cinema."
@@ -362,20 +827,58 @@
   {
     "id": "raindance",
     "name": "Raindance Film Festival",
-    "location": { "city": "London", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "London",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "LGBTQ+"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-15", "fee": 30 },
-      { "type": "regular", "date": "2026-05-01", "fee": 50 },
-      { "type": "late", "date": "2026-07-01", "fee": 70 },
-      { "type": "extended", "date": "2026-08-15", "fee": 90 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-07-01",
+        "fee": 70,
+        "shortFee": 38
+      },
+      {
+        "type": "extended",
+        "date": "2026-08-15",
+        "fee": 90,
+        "shortFee": 50
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "GBP" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 70,
+      "currency": "GBP"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-21", "end": "2026-11-01" },
+    "festivalDates": {
+      "start": "2026-10-21",
+      "end": "2026-11-01"
+    },
     "website": "https://www.raindance.org",
     "submissionPlatform": "filmfreeway",
     "notes": "BAFTA-qualifying. UK premiere preferred but not strictly required. Films should not have had UK theatrical release."
@@ -383,57 +886,150 @@
   {
     "id": "austin",
     "name": "Austin Film Festival",
-    "location": { "city": "Austin", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Austin",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-04-15", "fee": 30 },
-      { "type": "regular", "date": "2026-06-15", "fee": 55 },
-      { "type": "late", "date": "2026-08-15", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-04-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-06-15",
+        "fee": 55,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-08-15",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 55, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 55,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-22", "end": "2026-10-29" },
+    "festivalDates": {
+      "start": "2026-10-22",
+      "end": "2026-10-29"
+    },
     "website": "https://www.austinfilmfestival.com",
     "submissionPlatform": "filmfreeway"
   },
   {
     "id": "cinequest",
     "name": "Cinequest Film & Creativity Festival",
-    "location": { "city": "San Jose", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "San Jose",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-07-15", "fee": 30 },
-      { "type": "regular", "date": "2026-09-15", "fee": 55 },
-      { "type": "late", "date": "2026-11-01", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-07-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-09-15",
+        "fee": 55,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-11-01",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 55, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 55,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-12-15",
-    "festivalDates": { "start": "2027-03-03", "end": "2027-03-13" },
+    "festivalDates": {
+      "start": "2027-03-03",
+      "end": "2027-03-13"
+    },
     "website": "https://www.cinequest.org",
     "submissionPlatform": "filmfreeway"
   },
   {
     "id": "flickers-rhode-island",
     "name": "Flickers' Rhode Island International Film Festival",
-    "location": { "city": "Providence", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Providence",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-01", "fee": 25 },
-      { "type": "regular", "date": "2026-05-01", "fee": 45 },
-      { "type": "late", "date": "2026-06-15", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-01",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "late",
+        "date": "2026-06-15",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 45,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-07-01",
-    "festivalDates": { "start": "2026-08-04", "end": "2026-08-09" },
+    "festivalDates": {
+      "start": "2026-08-04",
+      "end": "2026-08-09"
+    },
     "website": "https://www.film-festival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for short films."
@@ -441,19 +1037,47 @@
   {
     "id": "encounters",
     "name": "Encounters Short Film & Animation Festival",
-    "location": { "city": "Bristol", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "Bristol",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "short",
-    "genres": ["Narrative", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-15", "fee": 12 },
-      { "type": "regular", "date": "2026-05-15", "fee": 20 },
-      { "type": "late", "date": "2026-06-30", "fee": 35 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-15",
+        "fee": 12
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-15",
+        "fee": 20
+      },
+      {
+        "type": "late",
+        "date": "2026-06-30",
+        "fee": 35
+      }
     ],
-    "fees": { "earlybird": 12, "regular": 20, "late": 35, "currency": "GBP" },
+    "fees": {
+      "earlybird": 12,
+      "regular": 20,
+      "late": 35,
+      "currency": "GBP"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-09-15", "end": "2026-09-20" },
+    "festivalDates": {
+      "start": "2026-09-15",
+      "end": "2026-09-20"
+    },
     "website": "https://encounters.film",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying and BAFTA-qualifying. UK premiere preferred."
@@ -461,37 +1085,82 @@
   {
     "id": "aspen",
     "name": "Aspen Shortsfest",
-    "location": { "city": "Aspen", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Aspen",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-10-01", "fee": 20 },
-      { "type": "regular", "date": "2026-12-01", "fee": 40 },
-      { "type": "late", "date": "2027-01-15", "fee": 55 }
+      {
+        "type": "earlybird",
+        "date": "2026-10-01",
+        "fee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-12-01",
+        "fee": 40
+      },
+      {
+        "type": "late",
+        "date": "2027-01-15",
+        "fee": 55
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 40, "late": 55, "currency": "USD" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 40,
+      "late": 55,
+      "currency": "USD"
+    },
     "notificationDate": "2027-02-15",
-    "festivalDates": { "start": "2027-04-06", "end": "2027-04-11" },
+    "festivalDates": {
+      "start": "2027-04-06",
+      "end": "2027-04-11"
+    },
     "website": "https://aspenfilm.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for short films."
   },
   {
     "id": "san-sebastian",
-    "name": "San Sebasti\u00e1n International Film Festival",
-    "location": { "city": "San Sebasti\u00e1n", "country": "Spain", "region": "Europe" },
+    "name": "San Sebastián International Film Festival",
+    "location": {
+      "city": "San Sebastián",
+      "country": "Spain",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-09-18", "end": "2026-09-26" },
+    "festivalDates": {
+      "start": "2026-09-18",
+      "end": "2026-09-26"
+    },
     "website": "https://www.sansebastianfestival.com",
     "submissionPlatform": "direct",
     "notes": "No fee. FIAPF A-list festival. World or international premiere required for Official Selection. New Directors section for first/second features."
@@ -499,17 +1168,35 @@
   {
     "id": "karlovy-vary",
     "name": "Karlovy Vary International Film Festival",
-    "location": { "city": "Karlovy Vary", "country": "Czech Republic", "region": "Europe" },
+    "location": {
+      "city": "Karlovy Vary",
+      "country": "Czech Republic",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-03-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-03-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-07-03", "end": "2026-07-11" },
+    "festivalDates": {
+      "start": "2026-07-03",
+      "end": "2026-07-11"
+    },
     "website": "https://www.kviff.com",
     "submissionPlatform": "direct",
     "notes": "No fee. FIAPF A-list festival. World or international premiere required for competition."
@@ -517,17 +1204,35 @@
   {
     "id": "tokyo",
     "name": "Tokyo International Film Festival",
-    "location": { "city": "Tokyo", "country": "Japan", "region": "Asia" },
+    "location": {
+      "city": "Tokyo",
+      "country": "Japan",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-07-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-07-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "JPY" },
+    "fees": {
+      "regular": 0,
+      "currency": "JPY"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-10-28", "end": "2026-11-06" },
+    "festivalDates": {
+      "start": "2026-10-28",
+      "end": "2026-11-06"
+    },
     "website": "https://www.tiff-jp.net",
     "submissionPlatform": "direct",
     "notes": "No fee. FIAPF A-list festival. World or international premiere required for competition."
@@ -535,19 +1240,51 @@
   {
     "id": "slamdance",
     "name": "Slamdance Film Festival",
-    "location": { "city": "Park City", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Park City",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-07-15", "fee": 45 },
-      { "type": "regular", "date": "2026-09-01", "fee": 65 },
-      { "type": "late", "date": "2026-10-01", "fee": 85 }
+      {
+        "type": "earlybird",
+        "date": "2026-07-15",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "regular",
+        "date": "2026-09-01",
+        "fee": 65,
+        "shortFee": 36
+      },
+      {
+        "type": "late",
+        "date": "2026-10-01",
+        "fee": 85,
+        "shortFee": 47
+      }
     ],
-    "fees": { "earlybird": 45, "regular": 65, "late": 85, "currency": "USD" },
+    "fees": {
+      "earlybird": 45,
+      "regular": 65,
+      "late": 85,
+      "currency": "USD"
+    },
     "notificationDate": "2026-11-15",
-    "festivalDates": { "start": "2027-01-22", "end": "2027-01-28" },
+    "festivalDates": {
+      "start": "2027-01-22",
+      "end": "2027-01-28"
+    },
     "website": "https://slamdance.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Runs alongside Sundance. By filmmakers, for filmmakers. Budget caps apply for features. World premiere required."
@@ -555,18 +1292,44 @@
   {
     "id": "afi-fest",
     "name": "AFI Fest",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-06-01", "fee": 50 },
-      { "type": "regular", "date": "2026-08-01", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-06-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "regular",
+        "date": "2026-08-01",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 50, "regular": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 50,
+      "regular": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-10-14", "end": "2026-10-18" },
+    "festivalDates": {
+      "start": "2026-10-14",
+      "end": "2026-10-18"
+    },
     "website": "https://fest.afi.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Presented by the American Film Institute. US or North American premiere preferred."
@@ -574,17 +1337,33 @@
   {
     "id": "idfa",
     "name": "International Documentary Film Festival Amsterdam (IDFA)",
-    "location": { "city": "Amsterdam", "country": "Netherlands", "region": "Europe" },
+    "location": {
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Documentary"],
+    "genres": [
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-11-18", "end": "2026-11-29" },
+    "festivalDates": {
+      "start": "2026-11-18",
+      "end": "2026-11-29"
+    },
     "website": "https://www.idfa.nl",
     "submissionPlatform": "direct",
     "notes": "No fee. Largest documentary festival in the world. International or world premiere required for competition."
@@ -592,19 +1371,48 @@
   {
     "id": "doc-nyc",
     "name": "DOC NYC",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Documentary"],
+    "genres": [
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-01", "fee": 40 },
-      { "type": "regular", "date": "2026-07-01", "fee": 60 },
-      { "type": "late", "date": "2026-08-15", "fee": 80 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-01",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-01",
+        "fee": 60,
+        "shortFee": 33
+      },
+      {
+        "type": "late",
+        "date": "2026-08-15",
+        "fee": 80,
+        "shortFee": 44
+      }
     ],
-    "fees": { "earlybird": 40, "regular": 60, "late": 80, "currency": "USD" },
+    "fees": {
+      "earlybird": 40,
+      "regular": 60,
+      "late": 80,
+      "currency": "USD"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-11-11", "end": "2026-11-19" },
+    "festivalDates": {
+      "start": "2026-11-11",
+      "end": "2026-11-19"
+    },
     "website": "https://www.docnyc.net",
     "submissionPlatform": "filmfreeway",
     "notes": "Largest documentary festival in the US. NYC premiere preferred."
@@ -612,19 +1420,48 @@
   {
     "id": "outfest",
     "name": "Outfest Los Angeles LGBTQ+ Film Festival",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["LGBTQ+"],
+    "genres": [
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-01", "fee": 30 },
-      { "type": "regular", "date": "2026-03-15", "fee": 50 },
-      { "type": "late", "date": "2026-04-30", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-03-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-04-30",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2026-06-01",
-    "festivalDates": { "start": "2026-07-09", "end": "2026-07-19" },
+    "festivalDates": {
+      "start": "2026-07-09",
+      "end": "2026-07-19"
+    },
     "website": "https://www.outfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Leading LGBTQ+ film festival. LA premiere preferred."
@@ -632,19 +1469,48 @@
   {
     "id": "frameline",
     "name": "Frameline San Francisco International LGBTQ+ Film Festival",
-    "location": { "city": "San Francisco", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "San Francisco",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["LGBTQ+"],
+    "genres": [
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-10-15", "fee": 25 },
-      { "type": "regular", "date": "2026-12-01", "fee": 50 },
-      { "type": "late", "date": "2027-01-15", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-10-15",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-12-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2027-01-15",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 50, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 50,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2027-03-15",
-    "festivalDates": { "start": "2027-06-18", "end": "2027-06-28" },
+    "festivalDates": {
+      "start": "2027-06-18",
+      "end": "2027-06-28"
+    },
     "website": "https://www.frameline.org",
     "submissionPlatform": "filmfreeway",
     "notes": "50th edition. Oldest LGBTQ+ film festival in the world. SF Bay Area premiere preferred."
@@ -652,17 +1518,33 @@
   {
     "id": "bfi-flare",
     "name": "BFI Flare: London LGBTIQ+ Film Festival",
-    "location": { "city": "London", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "London",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["LGBTQ+"],
+    "genres": [
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "regular", "date": "2026-10-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-10-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "GBP" },
+    "fees": {
+      "regular": 0,
+      "currency": "GBP"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-18", "end": "2027-03-29" },
+    "festivalDates": {
+      "start": "2027-03-18",
+      "end": "2027-03-29"
+    },
     "website": "https://www.bfi.org.uk/flare",
     "submissionPlatform": "direct",
     "notes": "No fee. UK premiere preferred. Run by the British Film Institute."
@@ -670,17 +1552,36 @@
   {
     "id": "new-york",
     "name": "New York Film Festival",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-09-25", "end": "2026-10-11" },
+    "festivalDates": {
+      "start": "2026-09-25",
+      "end": "2026-10-11"
+    },
     "website": "https://www.filmlinc.org/nyff",
     "submissionPlatform": "direct",
     "notes": "No fee. Curated by Film at Lincoln Center. US or North American premiere required. Invitation-based but accepts submissions."
@@ -688,17 +1589,34 @@
   {
     "id": "mar-del-plata",
     "name": "Mar del Plata International Film Festival",
-    "location": { "city": "Mar del Plata", "country": "Argentina", "region": "South America" },
+    "location": {
+      "city": "Mar del Plata",
+      "country": "Argentina",
+      "region": "South America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-08-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-08-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-07", "end": "2026-11-16" },
+    "festivalDates": {
+      "start": "2026-11-07",
+      "end": "2026-11-16"
+    },
     "website": "https://www.mardelplatafilmfest.com",
     "submissionPlatform": "direct",
     "notes": "No fee. Only FIAPF A-list festival in Latin America. International premiere required for competition."
@@ -706,19 +1624,49 @@
   {
     "id": "hamptons",
     "name": "Hamptons International Film Festival",
-    "location": { "city": "East Hampton", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "East Hampton",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-01", "fee": 35 },
-      { "type": "regular", "date": "2026-07-01", "fee": 55 },
-      { "type": "late", "date": "2026-08-01", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-01",
+        "fee": 35,
+        "shortFee": 21
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-01",
+        "fee": 55,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-08-01",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 35, "regular": 55, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 35,
+      "regular": 55,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-08", "end": "2026-10-12" },
+    "festivalDates": {
+      "start": "2026-10-08",
+      "end": "2026-10-12"
+    },
     "website": "https://hamptonsfilmfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Strong industry presence. East Coast premiere preferred."
@@ -726,19 +1674,51 @@
   {
     "id": "new-orleans",
     "name": "New Orleans Film Festival",
-    "location": { "city": "New Orleans", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New Orleans",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-04-15", "fee": 25 },
-      { "type": "regular", "date": "2026-06-15", "fee": 50 },
-      { "type": "late", "date": "2026-08-01", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2026-04-15",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-06-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-08-01",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-16", "end": "2026-10-23" },
+    "festivalDates": {
+      "start": "2026-10-16",
+      "end": "2026-10-23"
+    },
     "website": "https://neworleansfilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for shorts. Southern US premiere preferred."
@@ -746,19 +1726,50 @@
   {
     "id": "cleveland",
     "name": "Cleveland International Film Festival",
-    "location": { "city": "Cleveland", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Cleveland",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-08-15", "fee": 30 },
-      { "type": "regular", "date": "2026-10-15", "fee": 50 },
-      { "type": "late", "date": "2026-11-15", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2026-08-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-10-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-11-15",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-25", "end": "2027-04-04" },
+    "festivalDates": {
+      "start": "2027-03-25",
+      "end": "2027-04-04"
+    },
     "website": "https://www.clevelandfilm.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for shorts. Ohio premiere preferred."
@@ -766,19 +1777,51 @@
   {
     "id": "atlanta",
     "name": "Atlanta Film Festival",
-    "location": { "city": "Atlanta", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Atlanta",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-08-01", "fee": 25 },
-      { "type": "regular", "date": "2026-10-01", "fee": 50 },
-      { "type": "late", "date": "2026-11-15", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-08-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-10-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-11-15",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 50, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 50,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-04-16", "end": "2027-04-26" },
+    "festivalDates": {
+      "start": "2027-04-16",
+      "end": "2027-04-26"
+    },
     "website": "https://www.atlantafilmfestival.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for shorts. Southeast US premiere preferred."
@@ -786,17 +1829,35 @@
   {
     "id": "hong-kong",
     "name": "Hong Kong International Film Festival",
-    "location": { "city": "Hong Kong", "country": "China", "region": "Asia" },
+    "location": {
+      "city": "Hong Kong",
+      "country": "China",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-11-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-11-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "HKD" },
+    "fees": {
+      "regular": 0,
+      "currency": "HKD"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-30", "end": "2027-04-10" },
+    "festivalDates": {
+      "start": "2027-03-30",
+      "end": "2027-04-10"
+    },
     "website": "https://www.hkiff.org.hk",
     "submissionPlatform": "direct",
     "notes": "No fee. Asia premiere or world premiere preferred for competition."
@@ -804,17 +1865,34 @@
   {
     "id": "cairo",
     "name": "Cairo International Film Festival",
-    "location": { "city": "Cairo", "country": "Egypt", "region": "Middle East" },
+    "location": {
+      "city": "Cairo",
+      "country": "Egypt",
+      "region": "Middle East"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-08-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-08-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-13", "end": "2026-11-22" },
+    "festivalDates": {
+      "start": "2026-11-13",
+      "end": "2026-11-22"
+    },
     "website": "https://www.ciff.org.eg",
     "submissionPlatform": "direct",
     "notes": "No fee. FIAPF A-list festival. Oldest festival in the Arab world and Africa."
@@ -822,17 +1900,35 @@
   {
     "id": "durban",
     "name": "Durban International Film Festival",
-    "location": { "city": "Durban", "country": "South Africa", "region": "Africa" },
+    "location": {
+      "city": "Durban",
+      "country": "South Africa",
+      "region": "Africa"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "regular", "date": "2026-04-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-04-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "ZAR" },
+    "fees": {
+      "regular": 0,
+      "currency": "ZAR"
+    },
     "notificationDate": "2026-06-01",
-    "festivalDates": { "start": "2026-07-16", "end": "2026-07-26" },
+    "festivalDates": {
+      "start": "2026-07-16",
+      "end": "2026-07-26"
+    },
     "website": "https://www.durbanfilmfest.co.za",
     "submissionPlatform": "direct",
     "notes": "No fee. Largest film festival in Africa. African premiere preferred."
@@ -840,18 +1936,44 @@
   {
     "id": "melbourne",
     "name": "Melbourne International Film Festival",
-    "location": { "city": "Melbourne", "country": "Australia", "region": "Oceania" },
+    "location": {
+      "city": "Melbourne",
+      "country": "Australia",
+      "region": "Oceania"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-15", "fee": 30 },
-      { "type": "regular", "date": "2026-04-01", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-01",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "currency": "AUD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "currency": "AUD"
+    },
     "notificationDate": "2026-06-15",
-    "festivalDates": { "start": "2026-08-06", "end": "2026-08-23" },
+    "festivalDates": {
+      "start": "2026-08-06",
+      "end": "2026-08-23"
+    },
     "website": "https://miff.com.au",
     "submissionPlatform": "filmfreeway",
     "notes": "Oldest film festival in the Southern Hemisphere. Australian premiere preferred for competition."
@@ -859,17 +1981,36 @@
   {
     "id": "tampere",
     "name": "Tampere Film Festival",
-    "location": { "city": "Tampere", "country": "Finland", "region": "Europe" },
+    "location": {
+      "city": "Tampere",
+      "country": "Finland",
+      "region": "Europe"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2026-10-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-10-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "EUR" },
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-12-15",
-    "festivalDates": { "start": "2027-03-04", "end": "2027-03-08" },
+    "festivalDates": {
+      "start": "2027-03-04",
+      "end": "2027-03-08"
+    },
     "website": "https://tamperefilmfestival.fi",
     "submissionPlatform": "direct",
     "notes": "No fee. Oscar-qualifying. One of the oldest and most respected short film festivals in the world."
@@ -877,17 +2018,35 @@
   {
     "id": "mumbai",
     "name": "Mumbai Film Festival (MAMI)",
-    "location": { "city": "Mumbai", "country": "India", "region": "Asia" },
+    "location": {
+      "city": "Mumbai",
+      "country": "India",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-07-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-07-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "INR" },
+    "fees": {
+      "regular": 0,
+      "currency": "INR"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-15", "end": "2026-10-21" },
+    "festivalDates": {
+      "start": "2026-10-15",
+      "end": "2026-10-21"
+    },
     "website": "https://www.mumbaifilmfestival.com",
     "submissionPlatform": "direct",
     "notes": "No fee. India's premier independent film festival. Asian or international premiere preferred."
@@ -895,17 +2054,35 @@
   {
     "id": "zurich",
     "name": "Zurich Film Festival",
-    "location": { "city": "Zurich", "country": "Switzerland", "region": "Europe" },
+    "location": {
+      "city": "Zurich",
+      "country": "Switzerland",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-01", "fee": 50 }
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "regular": 50, "currency": "CHF" },
+    "fees": {
+      "regular": 50,
+      "currency": "CHF"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-09-24", "end": "2026-10-04" },
+    "festivalDates": {
+      "start": "2026-09-24",
+      "end": "2026-10-04"
+    },
     "website": "https://zff.com",
     "submissionPlatform": "direct",
     "notes": "Focus on new filmmakers. International or European premiere preferred for competition."
@@ -913,17 +2090,36 @@
   {
     "id": "bfi-london",
     "name": "BFI London Film Festival",
-    "location": { "city": "London", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "London",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "A-list",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "regular", "date": "2026-06-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "GBP" },
+    "fees": {
+      "regular": 0,
+      "currency": "GBP"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-10-07", "end": "2026-10-18" },
+    "festivalDates": {
+      "start": "2026-10-07",
+      "end": "2026-10-18"
+    },
     "website": "https://www.bfi.org.uk/london-film-festival",
     "submissionPlatform": "direct",
     "notes": "No fee. UK premiere required. One of Europe's most important festivals."
@@ -931,19 +2127,50 @@
   {
     "id": "woodstock",
     "name": "Woodstock Film Festival",
-    "location": { "city": "Woodstock", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Woodstock",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-04-01", "fee": 30 },
-      { "type": "regular", "date": "2026-06-01", "fee": 55 },
-      { "type": "late", "date": "2026-07-15", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2026-04-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 55,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-07-15",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 55, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 55,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-09-30", "end": "2026-10-04" },
+    "festivalDates": {
+      "start": "2026-09-30",
+      "end": "2026-10-04"
+    },
     "website": "https://woodstockfilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Fiercely independent spirit. No strict premiere requirement."
@@ -951,36 +2178,80 @@
   {
     "id": "edinburgh",
     "name": "Edinburgh International Film Festival",
-    "location": { "city": "Edinburgh", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "Edinburgh",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2027-01-15", "fee": 15 },
-      { "type": "regular", "date": "2027-03-01", "fee": 30 }
+      {
+        "type": "earlybird",
+        "date": "2027-01-15",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2027-03-01",
+        "fee": 30,
+        "shortFee": 18
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "currency": "GBP" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "currency": "GBP"
+    },
     "notificationDate": "2027-05-15",
-    "festivalDates": { "start": "2027-08-11", "end": "2027-08-22" },
+    "festivalDates": {
+      "start": "2027-08-11",
+      "end": "2027-08-22"
+    },
     "website": "https://www.edfilmfest.org.uk",
     "submissionPlatform": "filmfreeway",
     "notes": "One of the longest-running film festivals in the world. UK or European premiere preferred."
   },
   {
     "id": "goteborg",
-    "name": "G\u00f6teborg Film Festival",
-    "location": { "city": "Gothenburg", "country": "Sweden", "region": "Europe" },
+    "name": "Göteborg Film Festival",
+    "location": {
+      "city": "Gothenburg",
+      "country": "Sweden",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-10-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-10-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "SEK" },
+    "fees": {
+      "regular": 0,
+      "currency": "SEK"
+    },
     "notificationDate": "2026-12-15",
-    "festivalDates": { "start": "2027-01-29", "end": "2027-02-08" },
+    "festivalDates": {
+      "start": "2027-01-29",
+      "end": "2027-02-08"
+    },
     "website": "https://goteborgfilmfestival.se",
     "submissionPlatform": "direct",
     "notes": "No fee. Largest film festival in Scandinavia. Nordic premiere preferred for Nordic films."
@@ -988,17 +2259,34 @@
   {
     "id": "sundance-london",
     "name": "BFI Southbank (Sundance London)",
-    "location": { "city": "London", "country": "UK", "region": "Europe" },
+    "location": {
+      "city": "London",
+      "country": "UK",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "regular", "date": "2027-03-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2027-03-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "GBP" },
+    "fees": {
+      "regular": 0,
+      "currency": "GBP"
+    },
     "notificationDate": "2027-04-15",
-    "festivalDates": { "start": "2027-06-05", "end": "2027-06-08" },
+    "festivalDates": {
+      "start": "2027-06-05",
+      "end": "2027-06-08"
+    },
     "website": "https://www.sundance.org/festivals/sundance-film-festival-london",
     "submissionPlatform": "direct",
     "notes": "UK premieres of Sundance selections. No open submissions — films curated from Sundance program."
@@ -1006,18 +2294,43 @@
   {
     "id": "thessaloniki",
     "name": "Thessaloniki International Film Festival",
-    "location": { "city": "Thessaloniki", "country": "Greece", "region": "Europe" },
+    "location": {
+      "city": "Thessaloniki",
+      "country": "Greece",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-01", "fee": 20 },
-      { "type": "regular", "date": "2026-07-01", "fee": 40 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-01",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-01",
+        "fee": 40,
+        "shortFee": 24
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 40, "currency": "EUR" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 40,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-10-29", "end": "2026-11-08" },
+    "festivalDates": {
+      "start": "2026-10-29",
+      "end": "2026-11-08"
+    },
     "website": "https://www.filmfestival.gr",
     "submissionPlatform": "direct",
     "notes": "FIAPF A-list festival. One of the oldest in Europe (founded 1960). Golden Alexander is the top prize. Strong focus on independent first and second features."
@@ -1025,18 +2338,42 @@
   {
     "id": "warsaw",
     "name": "Warsaw Film Festival",
-    "location": { "city": "Warsaw", "country": "Poland", "region": "Europe" },
+    "location": {
+      "city": "Warsaw",
+      "country": "Poland",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-15", "fee": 20 },
-      { "type": "regular", "date": "2026-07-15", "fee": 35 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-15",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-15",
+        "fee": 35,
+        "shortFee": 21
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 35, "currency": "EUR" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 35,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-09-01",
-    "festivalDates": { "start": "2026-10-09", "end": "2026-10-18" },
+    "festivalDates": {
+      "start": "2026-10-09",
+      "end": "2026-10-18"
+    },
     "website": "https://wff.pl",
     "submissionPlatform": "direct",
     "notes": "FIAPF A-list festival. Features 1-2 Competition for debut/second films. Oscar-qualifying for short films."
@@ -1044,19 +2381,50 @@
   {
     "id": "tallinn-poff",
     "name": "Tallinn Black Nights Film Festival (PÖFF)",
-    "location": { "city": "Tallinn", "country": "Estonia", "region": "Europe" },
+    "location": {
+      "city": "Tallinn",
+      "country": "Estonia",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-06-01", "fee": 15 },
-      { "type": "regular", "date": "2026-08-01", "fee": 30 },
-      { "type": "late", "date": "2026-09-15", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-06-01",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-08-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "late",
+        "date": "2026-09-15",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "late": 50, "currency": "EUR" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "late": 50,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-13", "end": "2026-11-29" },
+    "festivalDates": {
+      "start": "2026-11-13",
+      "end": "2026-11-29"
+    },
     "website": "https://poff.ee",
     "submissionPlatform": "direct",
     "notes": "FIAPF A-list festival. Northernmost A-list festival. Includes PÖFF Shorts sub-festival. European or world premiere required for Official Competition."
@@ -1064,18 +2432,42 @@
   {
     "id": "camerimage",
     "name": "EnergaCAMERIMAGE",
-    "location": { "city": "Toruń", "country": "Poland", "region": "Europe" },
+    "location": {
+      "city": "Toruń",
+      "country": "Poland",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-01", "fee": 30 },
-      { "type": "regular", "date": "2026-07-15", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-15",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "currency": "USD"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-14", "end": "2026-11-21" },
+    "festivalDates": {
+      "start": "2026-11-14",
+      "end": "2026-11-21"
+    },
     "website": "https://www.camerimage.pl",
     "submissionPlatform": "direct",
     "notes": "World's premier festival dedicated to the art of cinematography. Awards the Golden Frog. No premiere requirement — focuses on cinematographic excellence."
@@ -1083,18 +2475,43 @@
   {
     "id": "torino",
     "name": "Torino Film Festival",
-    "location": { "city": "Turin", "country": "Italy", "region": "Europe" },
+    "location": {
+      "city": "Turin",
+      "country": "Italy",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-05-15", "fee": 15 },
-      { "type": "regular", "date": "2026-07-31", "fee": 30 }
+      {
+        "type": "earlybird",
+        "date": "2026-05-15",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-31",
+        "fee": 30,
+        "shortFee": 18
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "currency": "EUR" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "currency": "EUR"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-20", "end": "2026-11-28" },
+    "festivalDates": {
+      "start": "2026-11-20",
+      "end": "2026-11-28"
+    },
     "website": "https://www.torinofilmfest.org",
     "submissionPlatform": "direct",
     "notes": "Strong focus on independent, avant-garde, and debut cinema. Italian premiere typically required."
@@ -1102,19 +2519,49 @@
   {
     "id": "hollyshorts",
     "name": "HollyShorts Film Festival",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "short",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-01-15", "fee": 35 },
-      { "type": "regular", "date": "2026-03-15", "fee": 50 },
-      { "type": "late", "date": "2026-05-15", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-01-15",
+        "fee": 35
+      },
+      {
+        "type": "regular",
+        "date": "2026-03-15",
+        "fee": 50
+      },
+      {
+        "type": "late",
+        "date": "2026-05-15",
+        "fee": 65
+      }
     ],
-    "fees": { "earlybird": 35, "regular": 50, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 35,
+      "regular": 50,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-07-01",
-    "festivalDates": { "start": "2026-08-13", "end": "2026-08-22" },
+    "festivalDates": {
+      "start": "2026-08-13",
+      "end": "2026-08-22"
+    },
     "website": "https://www.hollyshorts.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying, BAFTA-qualifying. Held at TCL Chinese Theatre in Hollywood. Films 40 minutes or under. Strong industry attendance."
@@ -1122,19 +2569,50 @@
   {
     "id": "nashville",
     "name": "Nashville Film Festival",
-    "location": { "city": "Nashville", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Nashville",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-01", "fee": 30 },
-      { "type": "regular", "date": "2026-04-01", "fee": 50 },
-      { "type": "late", "date": "2026-05-15", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-05-15",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-07-01",
-    "festivalDates": { "start": "2026-09-24", "end": "2026-09-30" },
+    "festivalDates": {
+      "start": "2026-09-24",
+      "end": "2026-09-30"
+    },
     "website": "https://nashvillefilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "One of the oldest US festivals (founded 1969). Oscar-qualifying for short films. Strong music and culture crossover."
@@ -1142,19 +2620,49 @@
   {
     "id": "heartland",
     "name": "Heartland International Film Festival",
-    "location": { "city": "Indianapolis", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Indianapolis",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-01", "fee": 30 },
-      { "type": "regular", "date": "2026-05-15", "fee": 50 },
-      { "type": "late", "date": "2026-07-01", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-07-01",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-10-08", "end": "2026-10-18" },
+    "festivalDates": {
+      "start": "2026-10-08",
+      "end": "2026-10-18"
+    },
     "website": "https://www.heartlandfilm.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Oscar-qualifying for narrative and documentary shorts. Known for championing uplifting and socially conscious cinema."
@@ -1162,19 +2670,48 @@
   {
     "id": "ottawa-animation",
     "name": "Ottawa International Animation Festival",
-    "location": { "city": "Ottawa", "country": "Canada", "region": "North America" },
+    "location": {
+      "city": "Ottawa",
+      "country": "Canada",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Animation"],
+    "genres": [
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-01", "fee": 25 },
-      { "type": "regular", "date": "2026-05-01", "fee": 40 },
-      { "type": "late", "date": "2026-06-15", "fee": 55 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-01",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2026-06-15",
+        "fee": 55,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "CAD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 40,
+      "late": 55,
+      "currency": "CAD"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-09-23", "end": "2026-09-27" },
+    "festivalDates": {
+      "start": "2026-09-23",
+      "end": "2026-09-27"
+    },
     "website": "https://www.animationfestival.ca",
     "submissionPlatform": "filmfreeway",
     "notes": "One of the world's leading animation festivals. Oscar-qualifying for animated short films. Major industry component with TAC trade forum."
@@ -1182,18 +2719,41 @@
   {
     "id": "guadalajara",
     "name": "Guadalajara International Film Festival (FICG)",
-    "location": { "city": "Guadalajara", "country": "Mexico", "region": "North America" },
+    "location": {
+      "city": "Guadalajara",
+      "country": "Mexico",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-09-01", "fee": 0 },
-      { "type": "regular", "date": "2026-11-15", "fee": 0 }
+      {
+        "type": "earlybird",
+        "date": "2026-09-01",
+        "fee": 0
+      },
+      {
+        "type": "regular",
+        "date": "2026-11-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "MXN" },
+    "fees": {
+      "regular": 0,
+      "currency": "MXN"
+    },
     "notificationDate": "2027-02-01",
-    "festivalDates": { "start": "2027-03-13", "end": "2027-03-21" },
+    "festivalDates": {
+      "start": "2027-03-13",
+      "end": "2027-03-21"
+    },
     "website": "https://www.ficg.mx",
     "submissionPlatform": "direct",
     "notes": "Most important film festival in Latin America by attendance. Free to submit. Features the Mezcal competition for Mexican cinema."
@@ -1201,17 +2761,34 @@
   {
     "id": "havana",
     "name": "Havana Film Festival",
-    "location": { "city": "Havana", "country": "Cuba", "region": "North America" },
+    "location": {
+      "city": "Havana",
+      "country": "Cuba",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "regular", "date": "2026-09-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-09-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-11-01",
-    "festivalDates": { "start": "2026-12-03", "end": "2026-12-13" },
+    "festivalDates": {
+      "start": "2026-12-03",
+      "end": "2026-12-13"
+    },
     "website": "https://www.habanafilmfestival.com",
     "submissionPlatform": "direct",
     "notes": "Founded 1979. Key platform for Latin American and Caribbean cinema. Free to submit."
@@ -1219,17 +2796,34 @@
   {
     "id": "cartagena",
     "name": "Cartagena International Film Festival (FICCI)",
-    "location": { "city": "Cartagena", "country": "Colombia", "region": "South America" },
+    "location": {
+      "city": "Cartagena",
+      "country": "Colombia",
+      "region": "South America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "regular", "date": "2026-11-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-11-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-11", "end": "2027-03-16" },
+    "festivalDates": {
+      "start": "2027-03-11",
+      "end": "2027-03-16"
+    },
     "website": "https://ficcifestival.com",
     "submissionPlatform": "direct",
     "notes": "Oldest film festival in Latin America (founded 1960). Free to submit. Strong focus on Ibero-American cinema."
@@ -1237,17 +2831,34 @@
   {
     "id": "carthage",
     "name": "Carthage Film Festival (JCC)",
-    "location": { "city": "Tunis", "country": "Tunisia", "region": "Africa" },
+    "location": {
+      "city": "Tunis",
+      "country": "Tunisia",
+      "region": "Africa"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "regular", "date": "2026-07-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-07-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "TND" },
+    "fees": {
+      "regular": 0,
+      "currency": "TND"
+    },
     "notificationDate": "2026-09-15",
-    "festivalDates": { "start": "2026-10-28", "end": "2026-11-04" },
+    "festivalDates": {
+      "start": "2026-10-28",
+      "end": "2026-11-04"
+    },
     "website": "https://www.jfrcc.tn",
     "submissionPlatform": "direct",
     "notes": "Founded 1966. Key platform for African and Arab cinema. The Tanit d'Or is its top prize. Free to submit."
@@ -1255,17 +2866,34 @@
   {
     "id": "fespaco",
     "name": "FESPACO",
-    "location": { "city": "Ouagadougou", "country": "Burkina Faso", "region": "Africa" },
+    "location": {
+      "city": "Ouagadougou",
+      "country": "Burkina Faso",
+      "region": "Africa"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "major",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "regular", "date": "2026-10-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-10-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "XOF" },
+    "fees": {
+      "regular": 0,
+      "currency": "XOF"
+    },
     "notificationDate": "2026-12-15",
-    "festivalDates": { "start": "2027-02-20", "end": "2027-02-27" },
+    "festivalDates": {
+      "start": "2027-02-20",
+      "end": "2027-02-27"
+    },
     "website": "https://www.fespaco.bf",
     "submissionPlatform": "direct",
     "notes": "Pan-African Film and Television Festival of Ouagadougou. The most prestigious film festival in Africa. Biennial (held every two years). The Étalon de Yennenga is its top prize. Free to submit."
@@ -1273,17 +2901,35 @@
   {
     "id": "zanzibar",
     "name": "Zanzibar International Film Festival (ZIFF)",
-    "location": { "city": "Zanzibar", "country": "Tanzania", "region": "Africa" },
+    "location": {
+      "city": "Zanzibar",
+      "country": "Tanzania",
+      "region": "Africa"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2026-04-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-04-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "USD" },
+    "fees": {
+      "regular": 0,
+      "currency": "USD"
+    },
     "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-07-04", "end": "2026-07-12" },
+    "festivalDates": {
+      "start": "2026-07-04",
+      "end": "2026-07-12"
+    },
     "website": "https://www.ziff.or.tz",
     "submissionPlatform": "direct",
     "notes": "East Africa's premier film festival. Also features music, art, and dhow boat races. Free to submit."
@@ -1291,17 +2937,35 @@
   {
     "id": "shanghai",
     "name": "Shanghai International Film Festival",
-    "location": { "city": "Shanghai", "country": "China", "region": "Asia" },
+    "location": {
+      "city": "Shanghai",
+      "country": "China",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "A-list",
     "premiereRequirement": "world",
     "deadlines": [
-      { "type": "regular", "date": "2026-03-31", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-03-31",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "CNY" },
+    "fees": {
+      "regular": 0,
+      "currency": "CNY"
+    },
     "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-06-12", "end": "2026-06-21" },
+    "festivalDates": {
+      "start": "2026-06-12",
+      "end": "2026-06-21"
+    },
     "website": "https://www.siff.com",
     "submissionPlatform": "direct",
     "notes": "FIAPF A-list festival. One of the most important film festivals in Asia. The Golden Goblet is its top prize. Free to submit."
@@ -1309,17 +2973,36 @@
   {
     "id": "jeonju",
     "name": "Jeonju International Film Festival",
-    "location": { "city": "Jeonju", "country": "South Korea", "region": "Asia" },
+    "location": {
+      "city": "Jeonju",
+      "country": "South Korea",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-12-15", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-12-15",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "KRW" },
+    "fees": {
+      "regular": 0,
+      "currency": "KRW"
+    },
     "notificationDate": "2027-02-15",
-    "festivalDates": { "start": "2027-04-30", "end": "2027-05-09" },
+    "festivalDates": {
+      "start": "2027-04-30",
+      "end": "2027-05-09"
+    },
     "website": "https://www.jeonjufest.kr",
     "submissionPlatform": "direct",
     "notes": "Known for championing independent and alternative cinema. Features the Jeonju Cinema Project — commissions original short/mid-length films. Free to submit."
@@ -1327,17 +3010,35 @@
   {
     "id": "golden-horse",
     "name": "Golden Horse Film Festival",
-    "location": { "city": "Taipei", "country": "Taiwan", "region": "Asia" },
+    "location": {
+      "city": "Taipei",
+      "country": "Taiwan",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "regular", "date": "2026-08-01", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-08-01",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "TWD" },
+    "fees": {
+      "regular": 0,
+      "currency": "TWD"
+    },
     "notificationDate": "2026-10-01",
-    "festivalDates": { "start": "2026-11-06", "end": "2026-11-22" },
+    "festivalDates": {
+      "start": "2026-11-06",
+      "end": "2026-11-22"
+    },
     "website": "https://www.goldenhorse.org.tw",
     "submissionPlatform": "direct",
     "notes": "Often called the 'Chinese-language Oscars.' The Golden Horse Awards are the most prestigious awards for Chinese-language cinema. Free to submit."
@@ -1345,18 +3046,44 @@
   {
     "id": "bucheon",
     "name": "Bucheon International Fantastic Film Festival (BIFAN)",
-    "location": { "city": "Bucheon", "country": "South Korea", "region": "Asia" },
+    "location": {
+      "city": "Bucheon",
+      "country": "South Korea",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Fantasy", "Thriller"],
+    "genres": [
+      "Horror",
+      "Sci-Fi",
+      "Fantasy",
+      "Thriller"
+    ],
     "tier": "major",
     "premiereRequirement": "international",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-01", "fee": 15 },
-      { "type": "regular", "date": "2026-04-01", "fee": 30 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-01",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-01",
+        "fee": 30,
+        "shortFee": 18
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "currency": "USD" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "currency": "USD"
+    },
     "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-07-02", "end": "2026-07-12" },
+    "festivalDates": {
+      "start": "2026-07-02",
+      "end": "2026-07-12"
+    },
     "website": "https://www.bifan.kr",
     "submissionPlatform": "filmfreeway",
     "notes": "One of Asia's premier genre film festivals. Specializes in fantastic, horror, sci-fi, and thriller cinema. Bucheon Choice Award is the top prize."
@@ -1364,17 +3091,34 @@
   {
     "id": "osaka",
     "name": "Osaka Asian Film Festival",
-    "location": { "city": "Osaka", "country": "Japan", "region": "Asia" },
+    "location": {
+      "city": "Osaka",
+      "country": "Japan",
+      "region": "Asia"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary"],
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "regular", "date": "2026-10-31", "fee": 0 }
+      {
+        "type": "regular",
+        "date": "2026-10-31",
+        "fee": 0
+      }
     ],
-    "fees": { "regular": 0, "currency": "JPY" },
+    "fees": {
+      "regular": 0,
+      "currency": "JPY"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-06", "end": "2027-03-15" },
+    "festivalDates": {
+      "start": "2027-03-06",
+      "end": "2027-03-15"
+    },
     "website": "https://www.oaff.jp",
     "submissionPlatform": "direct",
     "notes": "Focused exclusively on Asian cinema. Features the Grand Prix and ABC Award. Free to submit. Good launching pad for Asian filmmakers."
@@ -1382,19 +3126,51 @@
   {
     "id": "bifff",
     "name": "Brussels International Fantastic Film Festival (BIFFF)",
-    "location": { "city": "Brussels", "country": "Belgium", "region": "Europe" },
+    "location": {
+      "city": "Brussels",
+      "country": "Belgium",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Horror", "Sci-Fi", "Fantasy", "Thriller"],
+    "genres": [
+      "Horror",
+      "Sci-Fi",
+      "Fantasy",
+      "Thriller"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-10-01", "fee": 10 },
-      { "type": "regular", "date": "2026-12-15", "fee": 20 },
-      { "type": "late", "date": "2027-01-31", "fee": 30 }
+      {
+        "type": "earlybird",
+        "date": "2026-10-01",
+        "fee": 10,
+        "shortFee": 5
+      },
+      {
+        "type": "regular",
+        "date": "2026-12-15",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "late",
+        "date": "2027-01-31",
+        "fee": 30,
+        "shortFee": 18
+      }
     ],
-    "fees": { "earlybird": 10, "regular": 20, "late": 30, "currency": "EUR" },
+    "fees": {
+      "earlybird": 10,
+      "regular": 20,
+      "late": 30,
+      "currency": "EUR"
+    },
     "notificationDate": "2027-02-15",
-    "festivalDates": { "start": "2027-04-07", "end": "2027-04-19" },
+    "festivalDates": {
+      "start": "2027-04-07",
+      "end": "2027-04-19"
+    },
     "website": "https://www.bifff.net",
     "submissionPlatform": "filmfreeway",
     "notes": "One of the most prestigious genre film festivals in Europe. Specializes in fantasy, horror, sci-fi, and thriller. Known for its rowdy, enthusiastic audience. Golden Raven awards."
@@ -1402,18 +3178,43 @@
   {
     "id": "vilnius",
     "name": "Vilnius International Film Festival (Kino Pavasaris)",
-    "location": { "city": "Vilnius", "country": "Lithuania", "region": "Europe" },
+    "location": {
+      "city": "Vilnius",
+      "country": "Lithuania",
+      "region": "Europe"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "regional",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-09-01", "fee": 10 },
-      { "type": "regular", "date": "2026-11-01", "fee": 20 }
+      {
+        "type": "earlybird",
+        "date": "2026-09-01",
+        "fee": 10,
+        "shortFee": 5
+      },
+      {
+        "type": "regular",
+        "date": "2026-11-01",
+        "fee": 20,
+        "shortFee": 15
+      }
     ],
-    "fees": { "earlybird": 10, "regular": 20, "currency": "EUR" },
+    "fees": {
+      "earlybird": 10,
+      "regular": 20,
+      "currency": "EUR"
+    },
     "notificationDate": "2027-01-15",
-    "festivalDates": { "start": "2027-03-18", "end": "2027-04-01" },
+    "festivalDates": {
+      "start": "2027-03-18",
+      "end": "2027-04-01"
+    },
     "website": "https://kinopavasaris.lt",
     "submissionPlatform": "filmfreeway",
     "notes": "Largest film festival in the Baltic states. 'Cinema Spring' in Lithuanian. Screens 200+ films. Lithuanian premiere typically required."
@@ -1421,18 +3222,44 @@
   {
     "id": "sydney",
     "name": "Sydney Film Festival",
-    "location": { "city": "Sydney", "country": "Australia", "region": "Oceania" },
+    "location": {
+      "city": "Sydney",
+      "country": "Australia",
+      "region": "Oceania"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "national",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-12-01", "fee": 20 },
-      { "type": "regular", "date": "2026-02-01", "fee": 35 }
+      {
+        "type": "earlybird",
+        "date": "2025-12-01",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-02-01",
+        "fee": 35,
+        "shortFee": 21
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 35, "currency": "AUD" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 35,
+      "currency": "AUD"
+    },
     "notificationDate": "2026-04-15",
-    "festivalDates": { "start": "2026-06-03", "end": "2026-06-14" },
+    "festivalDates": {
+      "start": "2026-06-03",
+      "end": "2026-06-14"
+    },
     "website": "https://www.sff.org.au",
     "submissionPlatform": "direct",
     "notes": "One of the longest-running festivals in the world (founded 1954). The A$60,000 Sydney Film Prize is one of the richest globally. Australian premiere required."
@@ -1440,19 +3267,52 @@
   {
     "id": "laliff",
     "name": "Los Angeles Latino International Film Festival (LALIFF)",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Comedy",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-01-15", "fee": 25 },
-      { "type": "regular", "date": "2026-03-15", "fee": 45 },
-      { "type": "late", "date": "2026-04-30", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2026-01-15",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-03-15",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "late",
+        "date": "2026-04-30",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 45,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-05-15",
-    "festivalDates": { "start": "2026-06-04", "end": "2026-06-08" },
+    "festivalDates": {
+      "start": "2026-06-04",
+      "end": "2026-06-08"
+    },
     "website": "https://www.laliff.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Academy Award qualifying. Founded in 1997, the premier Latino film festival in the US. Co-founded by Edward James Olmos and Marlene Dermer. Celebrates Latino storytelling across all genres and formats. Strong industry networking and panels. Open to all filmmakers but prioritizes Latino voices and stories."
@@ -1460,19 +3320,52 @@
   {
     "id": "blackstar",
     "name": "BlackStar Film Festival",
-    "location": { "city": "Philadelphia", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Philadelphia",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-01-12", "fee": 15 },
-      { "type": "regular", "date": "2026-03-02", "fee": 30 },
-      { "type": "late", "date": "2026-04-13", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-01-12",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-03-02",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "late",
+        "date": "2026-04-13",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "late": 50, "currency": "USD" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "late": 50,
+      "currency": "USD"
+    },
     "notificationDate": "2026-06-01",
-    "festivalDates": { "start": "2026-08-05", "end": "2026-08-09" },
+    "festivalDates": {
+      "start": "2026-08-05",
+      "end": "2026-08-09"
+    },
     "website": "https://www.blackstarfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Academy Award qualifying. Founded in 2012, rapidly became one of the most important festivals for Black, Brown, and Indigenous filmmakers. Celebrates films by people of the global majority. Combines screenings with panels, masterclasses, and community events. Known for exceptional curation and a strong filmmaker community."
@@ -1480,19 +3373,51 @@
   {
     "id": "abff",
     "name": "American Black Film Festival (ABFF)",
-    "location": { "city": "Miami Beach", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Miami Beach",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Comedy", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Comedy",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-11-15", "fee": 30 },
-      { "type": "regular", "date": "2026-01-15", "fee": 50 },
-      { "type": "late", "date": "2026-03-01", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2025-11-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-01-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-03-01",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2026-04-15",
-    "festivalDates": { "start": "2026-06-10", "end": "2026-06-14" },
+    "festivalDates": {
+      "start": "2026-06-10",
+      "end": "2026-06-14"
+    },
     "website": "https://www.abff.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Founded in 1997 by Jeff Friday, the premier film festival for Black cinema in the US. Strong Hollywood industry support and studio partnerships. Features narrative features, documentaries, shorts, web series, and a comedy competition. Includes talent development programs like ABFF HBO Short Film Award and Star Project acting competition."
@@ -1500,19 +3425,51 @@
   {
     "id": "paff",
     "name": "Pan African Film Festival (PAFF)",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-08-01", "fee": 25 },
-      { "type": "regular", "date": "2025-10-15", "fee": 45 },
-      { "type": "late", "date": "2025-12-01", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2025-08-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2025-10-15",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "late",
+        "date": "2025-12-01",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 45,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-01-15",
-    "festivalDates": { "start": "2026-02-10", "end": "2026-02-21" },
+    "festivalDates": {
+      "start": "2026-02-10",
+      "end": "2026-02-21"
+    },
     "website": "https://www.paff.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Academy Award qualifying. Founded in 1992, the largest Black film festival in the US by attendance. Held during Black History Month. Screens 200+ films from the African diaspora worldwide. Co-founded by Danny Glover, Ja'Net DuBois, and Ayuko Babu. Combines film screenings with an art exhibition (ArtFEST) and community events."
@@ -1520,19 +3477,52 @@
   {
     "id": "urbanworld",
     "name": "Urbanworld Film Festival",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Comedy",
+      "Drama"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-15", "fee": 30 },
-      { "type": "regular", "date": "2026-04-15", "fee": 50 },
-      { "type": "late", "date": "2026-06-15", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-06-15",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-09-23", "end": "2026-09-27" },
+    "festivalDates": {
+      "start": "2026-09-23",
+      "end": "2026-09-27"
+    },
     "website": "https://www.urbanworld.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Founded in 1997, one of New York's largest multicultural film festivals. Focuses on films by and about people of color, LGBTQ+ communities, and other underrepresented groups. Held at AMC Empire 25 in Times Square. Academy Award qualifying. Strong industry connections with major studios. Also features a digital and script competition."
@@ -1540,19 +3530,52 @@
   {
     "id": "caamfest",
     "name": "CAAMFest (Center for Asian American Media Festival)",
-    "location": { "city": "San Francisco", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "San Francisco",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-09-15", "fee": 30 },
-      { "type": "regular", "date": "2025-11-01", "fee": 50 },
-      { "type": "late", "date": "2026-01-05", "fee": 65 }
+      {
+        "type": "earlybird",
+        "date": "2025-09-15",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "regular",
+        "date": "2025-11-01",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-01-05",
+        "fee": 65,
+        "shortFee": 36
+      }
     ],
-    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "fees": {
+      "earlybird": 30,
+      "regular": 50,
+      "late": 65,
+      "currency": "USD"
+    },
     "notificationDate": "2026-03-01",
-    "festivalDates": { "start": "2026-05-14", "end": "2026-05-24" },
+    "festivalDates": {
+      "start": "2026-05-14",
+      "end": "2026-05-24"
+    },
     "website": "https://caamedia.org/caamfest",
     "submissionPlatform": "filmfreeway",
     "notes": "The largest Asian American media festival in the US. Formerly known as the San Francisco International Asian American Film Festival (est. 1982). Screens 130+ films and presents music, food, and digital media events. Part of the Center for Asian American Media (CAAM), which also funds Asian American filmmaking through its grants program."
@@ -1560,19 +3583,52 @@
   {
     "id": "aaiff",
     "name": "Asian American International Film Festival (AAIFF)",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "Drama"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-12-01", "fee": 20 },
-      { "type": "regular", "date": "2026-02-15", "fee": 40 },
-      { "type": "late", "date": "2026-04-01", "fee": 55 }
+      {
+        "type": "earlybird",
+        "date": "2025-12-01",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-02-15",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2026-04-01",
+        "fee": 55,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 40, "late": 55, "currency": "USD" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 40,
+      "late": 55,
+      "currency": "USD"
+    },
     "notificationDate": "2026-06-01",
-    "festivalDates": { "start": "2026-07-23", "end": "2026-08-02" },
+    "festivalDates": {
+      "start": "2026-07-23",
+      "end": "2026-08-02"
+    },
     "website": "https://www.asiancinevision.org",
     "submissionPlatform": "filmfreeway",
     "notes": "The first and longest-running Asian American film festival in the US, presented by Asian CineVision since 1978. Held in New York City. Screens features, shorts, documentaries, and experimental works by and about Asian Americans and the Asian diaspora. Strong community-focused programming."
@@ -1580,19 +3636,51 @@
   {
     "id": "imaginenative",
     "name": "imagineNATIVE Film + Media Arts Festival",
-    "location": { "city": "Toronto", "country": "Canada", "region": "North America" },
+    "location": {
+      "city": "Toronto",
+      "country": "Canada",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-01", "fee": 15 },
-      { "type": "regular", "date": "2026-05-01", "fee": 30 },
-      { "type": "late", "date": "2026-06-15", "fee": 45 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-01",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "late",
+        "date": "2026-06-15",
+        "fee": 45,
+        "shortFee": 27
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "late": 45, "currency": "CAD" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "late": 45,
+      "currency": "CAD"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-10-19", "end": "2026-10-25" },
+    "festivalDates": {
+      "start": "2026-10-19",
+      "end": "2026-10-25"
+    },
     "website": "https://www.imaginenative.org",
     "submissionPlatform": "filmfreeway",
     "notes": "The world's largest Indigenous film and media arts festival. Founded in 2000 in Toronto. Screens film, video, audio, and digital/interactive media by Indigenous creators from around the world. Academy Award qualifying for shorts. Also hosts an industry series, pitch sessions, and the imagineNATIVE Institute for professional development."
@@ -1600,19 +3688,50 @@
   {
     "id": "iffla",
     "name": "Indian Film Festival of Los Angeles (IFFLA)",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Drama"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-10-01", "fee": 25 },
-      { "type": "regular", "date": "2025-12-01", "fee": 40 },
-      { "type": "late", "date": "2026-01-15", "fee": 55 }
+      {
+        "type": "earlybird",
+        "date": "2025-10-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2025-12-01",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2026-01-15",
+        "fee": 55,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 40,
+      "late": 55,
+      "currency": "USD"
+    },
     "notificationDate": "2026-03-01",
-    "festivalDates": { "start": "2026-04-23", "end": "2026-04-26" },
+    "festivalDates": {
+      "start": "2026-04-23",
+      "end": "2026-04-26"
+    },
     "website": "https://www.indianfilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "The premier showcase for Indian cinema in the US, founded in 2002. Screens narrative features, documentaries, and shorts from the Indian subcontinent and diaspora. Focused on independent Indian cinema rather than Bollywood mainstream. Strong bridge between the Indian and Hollywood film industries."
@@ -1620,19 +3739,51 @@
   {
     "id": "tasveer",
     "name": "Tasveer South Asian Film Festival",
-    "location": { "city": "Seattle", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Seattle",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Drama"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-04-01", "fee": 15 },
-      { "type": "regular", "date": "2026-06-01", "fee": 30 },
-      { "type": "late", "date": "2026-07-15", "fee": 45 }
+      {
+        "type": "earlybird",
+        "date": "2026-04-01",
+        "fee": 15,
+        "shortFee": 10
+      },
+      {
+        "type": "regular",
+        "date": "2026-06-01",
+        "fee": 30,
+        "shortFee": 18
+      },
+      {
+        "type": "late",
+        "date": "2026-07-15",
+        "fee": 45,
+        "shortFee": 27
+      }
     ],
-    "fees": { "earlybird": 15, "regular": 30, "late": 45, "currency": "USD" },
+    "fees": {
+      "earlybird": 15,
+      "regular": 30,
+      "late": 45,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-10-08", "end": "2026-10-18" },
+    "festivalDates": {
+      "start": "2026-10-08",
+      "end": "2026-10-18"
+    },
     "website": "https://tasveer.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Academy Award qualifying. The leading South Asian film festival in the Pacific Northwest. Founded in 2003 by Rita Meher. Screens films from and about South Asia and the diaspora. Also presents year-round programming including the Tasveer Film Fund and South Asian filmmaking workshops."
@@ -1640,19 +3791,54 @@
   {
     "id": "newfest",
     "name": "NewFest: New York's LGBTQ+ Film & Media Festival",
-    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "New York",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "Drama",
+      "Comedy",
+      "LGBTQ+"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-03-15", "fee": 25 },
-      { "type": "regular", "date": "2026-05-15", "fee": 45 },
-      { "type": "late", "date": "2026-07-01", "fee": 60 }
+      {
+        "type": "earlybird",
+        "date": "2026-03-15",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-05-15",
+        "fee": 45,
+        "shortFee": 27
+      },
+      {
+        "type": "late",
+        "date": "2026-07-01",
+        "fee": 60,
+        "shortFee": 33
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 45, "late": 60, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 45,
+      "late": 60,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-15",
-    "festivalDates": { "start": "2026-10-16", "end": "2026-10-27" },
+    "festivalDates": {
+      "start": "2026-10-16",
+      "end": "2026-10-27"
+    },
     "website": "https://www.newfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "New York's premier LGBTQ+ film festival, presented by NewFest since 1988. One of the most prominent queer film festivals in the world. Screens features, shorts, and documentaries. Also presents year-round community screenings and the NewFest Archive, preserving LGBTQ+ film history."
@@ -1660,19 +3846,52 @@
   {
     "id": "out-on-film",
     "name": "Out On Film: Atlanta's LGBTQ Film Festival",
-    "location": { "city": "Atlanta", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Atlanta",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Drama", "Comedy", "LGBTQ+"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Drama",
+      "Comedy",
+      "LGBTQ+"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2026-02-15", "fee": 20 },
-      { "type": "regular", "date": "2026-04-15", "fee": 35 },
-      { "type": "late", "date": "2026-06-01", "fee": 50 }
+      {
+        "type": "earlybird",
+        "date": "2026-02-15",
+        "fee": 20,
+        "shortFee": 15
+      },
+      {
+        "type": "regular",
+        "date": "2026-04-15",
+        "fee": 35,
+        "shortFee": 21
+      },
+      {
+        "type": "late",
+        "date": "2026-06-01",
+        "fee": 50,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 20, "regular": 35, "late": 50, "currency": "USD" },
+    "fees": {
+      "earlybird": 20,
+      "regular": 35,
+      "late": 50,
+      "currency": "USD"
+    },
     "notificationDate": "2026-08-01",
-    "festivalDates": { "start": "2026-09-25", "end": "2026-10-04" },
+    "festivalDates": {
+      "start": "2026-09-25",
+      "end": "2026-10-04"
+    },
     "website": "https://www.outonfilm.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Academy Award qualifying. One of the longest-running LGBTQ+ film festivals in the Southeast US, founded in 1987. Screens features, shorts, and documentaries. Growing significance alongside Atlanta's booming film industry. Also presents year-round community screenings and educational programs."
@@ -1680,19 +3899,52 @@
   {
     "id": "bentonville",
     "name": "Bentonville Film Festival",
-    "location": { "city": "Bentonville", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Bentonville",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Comedy",
+      "Drama"
+    ],
     "tier": "major",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-11-01", "fee": 25 },
-      { "type": "regular", "date": "2026-01-15", "fee": 50 },
-      { "type": "late", "date": "2026-03-01", "fee": 70 }
+      {
+        "type": "earlybird",
+        "date": "2025-11-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2026-01-15",
+        "fee": 50,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-03-01",
+        "fee": 70,
+        "shortFee": 38
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 50, "late": 70, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 50,
+      "late": 70,
+      "currency": "USD"
+    },
     "notificationDate": "2026-04-01",
-    "festivalDates": { "start": "2026-06-16", "end": "2026-06-21" },
+    "festivalDates": {
+      "start": "2026-06-16",
+      "end": "2026-06-21"
+    },
     "website": "https://www.bentonvillefilm.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Founded in 2015 by Geena Davis and Trevor Drinkwater. Champions inclusion and diversity in media. Films must meet specific inclusion criteria (gender, racial/ethnic, LGBTQ+, or disability representation in cast/crew). Features narrative, documentary, and short film competitions. Also hosts the BFF Inclusion Summit and distribution partnerships."
@@ -1700,19 +3952,54 @@
   {
     "id": "dances-with-films",
     "name": "Dances With Films",
-    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Los Angeles",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama", "Horror", "Experimental"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Comedy",
+      "Drama",
+      "Horror",
+      "Experimental"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-12-15", "fee": 35 },
-      { "type": "regular", "date": "2026-02-15", "fee": 55 },
-      { "type": "late", "date": "2026-04-01", "fee": 75 }
+      {
+        "type": "earlybird",
+        "date": "2025-12-15",
+        "fee": 35,
+        "shortFee": 21
+      },
+      {
+        "type": "regular",
+        "date": "2026-02-15",
+        "fee": 55,
+        "shortFee": 30
+      },
+      {
+        "type": "late",
+        "date": "2026-04-01",
+        "fee": 75,
+        "shortFee": 41
+      }
     ],
-    "fees": { "earlybird": 35, "regular": 55, "late": 75, "currency": "USD" },
+    "fees": {
+      "earlybird": 35,
+      "regular": 55,
+      "late": 75,
+      "currency": "USD"
+    },
     "notificationDate": "2026-05-01",
-    "festivalDates": { "start": "2026-06-11", "end": "2026-06-21" },
+    "festivalDates": {
+      "start": "2026-06-11",
+      "end": "2026-06-21"
+    },
     "website": "https://www.danceswithfilms.com",
     "submissionPlatform": "filmfreeway",
     "notes": "Founded in 1998, dedicated to films with no names attached — no stars, no agents, no distribution deals. One of the most democratic indie festivals in the US. Held at the TCL Chinese Theatre in Hollywood. Open to all genres and formats. Known for launching truly independent voices and giving first-time filmmakers a Hollywood premiere experience."
@@ -1720,19 +4007,52 @@
   {
     "id": "chicago-latino",
     "name": "Chicago Latino Film Festival",
-    "location": { "city": "Chicago", "country": "USA", "region": "North America" },
+    "location": {
+      "city": "Chicago",
+      "country": "USA",
+      "region": "North America"
+    },
     "type": "both",
-    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy"],
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Drama",
+      "Comedy"
+    ],
     "tier": "mid",
     "premiereRequirement": "none",
     "deadlines": [
-      { "type": "earlybird", "date": "2025-10-01", "fee": 25 },
-      { "type": "regular", "date": "2025-12-01", "fee": 40 },
-      { "type": "late", "date": "2026-01-15", "fee": 55 }
+      {
+        "type": "earlybird",
+        "date": "2025-10-01",
+        "fee": 25,
+        "shortFee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2025-12-01",
+        "fee": 40,
+        "shortFee": 24
+      },
+      {
+        "type": "late",
+        "date": "2026-01-15",
+        "fee": 55,
+        "shortFee": 30
+      }
     ],
-    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "USD" },
+    "fees": {
+      "earlybird": 25,
+      "regular": 40,
+      "late": 55,
+      "currency": "USD"
+    },
     "notificationDate": "2026-02-15",
-    "festivalDates": { "start": "2026-04-09", "end": "2026-04-23" },
+    "festivalDates": {
+      "start": "2026-04-09",
+      "end": "2026-04-23"
+    },
     "website": "https://www.chicagolatinofilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "The oldest and largest Latino film festival in the Midwest, presented by the International Latino Cultural Center of Chicago since 1985. Screens 100+ films from Latin America, Spain, Portugal, and the US Latino community. Two-week run makes it one of the longer cultural film festivals in the US."

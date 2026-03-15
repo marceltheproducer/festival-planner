@@ -1,4 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0a0a12"/>
-  <text x="16" y="22" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="18" fill="#e8a840">FP</text>
+  <!-- Film clapperboard -->
+  <!-- Board body -->
+  <rect x="5" y="14" width="22" height="13" rx="2" fill="#e8a840"/>
+  <!-- Clapper top (angled) -->
+  <polygon points="5,14 27,14 27,10 7,10" fill="#e8a840"/>
+  <!-- Clapper stick (top piece, slightly angled) -->
+  <polygon points="7,10 27,10 26,7 8,7" fill="#c4891e"/>
+  <!-- Stripes on clapper stick -->
+  <rect x="10" y="7" width="3" height="3" fill="#0a0a12" transform="rotate(-2 11.5 8.5)"/>
+  <rect x="16" y="7" width="3" height="3" fill="#0a0a12" transform="rotate(-2 17.5 8.5)"/>
+  <rect x="22" y="7" width="3" height="3" fill="#0a0a12" transform="rotate(-2 23.5 8.5)"/>
+  <!-- Board lines -->
+  <line x1="5" y1="18" x2="27" y2="18" stroke="#0a0a12" stroke-width="0.8" opacity="0.4"/>
+  <line x1="5" y1="22" x2="27" y2="22" stroke="#0a0a12" stroke-width="0.8" opacity="0.4"/>
+  <!-- Small circle detail -->
+  <circle cx="9" cy="20" r="1.5" fill="#0a0a12" opacity="0.3"/>
 </svg>

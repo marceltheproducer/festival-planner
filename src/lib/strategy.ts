@@ -93,6 +93,15 @@ export function generateStrategy(
 
 // ── No targets: original behavior with source field ──────────────────────
 
+function getRecentlyPassedDeadline(festival: Festival): { type: string; date: string; fee: number } | null {
+  const now = new Date().toISOString().split("T")[0];
+  const cutoff = new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  const recent = festival.deadlines
+    .filter((d) => d.date < now && d.date >= cutoff)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  return recent[0] ?? null;
+}
+
 function generateDiscoveryStrategy(
   festivals: Festival[],
   profile: FilmProfile
@@ -104,11 +113,15 @@ function generateDiscoveryStrategy(
   });
 
   eligible = eligible.filter((f) => meetsPremiereRequirement(f, profile));
-  eligible = eligible.filter((f) => getNextDeadline(f) !== null);
-  eligible.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
-  const totalEligible = eligible.length;
-  const freeCount = eligible.filter((f) => {
+  // Split into upcoming and recently-passed
+  const withUpcoming = eligible.filter((f) => getNextDeadline(f) !== null);
+  const recentlyPassed = eligible.filter((f) => getNextDeadline(f) === null && getRecentlyPassedDeadline(f) !== null);
+
+  withUpcoming.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
+
+  const totalEligible = withUpcoming.length;
+  const freeCount = withUpcoming.filter((f) => {
     const d = getNextDeadline(f);
     return d && d.fee === 0;
   }).length;
@@ -120,7 +133,7 @@ function generateDiscoveryStrategy(
   let totalFees = 0;
   let excludedByBudget = 0;
 
-  for (const festival of eligible) {
+  for (const festival of withUpcoming) {
     const deadline = getNextDeadline(festival);
     if (!deadline) continue;
 
@@ -134,11 +147,32 @@ function generateDiscoveryStrategy(
       festival,
       deadline,
       reason: buildReason(festival, deadline, source),
-      warning: buildWarning(festival, eligible),
+      warning: buildWarning(festival, withUpcoming),
       source,
     };
 
     totalFees += deadline.fee;
+
+    switch (festival.premiereRequirement) {
+      case "world": worldPremiere.push(entry); break;
+      case "international": intlPremiere.push(entry); break;
+      case "national": nationalPremiere.push(entry); break;
+      default: open.push(entry); break;
+    }
+  }
+
+  // Add recently-passed festivals at the end of their respective phase groups
+  for (const festival of recentlyPassed) {
+    const deadline = getRecentlyPassedDeadline(festival);
+    if (!deadline) continue;
+
+    const source: EntrySource = { type: "discovery", detail: "Deadline recently passed — contact festival for late submission" };
+    const entry: StrategyEntry = {
+      festival,
+      deadline,
+      reason: buildReason(festival, deadline, source),
+      source,
+    };
 
     switch (festival.premiereRequirement) {
       case "world": worldPremiere.push(entry); break;
@@ -192,7 +226,7 @@ function generateTargetedStrategy(
       const req = premiereLabel(festival.premiereRequirement);
       warning = `Your film has already screened ${profile.premiereStatus === "screened_internationally" ? "internationally" : "domestically"}. This festival requires a ${req}.`;
     } else if (!deadline) {
-      warning = "All submission deadlines for this festival have passed.";
+      warning = "All submission deadlines have passed. Some festivals accept late submissions — contact them directly to inquire.";
     }
 
     const displayDeadline = deadline ?? getLatestDeadline(festival);

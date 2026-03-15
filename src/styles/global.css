@@ -78,3 +78,19 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-600);
 }
+
+/* Thin scrollbar for compact containers */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--color-film-600);
+  border-radius: 2px;
+}
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-film-600) transparent;
+}

@@ -160,38 +160,64 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
 
         {/* Target festivals (optional multi-select) */}
         <div className="mt-6">
-          <label className="block text-sm font-medium text-film-300 mb-2">
-            Target specific festivals (optional)
-          </label>
-          {profile.genres.length > 0 && (
-            <p className="text-xs text-film-400 mb-2">
-              Showing {genreFilteredFestivals.length} of {festivals.length} festivals matching your genres
-            </p>
+          <div className="flex items-baseline justify-between mb-2">
+            <label className="block text-sm font-medium text-film-300">
+              Target specific festivals (optional)
+            </label>
+            {profile.genres.length > 0 && (
+              <span className="text-xs text-film-500">
+                {genreFilteredFestivals.length} of {festivals.length} matching
+              </span>
+            )}
+          </div>
+
+          {/* Selected festivals — always visible above the scroll area */}
+          {hasTargets && (
+            <div className="flex flex-wrap gap-1.5 mb-2">
+              {profile.targetFestivalIds.map((id) => {
+                const f = festivals.find((fest) => fest.id === id);
+                if (!f) return null;
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() =>
+                      update({
+                        targetFestivalIds: profile.targetFestivalIds.filter((tid) => tid !== f.id),
+                      })
+                    }
+                    className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-gold-500 text-film-950 border-gold-500 flex items-center gap-1"
+                  >
+                    {f.name}
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                );
+              })}
+            </div>
           )}
-          <div className="flex flex-wrap gap-1.5">
-            {genreFilteredFestivals.map((f) => {
-              const isSelected = profile.targetFestivalIds.includes(f.id);
-              return (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() =>
-                    update({
-                      targetFestivalIds: isSelected
-                        ? profile.targetFestivalIds.filter((id) => id !== f.id)
-                        : [...profile.targetFestivalIds, f.id],
-                    })
-                  }
-                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
-                    isSelected
-                      ? "bg-gold-500 text-film-950 border-gold-500"
-                      : "bg-film-800 text-film-300 border-film-600 hover:border-gold-400"
-                  }`}
-                >
-                  {f.name}
-                </button>
-              );
-            })}
+
+          {/* Scrollable festival picker */}
+          <div className="max-h-32 overflow-y-auto rounded-lg border border-film-700/40 bg-film-900/50 p-2 scrollbar-thin">
+            <div className="flex flex-wrap gap-1.5">
+              {genreFilteredFestivals
+                .filter((f) => !profile.targetFestivalIds.includes(f.id))
+                .map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() =>
+                      update({
+                        targetFestivalIds: [...profile.targetFestivalIds, f.id],
+                      })
+                    }
+                    className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-film-800 text-film-300 border-film-600 hover:border-gold-400"
+                  >
+                    {f.name}
+                  </button>
+                ))}
+            </div>
           </div>
           {!hasTargets && (
             <p className="text-xs text-film-500 mt-1">

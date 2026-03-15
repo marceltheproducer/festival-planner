@@ -24,8 +24,21 @@ function formatDate(dateStr: string): string {
   });
 }
 
+const currencySymbols: Record<string, string> = {
+  USD: "$",
+  EUR: "\u20AC",
+  GBP: "\u00A3",
+  CAD: "CA$",
+  AUD: "A$",
+};
+
+function currencyPrefix(code: string): string {
+  return currencySymbols[code] ?? `${code}\u00A0`;
+}
+
 export default function FestivalCard({ festival }: { festival: Festival }) {
   const nextDeadline = getNextDeadline(festival);
+  const cur = currencyPrefix(festival.fees.currency);
 
   return (
     <div className="bg-film-800/60 rounded-xl border border-film-700/50 p-4 sm:p-5 hover:border-gold-500/30 transition-colors">
@@ -88,8 +101,8 @@ export default function FestivalCard({ festival }: { festival: Festival }) {
         <div className="font-medium text-gold-400 shrink-0">
           {nextDeadline && nextDeadline.fee > 0
             ? (nextDeadline.shortFee !== undefined
-                ? `$${nextDeadline.shortFee}–$${nextDeadline.fee}`
-                : `$${nextDeadline.fee}`)
+                ? `${cur}${nextDeadline.shortFee}–${cur}${nextDeadline.fee}`
+                : `${cur}${nextDeadline.fee}`)
             : "Free"}
         </div>
       </div>

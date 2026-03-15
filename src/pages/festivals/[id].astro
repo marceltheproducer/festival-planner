@@ -51,10 +51,28 @@ const platformLabels: Record<string, string> = {
   other: "Other",
 };
 
-// Related festivals: same tier or same region, max 6
+// Related festivals: scored by genre overlap, tier, region, premiere, and film type
 const related = allFestivals
-  .filter((f) => f.id !== festival.id && (f.tier === festival.tier || f.location.region === festival.location.region))
-  .slice(0, 6);
+  .filter((f) => f.id !== festival.id)
+  .map((f) => {
+    let score = 0;
+    // Genre overlap (most important — shared genres mean similar programming)
+    const sharedGenres = f.genres.filter((g) => festival.genres.includes(g)).length;
+    score += sharedGenres * 15;
+    // Same tier
+    if (f.tier === festival.tier) score += 10;
+    // Same region
+    if (f.location.region === festival.location.region) score += 8;
+    // Same premiere requirement
+    if (f.premiereRequirement === festival.premiereRequirement) score += 5;
+    // Compatible film type
+    if (f.type === festival.type || f.type === "both" || festival.type === "both") score += 3;
+    return { festival: f, score };
+  })
+  .filter((r) => r.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 6)
+  .map((r) => r.festival);
 ---
 
 <Layout

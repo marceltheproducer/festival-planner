@@ -70,7 +70,9 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
     }
 
     if (filters.maxFee !== null) {
-      if (f.fees.regular > filters.maxFee) return false;
+      const nextDl = getNextDeadline(f);
+      const relevantFee = nextDl ? nextDl.fee : f.fees.regular;
+      if (relevantFee > filters.maxFee) return false;
     }
 
     if (filters.deadlineWindow !== null) {
@@ -102,7 +104,11 @@ export function sortFestivals(festivals: Festival[], sort: SortOption): Festival
     case "prestige":
       return sorted.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
     case "fee":
-      return sorted.sort((a, b) => a.fees.regular - b.fees.regular);
+      return sorted.sort((a, b) => {
+        const feeA = getNextDeadline(a)?.fee ?? a.fees.regular;
+        const feeB = getNextDeadline(b)?.fee ?? b.fees.regular;
+        return feeA - feeB;
+      });
     case "name":
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
     default:

@@ -80,6 +80,17 @@ export interface StrategyOptions {
   maxSuggestions: number;
 }
 
+export interface StrategyMeta {
+  excludedByBudget: number;
+  totalEligible: number;
+  freeCount: number;
+}
+
+export interface StrategyResult {
+  recommendations: StrategyRecommendation[];
+  meta: StrategyMeta;
+}
+
 export const ALL_GENRES = [
   "Narrative",
   "Documentary",

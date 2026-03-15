@@ -4,6 +4,8 @@ import type {
   StrategyRecommendation,
   StrategyEntry,
   StrategyOptions,
+  StrategyResult,
+  StrategyMeta,
   EntrySource,
 } from "./types";
 import { TIER_ORDER, PREMIERE_ORDER } from "./types";
@@ -74,7 +76,7 @@ export function generateStrategy(
   festivals: Festival[],
   profile: FilmProfile,
   options?: StrategyOptions
-): StrategyRecommendation[] {
+): StrategyResult {
   const opts = { ...DEFAULT_OPTIONS, ...options };
   const hasTargets = profile.targetFestivalIds.length > 0;
 
@@ -90,7 +92,7 @@ export function generateStrategy(
 function generateDiscoveryStrategy(
   festivals: Festival[],
   profile: FilmProfile
-): StrategyRecommendation[] {
+): StrategyResult {
   let eligible = festivals.filter((f) => {
     if (f.type !== "both" && f.type !== profile.type) return false;
     if (!genresMatch(f.genres, profile.genres)) return false;
@@ -101,17 +103,25 @@ function generateDiscoveryStrategy(
   eligible = eligible.filter((f) => getNextDeadline(f) !== null);
   eligible.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
 
+  const totalEligible = eligible.length;
+  const freeCount = eligible.filter((f) => {
+    const d = getNextDeadline(f);
+    return d && d.fee === 0;
+  }).length;
+
   const worldPremiere: StrategyEntry[] = [];
   const intlPremiere: StrategyEntry[] = [];
   const nationalPremiere: StrategyEntry[] = [];
   const open: StrategyEntry[] = [];
   let totalFees = 0;
+  let excludedByBudget = 0;
 
   for (const festival of eligible) {
     const deadline = getNextDeadline(festival);
     if (!deadline) continue;
 
     if (profile.budget !== null && totalFees + deadline.fee > profile.budget) {
+      excludedByBudget++;
       continue;
     }
 
@@ -142,13 +152,13 @@ function generateDiscoveryStrategy(
   nationalPremiere.sort(sortByDeadline);
   open.sort(sortByDeadline);
 
-  const results: StrategyRecommendation[] = [];
-  if (worldPremiere.length > 0) results.push({ phase: "world_premiere", label: "World Premiere Targets", festivals: worldPremiere });
-  if (intlPremiere.length > 0) results.push({ phase: "international_premiere", label: "International Premiere Targets", festivals: intlPremiere });
-  if (nationalPremiere.length > 0) results.push({ phase: "national_premiere", label: "National Premiere Targets", festivals: nationalPremiere });
-  if (open.length > 0) results.push({ phase: "open", label: "No Premiere Requirement", festivals: open });
+  const recommendations: StrategyRecommendation[] = [];
+  if (worldPremiere.length > 0) recommendations.push({ phase: "world_premiere", label: "World Premiere Targets", festivals: worldPremiere });
+  if (intlPremiere.length > 0) recommendations.push({ phase: "international_premiere", label: "International Premiere Targets", festivals: intlPremiere });
+  if (nationalPremiere.length > 0) recommendations.push({ phase: "national_premiere", label: "National Premiere Targets", festivals: nationalPremiere });
+  if (open.length > 0) recommendations.push({ phase: "open", label: "No Premiere Requirement", festivals: open });
 
-  return results;
+  return { recommendations, meta: { excludedByBudget, totalEligible, freeCount } };
 }
 
 // ── With targets: smart anchor + suggestion logic ────────────────────────
@@ -157,7 +167,7 @@ function generateTargetedStrategy(
   festivals: Festival[],
   profile: FilmProfile,
   opts: StrategyOptions
-): StrategyRecommendation[] {
+): StrategyResult {
   // Step A: Resolve anchors — always included, with warnings if issues
   const anchorEntries: StrategyEntry[] = [];
   for (const id of profile.targetFestivalIds) {
@@ -280,13 +290,17 @@ function generateTargetedStrategy(
   const phaseCounts: Record<string, number> = {};
   const suggestionEntries: StrategyEntry[] = [];
   const allFestivalsForWarnings = [...anchorEntries.map((e) => e.festival), ...pool];
+  let excludedByBudget = 0;
 
   for (const item of scored) {
     const phase = toPhase(item.festival.premiereRequirement);
     phaseCounts[phase] = phaseCounts[phase] ?? 0;
 
     if (phaseCounts[phase] >= opts.maxSuggestions) continue;
-    if (item.deadline.fee > 0 && remainingBudget < item.deadline.fee) continue;
+    if (item.deadline.fee > 0 && remainingBudget < item.deadline.fee) {
+      excludedByBudget++;
+      continue;
+    }
 
     suggestionEntries.push({
       festival: item.festival,
@@ -300,8 +314,17 @@ function generateTargetedStrategy(
     remainingBudget -= item.deadline.fee;
   }
 
+  const freeCount = [...anchorEntries, ...suggestionEntries].filter((e) => e.deadline.fee === 0).length;
+
   // Step F: Merge anchors + suggestions, group into phases
-  return groupEntries([...anchorEntries, ...suggestionEntries]);
+  return {
+    recommendations: groupEntries([...anchorEntries, ...suggestionEntries]),
+    meta: {
+      excludedByBudget,
+      totalEligible: pool.length + anchorEntries.length,
+      freeCount,
+    },
+  };
 }
 
 // ── Grouping helper ──────────────────────────────────────────────────────

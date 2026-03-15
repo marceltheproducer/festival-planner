@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import type { StrategyRecommendation, StrategyEntry } from "../lib/types";
+import type { StrategyRecommendation, StrategyEntry, StrategyMeta } from "../lib/types";
+import { TIER_ORDER } from "../lib/types";
 import SubmissionPlan from "./SubmissionPlan";
 
 const phaseColors: Record<StrategyRecommendation["phase"], { bg: string; border: string; badge: string }> = {
@@ -63,12 +64,15 @@ function SourceBadge({ source }: { source: StrategyEntry["source"] }) {
 
 export default function StrategyResults({
   recommendations,
+  meta,
 }: {
   recommendations: StrategyRecommendation[];
+  meta: StrategyMeta;
 }) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showPlan, setShowPlan] = useState(false);
   const [collapsedSuggestions, setCollapsedSuggestions] = useState<Set<string>>(new Set());
+  const [showPremiereGuide, setShowPremiereGuide] = useState(false);
 
   // Check if any entry has a non-discovery source (means targets were used)
   const hasTargetMode = recommendations.some((rec) =>
@@ -158,6 +162,22 @@ export default function StrategyResults({
     : 0;
   const suggestedCount = hasTargetMode ? totalFestivals - targetCount : 0;
 
+  // Compute "Start here" — top 3 highest-impact festivals by priority:
+  // targets first, then A-list/free, sorted by earliest deadline
+  const startHereIds = useMemo(() => {
+    const allEntries = recommendations.flatMap((rec) => rec.festivals);
+    const scored = allEntries.map((e) => {
+      let score = 0;
+      if (e.source.type === "target") score += 100;
+      score += (3 - TIER_ORDER[e.festival.tier]) * 20; // A-list=60, major=40, mid=20, emerging=0
+      if (e.deadline.fee === 0) score += 30;
+      // Prefer earlier deadlines (lower date = higher priority)
+      return { id: e.festival.id, score, deadline: e.deadline.date };
+    });
+    scored.sort((a, b) => b.score - a.score || a.deadline.localeCompare(b.deadline));
+    return new Set(scored.slice(0, 3).map((s) => s.id));
+  }, [recommendations]);
+
   return (
     <div>
       {/* Summary */}
@@ -189,6 +209,12 @@ export default function StrategyResults({
             </p>
             <p className="text-xs sm:text-sm text-film-400">Est. total fees</p>
           </div>
+          {meta.freeCount > 0 && (
+            <div>
+              <p className="text-xl sm:text-2xl font-bold text-emerald-400">{meta.freeCount}</p>
+              <p className="text-xs sm:text-sm text-film-400">Free</p>
+            </div>
+          )}
           <div>
             <p className="text-xl sm:text-2xl font-bold text-gold-400">
               {recommendations.length}
@@ -196,10 +222,79 @@ export default function StrategyResults({
             <p className="text-xs sm:text-sm text-film-400">Phases</p>
           </div>
         </div>
+
+        {/* Budget transparency */}
+        {meta.excludedByBudget > 0 && (
+          <div className="mt-3 flex items-start gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2">
+            <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {meta.excludedByBudget} eligible festival{meta.excludedByBudget !== 1 ? "s" : ""} excluded by your budget.
+            {meta.freeCount > 0 && ` ${meta.freeCount} free festival${meta.freeCount !== 1 ? "s" : ""} included at no cost.`}
+            {" "}Increase your budget to see more options.
+          </div>
+        )}
+
         <p className="text-xs text-film-500 mt-3">
           Select the festivals you want to submit to, then build your personalized submission plan.
         </p>
       </div>
+
+      {/* Premiere hierarchy explainer */}
+      {recommendations.length > 1 && (
+        <div className="bg-film-800/60 rounded-xl border border-film-700/50 mb-6 overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setShowPremiereGuide((v) => !v)}
+            className="w-full px-5 py-3 flex items-center justify-between text-left hover:bg-film-700/20 transition-colors"
+          >
+            <span className="text-sm font-medium text-film-200 flex items-center gap-2">
+              <svg className="w-4 h-4 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              How premiere strategy works
+            </span>
+            <svg
+              className={`w-4 h-4 text-film-400 transition-transform ${showPremiereGuide ? "rotate-180" : ""}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {showPremiereGuide && (
+            <div className="px-5 pb-4 space-y-3 text-sm text-film-300 border-t border-film-700/30 pt-3">
+              <p>
+                <span className="text-film-100 font-medium">Your premiere status is your most valuable asset.</span>{" "}
+                Top festivals want to be the first to show your film. Once you screen at one festival, you've "used" that premiere level.
+              </p>
+              <div className="grid gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
+                  <span><span className="text-red-300 font-medium">World Premiere</span> — Never shown anywhere. The most prestigious and competitive tier.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-orange-400 shrink-0" />
+                  <span><span className="text-orange-300 font-medium">International Premiere</span> — Shown in your home country only. Still valuable for major international festivals.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-yellow-400 shrink-0" />
+                  <span><span className="text-yellow-300 font-medium">National Premiere</span> — First screening in a specific country. Good for regional circuit festivals.</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <span><span className="text-emerald-300 font-medium">Open</span> — No premiere requirement. Submit anytime regardless of screening history.</span>
+                </div>
+              </div>
+              <p className="text-xs text-film-400">
+                Submit to higher tiers first. If you don't get in, your premiere status is preserved and you can move down to the next tier.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Phases */}
       <div className="space-y-6">
@@ -305,6 +400,11 @@ export default function StrategyResults({
                             <div className="min-w-0">
                               <h4 className="font-medium text-film-50 flex items-center gap-2 flex-wrap">
                                 <span className="truncate">{entry.festival.name}</span>
+                                {startHereIds.has(entry.festival.id) && (
+                                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30">
+                                    Start here
+                                  </span>
+                                )}
                                 <SourceBadge source={entry.source} />
                                 <a
                                   href={entry.festival.website}

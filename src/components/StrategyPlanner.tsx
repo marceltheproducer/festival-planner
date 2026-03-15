@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Festival, FilmProfile, StrategyRecommendation, StrategyOptions } from "../lib/types";
+import type { Festival, FilmProfile, StrategyResult, StrategyOptions } from "../lib/types";
 import { generateStrategy } from "../lib/strategy";
 import StrategyResults from "./StrategyResults";
 import GenreTagPicker from "./GenreTagPicker";
@@ -21,12 +21,12 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     autoIncludeFree: true,
     maxSuggestions: 5,
   });
-  const [results, setResults] = useState<StrategyRecommendation[] | null>(null);
+  const [results, setResults] = useState<StrategyResult | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const strategy = generateStrategy(festivals, profile, options);
-    setResults(strategy);
+    const result = generateStrategy(festivals, profile, options);
+    setResults(result);
   };
 
   const update = (partial: Partial<FilmProfile>) => {
@@ -105,6 +105,22 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
                 Screened internationally
               </option>
             </select>
+            {profile.premiereStatus === "screened_internationally" && (
+              <div className="mt-2 flex items-start gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2">
+                <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                Most top-tier festivals require a world or international premiere. Your results will be limited to national premiere and open festivals.
+              </div>
+            )}
+            {profile.premiereStatus === "screened_domestically" && (
+              <div className="mt-2 flex items-start gap-1.5 text-xs text-blue-300 bg-blue-500/10 border border-blue-500/30 rounded-lg px-3 py-2">
+                <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                World premiere festivals won't be available, but you can still target international, national, and open festivals.
+              </div>
+            )}
           </div>
 
           {/* Budget */}
@@ -211,7 +227,12 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
         </button>
       </form>
 
-      {results !== null && <StrategyResults recommendations={results} />}
+      {results !== null && (
+        <StrategyResults
+          recommendations={results.recommendations}
+          meta={results.meta}
+        />
+      )}
     </div>
   );
 }

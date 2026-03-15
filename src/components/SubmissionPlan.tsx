@@ -42,7 +42,7 @@ function formatDate(dateStr: string): string {
 }
 
 interface TimelineStep {
-  type: "submit" | "wait" | "decision" | "parallel_note";
+  type: "submit" | "wait" | "decision" | "acceptance" | "parallel_note";
   phase: StrategyRecommendation["phase"];
   festival?: StrategyEntry;
   text: string;
@@ -119,11 +119,25 @@ function buildTimeline(entries: SelectedEntry[]): TimelineStep[] {
       }
 
       if (nextPremierePhase) {
+        // Acceptance guidance
+        const acceptanceHint = phase === "world_premiere"
+          ? "Your world premiere is set! You can now submit to international premiere festivals knowing your status."
+          : phase === "international_premiere"
+            ? "Your international premiere is secured. National premiere and open festivals are your next targets."
+            : "You've locked in this premiere tier. Continue submitting to open festivals.";
+
+        steps.push({
+          type: "acceptance",
+          phase,
+          text: `If accepted → ${PHASE_LABELS[phase].toLowerCase()} is set`,
+          subtext: acceptanceHint,
+        });
+
         steps.push({
           type: "decision",
           phase,
           text: `If not accepted → proceed to ${PHASE_LABELS[nextPremierePhase].toLowerCase()} targets`,
-          subtext: "Your premiere status will be available for the next tier of festivals.",
+          subtext: "Your premiere status is preserved — you haven't screened, so you can still target the next tier.",
         });
       }
     }
@@ -178,8 +192,13 @@ function generatePlanText(entries: SelectedEntry[], steps: TimelineStep[]): stri
       lines.push(`  ⏳ ${step.text}`);
       if (step.subtext) lines.push(`     ${step.subtext}`);
       lines.push("");
+    } else if (step.type === "acceptance") {
+      lines.push(`  ✅ ${step.text}`);
+      if (step.subtext) lines.push(`     ${step.subtext}`);
+      lines.push("");
     } else if (step.type === "decision") {
       lines.push(`  ⚡ ${step.text}`);
+      if (step.subtext) lines.push(`     ${step.subtext}`);
       lines.push("");
     } else if (step.type === "parallel_note") {
       lines.push(`  ℹ ${step.text}`);
@@ -326,6 +345,12 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
+                  ) : step.type === "acceptance" ? (
+                    <div className="w-6 h-6 rounded-full bg-film-700 border-2 border-emerald-500/50 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
                   ) : step.type === "decision" ? (
                     <div className="w-6 h-6 rounded-full bg-film-700 border-2 border-amber-500/50 flex items-center justify-center">
                       <svg className="w-3 h-3 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -346,6 +371,7 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                   <p className={`text-sm font-medium ${
                     step.type === "submit" ? "text-film-50" :
                     step.type === "wait" ? "text-film-300" :
+                    step.type === "acceptance" ? "text-emerald-300" :
                     step.type === "decision" ? "text-amber-300" :
                     colors.text
                   }`}>

@@ -159,7 +159,11 @@ function generatePlanText(entries: SelectedEntry[], steps: TimelineStep[]): stri
     if (step.type === "submit" && step.festival) {
       const f = step.festival;
       const feeStr = f.deadline.fee === 0 ? "Free" : `$${f.deadline.fee}`;
-      lines.push(`  -> ${f.festival.name}`);
+      const sourceLabel = f.source.type === "target" ? " [TARGET]"
+        : f.source.type === "free_match" ? " [FREE]"
+        : f.source.type === "complementary" ? " [SUGGESTED]"
+        : "";
+      lines.push(`  -> ${f.festival.name}${sourceLabel}`);
       lines.push(`     ${f.festival.location.city}, ${f.festival.location.country} | ${f.festival.tier}`);
       lines.push(`     Deadline: ${formatDate(f.deadline.date)} (${f.deadline.type}) | ${feeStr}`);
       if (f.festival.notificationDate) {

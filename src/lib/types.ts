@@ -61,11 +61,23 @@ export interface StrategyRecommendation {
   festivals: StrategyEntry[];
 }
 
+export type EntrySource =
+  | { type: "target" }
+  | { type: "free_match"; detail: string }
+  | { type: "complementary"; detail: string }
+  | { type: "discovery"; detail: string };
+
 export interface StrategyEntry {
   festival: Festival;
   deadline: Deadline;
   reason: string;
   warning?: string;
+  source: EntrySource;
+}
+
+export interface StrategyOptions {
+  autoIncludeFree: boolean;
+  maxSuggestions: number;
 }
 
 export const ALL_GENRES = [

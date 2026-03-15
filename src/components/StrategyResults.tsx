@@ -33,6 +33,34 @@ function formatDate(dateStr: string): string {
   });
 }
 
+function SourceBadge({ source }: { source: StrategyEntry["source"] }) {
+  switch (source.type) {
+    case "target":
+      return (
+        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/30">
+          Target
+        </span>
+      );
+    case "free_match":
+      return (
+        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+          Free
+        </span>
+      );
+    case "complementary":
+      return (
+        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/25">
+          Suggested
+        </span>
+      );
+    case "discovery":
+      // No badge when there are no targets (all discovery)
+      return null;
+    default:
+      return null;
+  }
+}
+
 export default function StrategyResults({
   recommendations,
 }: {
@@ -40,6 +68,12 @@ export default function StrategyResults({
 }) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [showPlan, setShowPlan] = useState(false);
+  const [collapsedSuggestions, setCollapsedSuggestions] = useState<Set<string>>(new Set());
+
+  // Check if any entry has a non-discovery source (means targets were used)
+  const hasTargetMode = recommendations.some((rec) =>
+    rec.festivals.some((e) => e.source.type !== "discovery")
+  );
 
   if (recommendations.length === 0) {
     return (
@@ -78,6 +112,18 @@ export default function StrategyResults({
     });
   };
 
+  const toggleSuggestionCollapse = (phase: string) => {
+    setCollapsedSuggestions((prev) => {
+      const next = new Set(prev);
+      if (next.has(phase)) {
+        next.delete(phase);
+      } else {
+        next.add(phase);
+      }
+      return next;
+    });
+  };
+
   const selectedEntries = useMemo(() => {
     const entries: { phase: StrategyRecommendation["phase"]; label: string; entry: StrategyEntry }[] = [];
     for (const rec of recommendations) {
@@ -99,14 +145,18 @@ export default function StrategyResults({
     );
   }
 
-  const totalFee = recommendations.reduce(
-    (sum, rec) => sum + rec.festivals.reduce((s, e) => s + e.deadline.fee, 0),
-    0
-  );
   const totalFestivals = recommendations.reduce(
     (sum, rec) => sum + rec.festivals.length,
     0
   );
+  const totalFee = recommendations.reduce(
+    (sum, rec) => sum + rec.festivals.reduce((s, e) => s + e.deadline.fee, 0),
+    0
+  );
+  const targetCount = hasTargetMode
+    ? recommendations.reduce((sum, rec) => sum + rec.festivals.filter((e) => e.source.type === "target").length, 0)
+    : 0;
+  const suggestedCount = hasTargetMode ? totalFestivals - targetCount : 0;
 
   return (
     <div>
@@ -116,10 +166,23 @@ export default function StrategyResults({
           Strategy Summary
         </h2>
         <div className="flex flex-wrap gap-4 sm:gap-6">
-          <div>
-            <p className="text-xl sm:text-2xl font-bold text-gold-400">{totalFestivals}</p>
-            <p className="text-xs sm:text-sm text-film-400">Festivals</p>
-          </div>
+          {hasTargetMode ? (
+            <>
+              <div>
+                <p className="text-xl sm:text-2xl font-bold text-gold-400">{targetCount}</p>
+                <p className="text-xs sm:text-sm text-film-400">Target{targetCount !== 1 ? "s" : ""}</p>
+              </div>
+              <div>
+                <p className="text-xl sm:text-2xl font-bold text-blue-400">{suggestedCount}</p>
+                <p className="text-xs sm:text-sm text-film-400">Suggestion{suggestedCount !== 1 ? "s" : ""}</p>
+              </div>
+            </>
+          ) : (
+            <div>
+              <p className="text-xl sm:text-2xl font-bold text-gold-400">{totalFestivals}</p>
+              <p className="text-xs sm:text-sm text-film-400">Festivals</p>
+            </div>
+          )}
           <div>
             <p className="text-xl sm:text-2xl font-bold text-gold-400">
               {totalFee === 0 ? "Free" : `$${totalFee}`}
@@ -145,6 +208,16 @@ export default function StrategyResults({
           const phaseIds = rec.festivals.map((e) => e.festival.id);
           const allSelected = phaseIds.every((id) => selectedIds.has(id));
           const someSelected = phaseIds.some((id) => selectedIds.has(id));
+
+          const targets = rec.festivals.filter((e) => e.source.type === "target");
+          const suggestions = rec.festivals.filter((e) => e.source.type !== "target");
+          const hasSuggestions = hasTargetMode && suggestions.length > 0;
+          const suggestionsCollapsed = collapsedSuggestions.has(rec.phase);
+
+          // Determine which entries to show
+          const visibleEntries = (hasTargetMode && suggestionsCollapsed)
+            ? targets
+            : rec.festivals;
 
           return (
             <div
@@ -183,16 +256,27 @@ export default function StrategyResults({
                   Phase {recommendations.indexOf(rec) + 1}
                 </span>
                 <h3 className="font-semibold text-film-50 text-sm sm:text-base">{rec.label}</h3>
-                <span className="text-xs sm:text-sm text-film-400 ml-auto">
-                  {rec.festivals.length} festival{rec.festivals.length !== 1 ? "s" : ""}
+                <span className="text-xs sm:text-sm text-film-400 ml-auto flex items-center gap-2">
+                  {hasTargetMode && targets.length > 0 && suggestions.length > 0 ? (
+                    <>{targets.length} target{targets.length !== 1 ? "s" : ""} + {suggestions.length} suggested</>
+                  ) : (
+                    <>{rec.festivals.length} festival{rec.festivals.length !== 1 ? "s" : ""}</>
+                  )}
                 </span>
               </div>
 
               <div className="divide-y divide-film-700/30">
-                {rec.festivals.map((entry) => {
+                {visibleEntries.map((entry) => {
                   const isChecked = selectedIds.has(entry.festival.id);
+                  const isSuggestion = hasTargetMode && entry.source.type !== "target";
+
                   return (
-                    <div key={entry.festival.id} className="px-3 sm:px-5 py-3 sm:py-4 bg-film-800/40">
+                    <div
+                      key={entry.festival.id}
+                      className={`px-3 sm:px-5 py-3 sm:py-4 bg-film-800/40 ${
+                        isSuggestion ? "border-l-2 border-blue-500/30 ml-0" : ""
+                      }`}
+                    >
                       <div className="flex items-start gap-3">
                         {/* Checkbox */}
                         <button
@@ -221,6 +305,7 @@ export default function StrategyResults({
                             <div className="min-w-0">
                               <h4 className="font-medium text-film-50 flex items-center gap-2 flex-wrap">
                                 <span className="truncate">{entry.festival.name}</span>
+                                <SourceBadge source={entry.source} />
                                 <a
                                   href={entry.festival.website}
                                   target="_blank"
@@ -283,6 +368,29 @@ export default function StrategyResults({
                   );
                 })}
               </div>
+
+              {/* Show/hide suggestions toggle */}
+              {hasSuggestions && (
+                <button
+                  type="button"
+                  onClick={() => toggleSuggestionCollapse(rec.phase)}
+                  className={`w-full px-3 sm:px-5 py-2 text-xs text-film-400 hover:text-film-200 transition-colors flex items-center justify-center gap-1.5 ${colors.bg}`}
+                >
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform ${suggestionsCollapsed ? "" : "rotate-180"}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  {suggestionsCollapsed
+                    ? `Show ${suggestions.length} suggestion${suggestions.length !== 1 ? "s" : ""}`
+                    : `Hide suggestions`
+                  }
+                </button>
+              )}
             </div>
           );
         })}

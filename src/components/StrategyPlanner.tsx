@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Festival, FilmProfile, StrategyRecommendation } from "../lib/types";
+import type { Festival, FilmProfile, StrategyRecommendation, StrategyOptions } from "../lib/types";
 import { generateStrategy } from "../lib/strategy";
 import StrategyResults from "./StrategyResults";
 import GenreTagPicker from "./GenreTagPicker";
@@ -17,11 +17,15 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     targetFestivalIds: [],
     budget: null,
   });
+  const [options, setOptions] = useState<StrategyOptions>({
+    autoIncludeFree: true,
+    maxSuggestions: 5,
+  });
   const [results, setResults] = useState<StrategyRecommendation[] | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const strategy = generateStrategy(festivals, profile);
+    const strategy = generateStrategy(festivals, profile, options);
     setResults(strategy);
   };
 
@@ -29,6 +33,8 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     setProfile((prev) => ({ ...prev, ...partial }));
     setResults(null);
   };
+
+  const hasTargets = profile.targetFestivalIds.length > 0;
 
   return (
     <div>
@@ -151,12 +157,51 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
               );
             })}
           </div>
-          {profile.targetFestivalIds.length === 0 && (
+          {!hasTargets && (
             <p className="text-xs text-film-500 mt-1">
               Leave empty to consider all festivals.
             </p>
           )}
+          {hasTargets && (
+            <p className="text-xs text-film-500 mt-1">
+              {profile.targetFestivalIds.length} target{profile.targetFestivalIds.length !== 1 ? "s" : ""} selected. We'll build a smart strategy around {profile.targetFestivalIds.length === 1 ? "this festival" : "these festivals"}.
+            </p>
+          )}
         </div>
+
+        {/* Strategy options — shown when targets are selected */}
+        {hasTargets && (
+          <div className="mt-4 pt-4 border-t border-film-700/30">
+            <button
+              type="button"
+              onClick={() => {
+                setOptions((prev) => ({ ...prev, autoIncludeFree: !prev.autoIncludeFree }));
+                setResults(null);
+              }}
+              className="flex items-center gap-3 cursor-pointer group w-full text-left"
+            >
+              <span
+                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors ${
+                  options.autoIncludeFree ? "bg-gold-500" : "bg-film-600"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                    options.autoIncludeFree ? "translate-x-4" : "translate-x-0"
+                  }`}
+                />
+              </span>
+              <div>
+                <span className="text-sm text-film-200 group-hover:text-film-50 transition-colors">
+                  Auto-include free festivals
+                </span>
+                <p className="text-xs text-film-500">
+                  Suggest matching festivals with no submission fee
+                </p>
+              </div>
+            </button>
+          </div>
+        )}
 
         <button
           type="submit"

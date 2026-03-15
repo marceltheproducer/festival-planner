@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a12"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grad)" opacity="0.5"/>
+  <defs>
+    <radialGradient id="grad" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#e8a840" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0a12" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <text x="100" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#ffffff">FestivalPlanner</text>
+  <text x="100" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#e8a840" font-weight="600">Your premiere is your currency.</text>
+  <text x="100" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#9999aa">Browse festivals. Track deadlines. Build your submission strategy.</text>
+  <rect x="100" y="440" width="200" height="4" rx="2" fill="#e8a840" opacity="0.5"/>
+  <text x="100" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#666677">Free tool for independent filmmakers</text>
+</svg>

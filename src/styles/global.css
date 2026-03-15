@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark cinematic palette */
+  --color-film-950: #0a0a0f;
+  --color-film-900: #111118;
+  --color-film-800: #1a1a24;
+  --color-film-700: #252533;
+  --color-film-600: #33334a;
+  --color-film-500: #4a4a6a;
+  --color-film-400: #6b6b8a;
+  --color-film-300: #9090aa;
+  --color-film-200: #b8b8cc;
+  --color-film-100: #e0e0eb;
+  --color-film-50: #f0f0f5;
+
+  /* Gold accent */
+  --color-gold-50: #fdf8ef;
+  --color-gold-100: #faecd3;
+  --color-gold-200: #f5d9a6;
+  --color-gold-300: #efc06e;
+  --color-gold-400: #e8a840;
+  --color-gold-500: #d4912a;
+  --color-gold-600: #b8731f;
+  --color-gold-700: #99571c;
+  --color-gold-800: #7d451e;
+  --color-gold-900: #68391e;
+
+  /* Keep brand as alias for gold in components */
+  --color-brand-50: #fdf8ef;
+  --color-brand-100: #faecd3;
+  --color-brand-200: #f5d9a6;
+  --color-brand-300: #efc06e;
+  --color-brand-400: #e8a840;
+  --color-brand-500: #d4912a;
+  --color-brand-600: #b8731f;
+  --color-brand-700: #99571c;
+  --color-brand-800: #7d451e;
+  --color-brand-900: #68391e;
+
+  --color-surface-50: #f0f0f5;
+  --color-surface-100: #e0e0eb;
+  --color-surface-200: #b8b8cc;
+  --color-surface-700: #252533;
+  --color-surface-800: #1a1a24;
+  --color-surface-900: #111118;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--color-film-950);
+  color: var(--color-film-100);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Better touch targets on mobile */
+@media (max-width: 640px) {
+  select, input[type="text"], input[type="number"] {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Cinematic scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-film-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-film-600);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-600);
+}

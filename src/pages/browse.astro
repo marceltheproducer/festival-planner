@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FestivalBrowser from "../components/FestivalBrowser";
+import { getAllFestivals } from "../lib/festivals";
+
+const festivals = getAllFestivals();
+---
+
+<Layout title="Browse Festivals" description="Search and filter film festivals by genre, region, tier, premiere requirements, fees, and deadlines. Find the perfect festivals for your film.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-film-50">Browse Festivals</h1>
+      <p class="text-film-400 mt-1">
+        Search, filter, and explore film festivals worldwide.
+      </p>
+    </div>
+    <FestivalBrowser festivals={festivals} client:load />
+  </div>
+</Layout>

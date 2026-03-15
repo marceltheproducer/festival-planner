@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import StrategyPlanner from "../components/StrategyPlanner";
+import { getAllFestivals } from "../lib/festivals";
+
+const festivals = getAllFestivals();
+---
+
+<Layout title="Strategy Planner" description="Build an optimized film festival submission strategy. Input your film details, select genres, and get a phased plan that protects your premiere status.">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-film-50">Strategy Planner</h1>
+      <p class="text-film-400 mt-1">
+        Tell us about your film and we'll generate an optimized submission strategy
+        that protects your premiere status and fits your budget.
+      </p>
+    </div>
+    <StrategyPlanner festivals={festivals} client:load />
+  </div>
+</Layout>

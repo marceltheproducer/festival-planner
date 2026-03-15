@@ -1,0 +1,308 @@
+import { useState, useMemo } from "react";
+import type { StrategyRecommendation, StrategyEntry } from "../lib/types";
+import SubmissionPlan from "./SubmissionPlan";
+
+const phaseColors: Record<StrategyRecommendation["phase"], { bg: string; border: string; badge: string }> = {
+  world_premiere: {
+    bg: "bg-red-500/10",
+    border: "border-red-500/30",
+    badge: "bg-red-500/20 text-red-300",
+  },
+  international_premiere: {
+    bg: "bg-orange-500/10",
+    border: "border-orange-500/30",
+    badge: "bg-orange-500/20 text-orange-300",
+  },
+  national_premiere: {
+    bg: "bg-yellow-500/10",
+    border: "border-yellow-500/30",
+    badge: "bg-yellow-500/20 text-yellow-300",
+  },
+  open: {
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/30",
+    badge: "bg-emerald-500/20 text-emerald-300",
+  },
+};
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export default function StrategyResults({
+  recommendations,
+}: {
+  recommendations: StrategyRecommendation[];
+}) {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [showPlan, setShowPlan] = useState(false);
+
+  if (recommendations.length === 0) {
+    return (
+      <div className="text-center py-12 bg-film-800/60 rounded-xl border border-film-700/50">
+        <p className="text-film-300 text-lg mb-2">No eligible festivals found</p>
+        <p className="text-film-500 text-sm">
+          Try adjusting your film profile or selecting fewer target festivals.
+        </p>
+      </div>
+    );
+  }
+
+  const toggleFestival = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const togglePhase = (rec: StrategyRecommendation) => {
+    const phaseIds = rec.festivals.map((e) => e.festival.id);
+    const allSelected = phaseIds.every((id) => selectedIds.has(id));
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (allSelected) {
+        phaseIds.forEach((id) => next.delete(id));
+      } else {
+        phaseIds.forEach((id) => next.add(id));
+      }
+      return next;
+    });
+  };
+
+  const selectedEntries = useMemo(() => {
+    const entries: { phase: StrategyRecommendation["phase"]; label: string; entry: StrategyEntry }[] = [];
+    for (const rec of recommendations) {
+      for (const entry of rec.festivals) {
+        if (selectedIds.has(entry.festival.id)) {
+          entries.push({ phase: rec.phase, label: rec.label, entry });
+        }
+      }
+    }
+    return entries;
+  }, [selectedIds, recommendations]);
+
+  if (showPlan && selectedEntries.length > 0) {
+    return (
+      <SubmissionPlan
+        selectedEntries={selectedEntries}
+        onBack={() => setShowPlan(false)}
+      />
+    );
+  }
+
+  const totalFee = recommendations.reduce(
+    (sum, rec) => sum + rec.festivals.reduce((s, e) => s + e.deadline.fee, 0),
+    0
+  );
+  const totalFestivals = recommendations.reduce(
+    (sum, rec) => sum + rec.festivals.length,
+    0
+  );
+
+  return (
+    <div>
+      {/* Summary */}
+      <div className="bg-film-800/60 rounded-xl border border-film-700/50 p-5 mb-6">
+        <h2 className="text-lg font-semibold text-film-50 mb-3">
+          Strategy Summary
+        </h2>
+        <div className="flex flex-wrap gap-4 sm:gap-6">
+          <div>
+            <p className="text-xl sm:text-2xl font-bold text-gold-400">{totalFestivals}</p>
+            <p className="text-xs sm:text-sm text-film-400">Festivals</p>
+          </div>
+          <div>
+            <p className="text-xl sm:text-2xl font-bold text-gold-400">
+              {totalFee === 0 ? "Free" : `$${totalFee}`}
+            </p>
+            <p className="text-xs sm:text-sm text-film-400">Est. total fees</p>
+          </div>
+          <div>
+            <p className="text-xl sm:text-2xl font-bold text-gold-400">
+              {recommendations.length}
+            </p>
+            <p className="text-xs sm:text-sm text-film-400">Phases</p>
+          </div>
+        </div>
+        <p className="text-xs text-film-500 mt-3">
+          Select the festivals you want to submit to, then build your personalized submission plan.
+        </p>
+      </div>
+
+      {/* Phases */}
+      <div className="space-y-6">
+        {recommendations.map((rec) => {
+          const colors = phaseColors[rec.phase];
+          const phaseIds = rec.festivals.map((e) => e.festival.id);
+          const allSelected = phaseIds.every((id) => selectedIds.has(id));
+          const someSelected = phaseIds.some((id) => selectedIds.has(id));
+
+          return (
+            <div
+              key={rec.phase}
+              className={`rounded-xl border ${colors.border} overflow-hidden`}
+            >
+              <div className={`${colors.bg} px-3 sm:px-5 py-3 flex flex-wrap items-center gap-2 sm:gap-3`}>
+                <button
+                  type="button"
+                  onClick={() => togglePhase(rec)}
+                  className="flex items-center gap-2 group"
+                >
+                  <span
+                    className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                      allSelected
+                        ? "bg-gold-500 border-gold-500"
+                        : someSelected
+                          ? "bg-gold-500/30 border-gold-500"
+                          : "border-film-500 group-hover:border-gold-400"
+                    }`}
+                  >
+                    {(allSelected || someSelected) && (
+                      <svg className="w-3 h-3 text-film-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        {allSelected ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                        )}
+                      </svg>
+                    )}
+                  </span>
+                </button>
+                <span
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${colors.badge}`}
+                >
+                  Phase {recommendations.indexOf(rec) + 1}
+                </span>
+                <h3 className="font-semibold text-film-50 text-sm sm:text-base">{rec.label}</h3>
+                <span className="text-xs sm:text-sm text-film-400 ml-auto">
+                  {rec.festivals.length} festival{rec.festivals.length !== 1 ? "s" : ""}
+                </span>
+              </div>
+
+              <div className="divide-y divide-film-700/30">
+                {rec.festivals.map((entry) => {
+                  const isChecked = selectedIds.has(entry.festival.id);
+                  return (
+                    <div key={entry.festival.id} className="px-3 sm:px-5 py-3 sm:py-4 bg-film-800/40">
+                      <div className="flex items-start gap-3">
+                        {/* Checkbox */}
+                        <button
+                          type="button"
+                          onClick={() => toggleFestival(entry.festival.id)}
+                          className="mt-0.5 shrink-0 group"
+                        >
+                          <span
+                            className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                              isChecked
+                                ? "bg-gold-500 border-gold-500"
+                                : "border-film-500 group-hover:border-gold-400"
+                            }`}
+                          >
+                            {isChecked && (
+                              <svg className="w-3 h-3 text-film-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </span>
+                        </button>
+
+                        {/* Festival info */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <h4 className="font-medium text-film-50 flex items-center gap-2 flex-wrap">
+                                <span className="truncate">{entry.festival.name}</span>
+                                <a
+                                  href={entry.festival.website}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-film-500 hover:text-gold-400 transition-colors shrink-0"
+                                  title="Visit festival website"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                  </svg>
+                                </a>
+                              </h4>
+                              <p className="text-sm text-film-400 mt-0.5">
+                                {entry.festival.location.city},{" "}
+                                {entry.festival.location.country}
+                              </p>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <p className="text-sm font-medium text-gold-400">
+                                {entry.deadline.fee === 0
+                                  ? "Free"
+                                  : `$${entry.deadline.fee}`}
+                              </p>
+                              <p className="text-xs text-film-500">
+                                by {formatDate(entry.deadline.date)}
+                              </p>
+                            </div>
+                          </div>
+
+                          <p className="text-xs text-film-400 mt-2">{entry.reason}</p>
+
+                          {entry.warning && (
+                            <div className="mt-2 flex items-start gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2">
+                              <svg
+                                className="w-4 h-4 shrink-0 mt-0.5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                                />
+                              </svg>
+                              {entry.warning}
+                            </div>
+                          )}
+
+                          {entry.festival.notificationDate && (
+                            <p className="text-xs text-film-500 mt-1">
+                              Notification expected: {formatDate(entry.festival.notificationDate)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Build Plan button — sticky at bottom */}
+      {selectedIds.size > 0 && (
+        <div className="sticky bottom-4 mt-6 z-10">
+          <button
+            type="button"
+            onClick={() => setShowPlan(true)}
+            className="w-full px-6 py-3 bg-gold-500 text-film-950 rounded-xl font-semibold text-sm hover:bg-gold-400 transition-colors shadow-lg shadow-gold-500/20 flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+            Build Submission Plan ({selectedIds.size} festival{selectedIds.size !== 1 ? "s" : ""})
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,141 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Home" description="Stop guessing which film festivals to submit to. Browse deadlines, protect your premiere status, and build an optimal submission strategy — all in one free tool.">
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-film-950 via-film-900 to-film-800"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(232,168,64,0.08),_transparent_60%)]"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-36">
+      <div class="max-w-3xl">
+        <p class="text-gold-400 text-sm font-medium tracking-widest uppercase mb-4">Festival Strategy Tool</p>
+        <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+          Your premiere is<br />
+          <span class="text-gold-400">your currency.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-film-300 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
+          Stop guessing which festivals to submit to. Browse deadlines, protect your premiere status,
+          and build an optimal submission strategy &mdash; all in one place.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/browse"
+            class="inline-flex items-center px-7 py-3.5 bg-gold-500 text-film-950 font-semibold rounded-lg hover:bg-gold-400 transition-colors"
+          >
+            Browse Festivals
+          </a>
+          <a
+            href="/planner"
+            class="inline-flex items-center px-7 py-3.5 bg-film-800 text-gold-300 font-semibold rounded-lg border border-film-600 hover:border-gold-500/50 hover:bg-film-700 transition-colors"
+          >
+            Build Strategy
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Film strip decorative element -->
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+  </section>
+
+  <!-- Features -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <h2 class="text-2xl font-bold text-film-50 text-center mb-4">
+      Everything you need to navigate the festival circuit
+    </h2>
+    <p class="text-film-400 text-center mb-14 max-w-xl mx-auto">
+      From Sundance to Cannes, plan your submissions with data-driven confidence.
+    </p>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      <!-- Browse -->
+      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
+        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
+          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-film-50 text-lg mb-2">Festival Browser</h3>
+        <p class="text-film-400 text-sm leading-relaxed mb-4">
+          Search and filter festivals by genre, region, tier, premiere requirements, fees, and deadlines.
+        </p>
+        <a href="/browse" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
+          Browse festivals &rarr;
+        </a>
+      </div>
+
+      <!-- Calendar -->
+      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
+        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
+          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-film-50 text-lg mb-2">Deadline Calendar</h3>
+        <p class="text-film-400 text-sm leading-relaxed mb-4">
+          Visualize all submission deadlines on a calendar. Color-coded by type so you never miss a window.
+        </p>
+        <a href="/calendar" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
+          View calendar &rarr;
+        </a>
+      </div>
+
+      <!-- Strategy -->
+      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
+        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
+          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </div>
+        <h3 class="font-semibold text-film-50 text-lg mb-2">Strategy Planner</h3>
+        <p class="text-film-400 text-sm leading-relaxed mb-4">
+          Input your film details and get an optimized submission plan that maximizes your premiere status value.
+        </p>
+        <a href="/planner" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
+          Build strategy &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-film-900/50 border-t border-b border-film-700/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+      <h2 class="text-2xl font-bold text-film-50 text-center mb-14">
+        How it works
+      </h2>
+      <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+        {[
+          {
+            step: "1",
+            title: "Browse",
+            desc: "Explore festivals filtered by what matters to your film.",
+          },
+          {
+            step: "2",
+            title: "Understand Premieres",
+            desc: "Learn which festivals require world, international, or national premieres.",
+          },
+          {
+            step: "3",
+            title: "Plan Strategy",
+            desc: "Input your film details and get a phased submission plan.",
+          },
+          {
+            step: "4",
+            title: "Track Deadlines",
+            desc: "Use the calendar to stay on top of submission windows.",
+          },
+        ].map((item) => (
+          <div class="text-center">
+            <div class="w-10 h-10 bg-gold-500 text-film-950 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-sm">
+              {item.step}
+            </div>
+            <h3 class="font-semibold text-film-50 mb-1">{item.title}</h3>
+            <p class="text-sm text-film-400">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

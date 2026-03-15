@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DeadlineCalendar from "../components/DeadlineCalendar";
+import { getAllFestivals } from "../lib/festivals";
+
+const festivals = getAllFestivals();
+---
+
+<Layout title="Deadline Calendar" description="Visualize all film festival submission deadlines on an interactive calendar. Never miss a submission window again.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-film-50">Deadline Calendar</h1>
+      <p class="text-film-400 mt-1">
+        Visualize all festival submission deadlines. Click on a date to see details.
+      </p>
+    </div>
+    <DeadlineCalendar festivals={festivals} client:load />
+  </div>
+</Layout>

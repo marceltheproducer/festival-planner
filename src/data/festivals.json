@@ -1436,5 +1436,305 @@
     "website": "https://www.sff.org.au",
     "submissionPlatform": "direct",
     "notes": "One of the longest-running festivals in the world (founded 1954). The A$60,000 Sydney Film Prize is one of the richest globally. Australian premiere required."
+  },
+  {
+    "id": "laliff",
+    "name": "Los Angeles Latino International Film Festival (LALIFF)",
+    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-01-15", "fee": 25 },
+      { "type": "regular", "date": "2026-03-15", "fee": 45 },
+      { "type": "late", "date": "2026-04-30", "fee": 65 }
+    ],
+    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-05-15",
+    "festivalDates": { "start": "2026-06-04", "end": "2026-06-08" },
+    "website": "https://www.laliff.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Academy Award qualifying. Founded in 1997, the premier Latino film festival in the US. Co-founded by Edward James Olmos and Marlene Dermer. Celebrates Latino storytelling across all genres and formats. Strong industry networking and panels. Open to all filmmakers but prioritizes Latino voices and stories."
+  },
+  {
+    "id": "blackstar",
+    "name": "BlackStar Film Festival",
+    "location": { "city": "Philadelphia", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-01-12", "fee": 15 },
+      { "type": "regular", "date": "2026-03-02", "fee": 30 },
+      { "type": "late", "date": "2026-04-13", "fee": 50 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "late": 50, "currency": "USD" },
+    "notificationDate": "2026-06-01",
+    "festivalDates": { "start": "2026-08-05", "end": "2026-08-09" },
+    "website": "https://www.blackstarfest.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Academy Award qualifying. Founded in 2012, rapidly became one of the most important festivals for Black, Brown, and Indigenous filmmakers. Celebrates films by people of the global majority. Combines screenings with panels, masterclasses, and community events. Known for exceptional curation and a strong filmmaker community."
+  },
+  {
+    "id": "abff",
+    "name": "American Black Film Festival (ABFF)",
+    "location": { "city": "Miami Beach", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Comedy", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-11-15", "fee": 30 },
+      { "type": "regular", "date": "2026-01-15", "fee": 50 },
+      { "type": "late", "date": "2026-03-01", "fee": 70 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "notificationDate": "2026-04-15",
+    "festivalDates": { "start": "2026-06-10", "end": "2026-06-14" },
+    "website": "https://www.abff.com",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Founded in 1997 by Jeff Friday, the premier film festival for Black cinema in the US. Strong Hollywood industry support and studio partnerships. Features narrative features, documentaries, shorts, web series, and a comedy competition. Includes talent development programs like ABFF HBO Short Film Award and Star Project acting competition."
+  },
+  {
+    "id": "paff",
+    "name": "Pan African Film Festival (PAFF)",
+    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-08-01", "fee": 25 },
+      { "type": "regular", "date": "2025-10-15", "fee": 45 },
+      { "type": "late", "date": "2025-12-01", "fee": 65 }
+    ],
+    "fees": { "earlybird": 25, "regular": 45, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-01-15",
+    "festivalDates": { "start": "2026-02-10", "end": "2026-02-21" },
+    "website": "https://www.paff.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Academy Award qualifying. Founded in 1992, the largest Black film festival in the US by attendance. Held during Black History Month. Screens 200+ films from the African diaspora worldwide. Co-founded by Danny Glover, Ja'Net DuBois, and Ayuko Babu. Combines film screenings with an art exhibition (ArtFEST) and community events."
+  },
+  {
+    "id": "urbanworld",
+    "name": "Urbanworld Film Festival",
+    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-02-15", "fee": 30 },
+      { "type": "regular", "date": "2026-04-15", "fee": 50 },
+      { "type": "late", "date": "2026-06-15", "fee": 70 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "late": 70, "currency": "USD" },
+    "notificationDate": "2026-08-01",
+    "festivalDates": { "start": "2026-09-23", "end": "2026-09-27" },
+    "website": "https://www.urbanworld.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Founded in 1997, one of New York's largest multicultural film festivals. Focuses on films by and about people of color, LGBTQ+ communities, and other underrepresented groups. Held at AMC Empire 25 in Times Square. Academy Award qualifying. Strong industry connections with major studios. Also features a digital and script competition."
+  },
+  {
+    "id": "caamfest",
+    "name": "CAAMFest (Center for Asian American Media Festival)",
+    "location": { "city": "San Francisco", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-09-15", "fee": 30 },
+      { "type": "regular", "date": "2025-11-01", "fee": 50 },
+      { "type": "late", "date": "2026-01-05", "fee": 65 }
+    ],
+    "fees": { "earlybird": 30, "regular": 50, "late": 65, "currency": "USD" },
+    "notificationDate": "2026-03-01",
+    "festivalDates": { "start": "2026-05-14", "end": "2026-05-24" },
+    "website": "https://caamedia.org/caamfest",
+    "submissionPlatform": "filmfreeway",
+    "notes": "The largest Asian American media festival in the US. Formerly known as the San Francisco International Asian American Film Festival (est. 1982). Screens 130+ films and presents music, food, and digital media events. Part of the Center for Asian American Media (CAAM), which also funds Asian American filmmaking through its grants program."
+  },
+  {
+    "id": "aaiff",
+    "name": "Asian American International Film Festival (AAIFF)",
+    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-12-01", "fee": 20 },
+      { "type": "regular", "date": "2026-02-15", "fee": 40 },
+      { "type": "late", "date": "2026-04-01", "fee": 55 }
+    ],
+    "fees": { "earlybird": 20, "regular": 40, "late": 55, "currency": "USD" },
+    "notificationDate": "2026-06-01",
+    "festivalDates": { "start": "2026-07-23", "end": "2026-08-02" },
+    "website": "https://www.asiancinevision.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "The first and longest-running Asian American film festival in the US, presented by Asian CineVision since 1978. Held in New York City. Screens features, shorts, documentaries, and experimental works by and about Asian Americans and the Asian diaspora. Strong community-focused programming."
+  },
+  {
+    "id": "imaginenative",
+    "name": "imagineNATIVE Film + Media Arts Festival",
+    "location": { "city": "Toronto", "country": "Canada", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-03-01", "fee": 15 },
+      { "type": "regular", "date": "2026-05-01", "fee": 30 },
+      { "type": "late", "date": "2026-06-15", "fee": 45 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "late": 45, "currency": "CAD" },
+    "notificationDate": "2026-08-01",
+    "festivalDates": { "start": "2026-10-19", "end": "2026-10-25" },
+    "website": "https://www.imaginenative.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "The world's largest Indigenous film and media arts festival. Founded in 2000 in Toronto. Screens film, video, audio, and digital/interactive media by Indigenous creators from around the world. Academy Award qualifying for shorts. Also hosts an industry series, pitch sessions, and the imagineNATIVE Institute for professional development."
+  },
+  {
+    "id": "iffla",
+    "name": "Indian Film Festival of Los Angeles (IFFLA)",
+    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Drama"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-10-01", "fee": 25 },
+      { "type": "regular", "date": "2025-12-01", "fee": 40 },
+      { "type": "late", "date": "2026-01-15", "fee": 55 }
+    ],
+    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "USD" },
+    "notificationDate": "2026-03-01",
+    "festivalDates": { "start": "2026-04-23", "end": "2026-04-26" },
+    "website": "https://www.indianfilmfestival.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "The premier showcase for Indian cinema in the US, founded in 2002. Screens narrative features, documentaries, and shorts from the Indian subcontinent and diaspora. Focused on independent Indian cinema rather than Bollywood mainstream. Strong bridge between the Indian and Hollywood film industries."
+  },
+  {
+    "id": "tasveer",
+    "name": "Tasveer South Asian Film Festival",
+    "location": { "city": "Seattle", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Drama"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-04-01", "fee": 15 },
+      { "type": "regular", "date": "2026-06-01", "fee": 30 },
+      { "type": "late", "date": "2026-07-15", "fee": 45 }
+    ],
+    "fees": { "earlybird": 15, "regular": 30, "late": 45, "currency": "USD" },
+    "notificationDate": "2026-08-15",
+    "festivalDates": { "start": "2026-10-08", "end": "2026-10-18" },
+    "website": "https://tasveer.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Academy Award qualifying. The leading South Asian film festival in the Pacific Northwest. Founded in 2003 by Rita Meher. Screens films from and about South Asia and the diaspora. Also presents year-round programming including the Tasveer Film Fund and South Asian filmmaking workshops."
+  },
+  {
+    "id": "newfest",
+    "name": "NewFest: New York's LGBTQ+ Film & Media Festival",
+    "location": { "city": "New York", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Experimental", "Drama", "Comedy", "LGBTQ+"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-03-15", "fee": 25 },
+      { "type": "regular", "date": "2026-05-15", "fee": 45 },
+      { "type": "late", "date": "2026-07-01", "fee": 60 }
+    ],
+    "fees": { "earlybird": 25, "regular": 45, "late": 60, "currency": "USD" },
+    "notificationDate": "2026-08-15",
+    "festivalDates": { "start": "2026-10-16", "end": "2026-10-27" },
+    "website": "https://www.newfest.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "New York's premier LGBTQ+ film festival, presented by NewFest since 1988. One of the most prominent queer film festivals in the world. Screens features, shorts, and documentaries. Also presents year-round community screenings and the NewFest Archive, preserving LGBTQ+ film history."
+  },
+  {
+    "id": "out-on-film",
+    "name": "Out On Film: Atlanta's LGBTQ Film Festival",
+    "location": { "city": "Atlanta", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Drama", "Comedy", "LGBTQ+"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2026-02-15", "fee": 20 },
+      { "type": "regular", "date": "2026-04-15", "fee": 35 },
+      { "type": "late", "date": "2026-06-01", "fee": 50 }
+    ],
+    "fees": { "earlybird": 20, "regular": 35, "late": 50, "currency": "USD" },
+    "notificationDate": "2026-08-01",
+    "festivalDates": { "start": "2026-09-25", "end": "2026-10-04" },
+    "website": "https://www.outonfilm.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Academy Award qualifying. One of the longest-running LGBTQ+ film festivals in the Southeast US, founded in 1987. Screens features, shorts, and documentaries. Growing significance alongside Atlanta's booming film industry. Also presents year-round community screenings and educational programs."
+  },
+  {
+    "id": "bentonville",
+    "name": "Bentonville Film Festival",
+    "location": { "city": "Bentonville", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama"],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-11-01", "fee": 25 },
+      { "type": "regular", "date": "2026-01-15", "fee": 50 },
+      { "type": "late", "date": "2026-03-01", "fee": 70 }
+    ],
+    "fees": { "earlybird": 25, "regular": 50, "late": 70, "currency": "USD" },
+    "notificationDate": "2026-04-01",
+    "festivalDates": { "start": "2026-06-16", "end": "2026-06-21" },
+    "website": "https://www.bentonvillefilm.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Founded in 2015 by Geena Davis and Trevor Drinkwater. Champions inclusion and diversity in media. Films must meet specific inclusion criteria (gender, racial/ethnic, LGBTQ+, or disability representation in cast/crew). Features narrative, documentary, and short film competitions. Also hosts the BFF Inclusion Summit and distribution partnerships."
+  },
+  {
+    "id": "dances-with-films",
+    "name": "Dances With Films",
+    "location": { "city": "Los Angeles", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Comedy", "Drama", "Horror", "Experimental"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-12-15", "fee": 35 },
+      { "type": "regular", "date": "2026-02-15", "fee": 55 },
+      { "type": "late", "date": "2026-04-01", "fee": 75 }
+    ],
+    "fees": { "earlybird": 35, "regular": 55, "late": 75, "currency": "USD" },
+    "notificationDate": "2026-05-01",
+    "festivalDates": { "start": "2026-06-11", "end": "2026-06-21" },
+    "website": "https://www.danceswithfilms.com",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Founded in 1998, dedicated to films with no names attached — no stars, no agents, no distribution deals. One of the most democratic indie festivals in the US. Held at the TCL Chinese Theatre in Hollywood. Open to all genres and formats. Known for launching truly independent voices and giving first-time filmmakers a Hollywood premiere experience."
+  },
+  {
+    "id": "chicago-latino",
+    "name": "Chicago Latino Film Festival",
+    "location": { "city": "Chicago", "country": "USA", "region": "North America" },
+    "type": "both",
+    "genres": ["Narrative", "Documentary", "Animation", "Drama", "Comedy"],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      { "type": "earlybird", "date": "2025-10-01", "fee": 25 },
+      { "type": "regular", "date": "2025-12-01", "fee": 40 },
+      { "type": "late", "date": "2026-01-15", "fee": 55 }
+    ],
+    "fees": { "earlybird": 25, "regular": 40, "late": 55, "currency": "USD" },
+    "notificationDate": "2026-02-15",
+    "festivalDates": { "start": "2026-04-09", "end": "2026-04-23" },
+    "website": "https://www.chicagolatinofilmfestival.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "The oldest and largest Latino film festival in the Midwest, presented by the International Latino Cultural Center of Chicago since 1985. Screens 100+ films from Latin America, Spain, Portugal, and the US Latino community. Two-week run makes it one of the longer cultural film festivals in the US."
   }
 ]

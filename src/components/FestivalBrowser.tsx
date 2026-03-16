@@ -84,7 +84,7 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
 
   const filteredAndSorted = useMemo(() => {
     const filtered = applyFilters(festivals, filters);
-    return sortFestivals(filtered, sort);
+    return sortFestivals(filtered, sort, filters.search);
   }, [festivals, filters, sort]);
 
   const chips = useMemo(() => getActiveChips(filters, setFilters), [filters]);

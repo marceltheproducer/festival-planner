@@ -3,15 +3,28 @@ import { TIER_ORDER } from "./types";
 import { getNextDeadline } from "./festivals";
 import { genresMatch } from "./genres";
 
-function fuzzyMatch(target: string, query: string): boolean {
-  const t = target.toLowerCase();
-  const q = query.toLowerCase();
-  if (t.includes(q)) return true;
-  let qi = 0;
-  for (let ti = 0; ti < t.length && qi < q.length; ti++) {
-    if (t[ti] === q[qi]) qi++;
-  }
-  return qi === q.length;
+/** Score how well a festival matches a search query. 0 = no match. */
+export function searchScore(festival: Festival, query: string): number {
+  const q = query.toLowerCase().trim();
+  if (!q) return 1;
+
+  const name = festival.name.toLowerCase();
+  const city = festival.location.city.toLowerCase();
+  const country = festival.location.country.toLowerCase();
+  const notes = festival.notes?.toLowerCase() ?? "";
+
+  // Exact name match
+  if (name === q) return 100;
+  // Name starts with query
+  if (name.startsWith(q)) return 90;
+  // Name contains query as a whole
+  if (name.includes(q)) return 70;
+  // City or country contains query
+  if (city.includes(q) || country.includes(q)) return 40;
+  // Notes contain query (shows loosely related festivals)
+  if (notes.includes(q)) return 20;
+
+  return 0;
 }
 
 export function createDefaultFilters(): Filters {
@@ -33,13 +46,7 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
 
   return festivals.filter((f) => {
     if (filters.search) {
-      const q = filters.search;
-      const match =
-        fuzzyMatch(f.name, q) ||
-        fuzzyMatch(f.location.city, q) ||
-        fuzzyMatch(f.location.country, q) ||
-        (f.notes ? fuzzyMatch(f.notes, q) : false);
-      if (!match) return false;
+      if (searchScore(f, filters.search) === 0) return false;
     }
 
     if (filters.submissionPlatforms.length > 0) {
@@ -88,8 +95,19 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
   });
 }
 
-export function sortFestivals(festivals: Festival[], sort: SortOption): Festival[] {
+export function sortFestivals(festivals: Festival[], sort: SortOption, searchQuery?: string): Festival[] {
   const sorted = [...festivals];
+
+  // When there's an active search, sort by relevance first
+  if (searchQuery?.trim()) {
+    return sorted.sort((a, b) => {
+      const sa = searchScore(a, searchQuery);
+      const sb = searchScore(b, searchQuery);
+      if (sa !== sb) return sb - sa; // higher score first
+      // Tiebreak by prestige (A-list > major > mid > emerging)
+      return TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
+    });
+  }
 
   switch (sort) {
     case "deadline":

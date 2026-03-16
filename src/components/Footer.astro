@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
     <p class="text-film-300">FestivalPlanner &mdash; Plan smarter festival submissions.</p>
     <p class="mt-1 text-film-500">Festival data is provided for informational purposes. Always verify deadlines on official festival websites.</p>
-    <div class="mt-4 flex items-center justify-center gap-4">
+    <div class="mt-4 flex items-center justify-center gap-4 flex-wrap">
       <a
         href="https://marcelperez.co/"
         target="_blank"
@@ -24,5 +24,61 @@
         Buy me a coffee
       </a>
     </div>
+
+    <!-- Accessibility settings -->
+    <div class="mt-6 pt-4 border-t border-film-700/20">
+      <p class="text-xs text-film-600 uppercase tracking-wider mb-2">Accessibility</p>
+      <div class="flex items-center justify-center gap-3">
+        <button
+          type="button"
+          id="dyslexic-toggle"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs transition-colors border-film-700/50 text-film-400 hover:border-film-600 hover:text-film-300"
+          aria-pressed="false"
+          title="Toggle dyslexia-friendly font"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+          Dyslexic Font
+        </button>
+      </div>
+    </div>
   </div>
 </footer>
+
+<script>
+  // Dyslexic font toggle
+  const dyslexicBtn = document.getElementById("dyslexic-toggle");
+  const DYSLEXIC_KEY = "fp-dyslexic-font";
+
+  function setDyslexicFont(enabled: boolean) {
+    document.documentElement.classList.toggle("dyslexic", enabled);
+    dyslexicBtn?.setAttribute("aria-pressed", String(enabled));
+    if (enabled) {
+      dyslexicBtn?.classList.add("bg-gold-500/15", "text-gold-400", "border-gold-500/30");
+      dyslexicBtn?.classList.remove("border-film-700/50", "text-film-400");
+      // Load OpenDyslexic font if not already loaded
+      if (!document.getElementById("opendyslexic-font")) {
+        const link = document.createElement("link");
+        link.id = "opendyslexic-font";
+        link.rel = "stylesheet";
+        link.href = "https://fonts.cdnfonts.com/css/opendyslexic";
+        document.head.appendChild(link);
+      }
+    } else {
+      dyslexicBtn?.classList.remove("bg-gold-500/15", "text-gold-400", "border-gold-500/30");
+      dyslexicBtn?.classList.add("border-film-700/50", "text-film-400");
+    }
+    localStorage.setItem(DYSLEXIC_KEY, String(enabled));
+  }
+
+  // Restore preference
+  if (localStorage.getItem(DYSLEXIC_KEY) === "true") {
+    setDyslexicFont(true);
+  }
+
+  dyslexicBtn?.addEventListener("click", () => {
+    const isActive = document.documentElement.classList.contains("dyslexic");
+    setDyslexicFont(!isActive);
+  });
+</script>

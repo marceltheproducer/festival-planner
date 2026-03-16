@@ -79,6 +79,33 @@ const related = allFestivals
   title={festival.name}
   description={`${festival.name} — ${festival.location.city}, ${festival.location.country}. ${festival.tier} tier film festival. Deadlines, fees, and submission info.`}
 >
+  {/* Structured data for search engines */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": festival.name,
+    "description": festival.notes || `${festival.name} film festival in ${festival.location.city}, ${festival.location.country}.`,
+    "startDate": festival.festivalDates?.start,
+    "endDate": festival.festivalDates?.end,
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": festival.location.city,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": festival.location.city,
+        "addressCountry": festival.location.country,
+      },
+    },
+    "url": festival.website,
+    "organizer": {
+      "@type": "Organization",
+      "name": festival.name,
+      "url": festival.website,
+    },
+  })} />
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
     <!-- Breadcrumb -->
     <nav class="text-sm text-film-500 mb-6 flex items-center gap-1.5">

@@ -4056,5 +4056,63 @@
     "website": "https://www.chicagolatinofilmfestival.org",
     "submissionPlatform": "filmfreeway",
     "notes": "The oldest and largest Latino film festival in the Midwest, presented by the International Latino Cultural Center of Chicago since 1985. Screens 100+ films from Latin America, Spain, Portugal, and the US Latino community. Two-week run makes it one of the longer cultural film festivals in the US."
+  },
+  {
+    "id": "indy-film-fest",
+    "name": "Indy Film Fest",
+    "location": {
+      "city": "Indianapolis",
+      "country": "USA",
+      "region": "North America"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation",
+      "Experimental",
+      "Drama",
+      "Comedy",
+      "Horror",
+      "Sci-Fi"
+    ],
+    "tier": "mid",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "earlybird",
+        "date": "2025-09-17",
+        "fee": 20
+      },
+      {
+        "type": "regular",
+        "date": "2025-11-04",
+        "fee": 30
+      },
+      {
+        "type": "late",
+        "date": "2025-12-03",
+        "fee": 40
+      },
+      {
+        "type": "extended",
+        "date": "2026-02-02",
+        "fee": 80
+      }
+    ],
+    "fees": {
+      "earlybird": 20,
+      "regular": 30,
+      "late": 40,
+      "currency": "USD"
+    },
+    "notificationDate": "2026-03-29",
+    "festivalDates": {
+      "start": "2026-04-22",
+      "end": "2026-04-26"
+    },
+    "website": "https://indyfilmfest.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Formerly the Indianapolis International Film Festival (2004-2013), rebranded in 2014. Programs ~25 features and 100+ shorts annually. Hybrid format with in-person screenings at Kan-Kan Cinema followed by virtual window. Awards include American Spectrum, World Cinema, Documentary, and Hoosier Lens (Indiana-tied films) categories. Cash prizes awarded. Films with ongoing commercial distribution are ineligible for juried awards."
   }
 ]

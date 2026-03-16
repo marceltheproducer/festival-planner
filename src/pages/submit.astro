@@ -1,0 +1,240 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Submit"
+  description="Report a bug, request a feature, or suggest a film festival to add to FestivalPlanner."
+>
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <h1 class="text-2xl sm:text-3xl font-bold text-film-50 mb-2">Submit Feedback</h1>
+    <p class="text-film-400 mb-8">
+      Found a bug? Want to request a festival? Let us know and we'll review it.
+    </p>
+
+    <form
+      id="submit-form"
+      action="https://formspree.io/f/FORM_ID"
+      method="POST"
+      class="space-y-6"
+    >
+      <!-- Type selector -->
+      <fieldset>
+        <legend class="text-sm font-semibold text-film-300 uppercase tracking-wider mb-3">
+          What are you submitting?
+        </legend>
+        <div class="flex flex-wrap gap-2">
+          <label class="type-option">
+            <input type="radio" name="type" value="festival-request" checked class="sr-only peer" />
+            <span class="block px-4 py-2 rounded-lg border border-film-700/50 text-sm text-film-300 cursor-pointer transition-colors peer-checked:bg-gold-500/15 peer-checked:text-gold-400 peer-checked:border-gold-500/30 hover:border-film-600">
+              Festival Request
+            </span>
+          </label>
+          <label class="type-option">
+            <input type="radio" name="type" value="bug-report" class="sr-only peer" />
+            <span class="block px-4 py-2 rounded-lg border border-film-700/50 text-sm text-film-300 cursor-pointer transition-colors peer-checked:bg-gold-500/15 peer-checked:text-gold-400 peer-checked:border-gold-500/30 hover:border-film-600">
+              Bug Report
+            </span>
+          </label>
+          <label class="type-option">
+            <input type="radio" name="type" value="feature-request" class="sr-only peer" />
+            <span class="block px-4 py-2 rounded-lg border border-film-700/50 text-sm text-film-300 cursor-pointer transition-colors peer-checked:bg-gold-500/15 peer-checked:text-gold-400 peer-checked:border-gold-500/30 hover:border-film-600">
+              Feature Request
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Common fields -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-film-300 mb-1.5">
+          Your Name <span class="text-film-600">(optional)</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          autocomplete="name"
+          class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+          placeholder="Jane Doe"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-film-300 mb-1.5">
+          Email <span class="text-film-600">(optional, for follow-up)</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+          placeholder="you@example.com"
+        />
+      </div>
+
+      <!-- Festival request fields -->
+      <div id="festival-fields">
+        <div class="space-y-4">
+          <div>
+            <label for="festival-name" class="block text-sm font-medium text-film-300 mb-1.5">
+              Festival Name <span class="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              id="festival-name"
+              name="festival_name"
+              class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+              placeholder="e.g. Austin Film Festival"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="festival-city" class="block text-sm font-medium text-film-300 mb-1.5">
+                City
+              </label>
+              <input
+                type="text"
+                id="festival-city"
+                name="festival_city"
+                class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+                placeholder="Austin"
+              />
+            </div>
+            <div>
+              <label for="festival-country" class="block text-sm font-medium text-film-300 mb-1.5">
+                Country
+              </label>
+              <input
+                type="text"
+                id="festival-country"
+                name="festival_country"
+                class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+                placeholder="USA"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="festival-website" class="block text-sm font-medium text-film-300 mb-1.5">
+              Website URL
+            </label>
+            <input
+              type="url"
+              id="festival-website"
+              name="festival_website"
+              class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+              placeholder="https://austinfilmfestival.com"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Bug / feature fields -->
+      <div id="bug-fields" class="hidden">
+        <div>
+          <label for="page-url" class="block text-sm font-medium text-film-300 mb-1.5">
+            Page URL <span class="text-film-600">(where did you see the issue?)</span>
+          </label>
+          <input
+            type="url"
+            id="page-url"
+            name="page_url"
+            class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors"
+            placeholder="https://festival-planner-nu.vercel.app/browse"
+          />
+        </div>
+      </div>
+
+      <!-- Description (always shown) -->
+      <div>
+        <label for="description" class="block text-sm font-medium text-film-300 mb-1.5">
+          Details <span class="text-red-400">*</span>
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          rows="4"
+          required
+          class="w-full px-3 py-2.5 bg-film-800/60 border border-film-700/50 rounded-lg text-film-100 placeholder-film-600 text-sm focus:outline-none focus:border-gold-500/50 focus:ring-1 focus:ring-gold-500/30 transition-colors resize-y"
+          placeholder="Tell us more..."
+        ></textarea>
+      </div>
+
+      <!-- Honeypot for spam -->
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+
+      <button
+        type="submit"
+        class="inline-flex items-center gap-2 px-6 py-2.5 bg-gold-500 text-film-950 font-semibold rounded-lg text-sm hover:bg-gold-400 transition-colors focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:ring-offset-2 focus:ring-offset-film-950"
+      >
+        Send
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+    </form>
+
+    <!-- Success message (hidden by default) -->
+    <div id="success-msg" class="hidden mt-8 p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-center">
+      <p class="text-emerald-300 font-medium">Thanks for your submission!</p>
+      <p class="text-sm text-film-400 mt-1">We'll review it and get back to you if needed.</p>
+    </div>
+
+    <!-- Error message (hidden by default) -->
+    <div id="error-msg" class="hidden mt-8 p-5 bg-red-500/10 border border-red-500/30 rounded-xl text-center">
+      <p class="text-red-300 font-medium">Something went wrong.</p>
+      <p class="text-sm text-film-400 mt-1">Please try again or email us directly.</p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Toggle fields based on submission type
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="type"]');
+  const festivalFields = document.getElementById("festival-fields");
+  const bugFields = document.getElementById("bug-fields");
+
+  radios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      if (radio.value === "festival-request") {
+        festivalFields?.classList.remove("hidden");
+        bugFields?.classList.add("hidden");
+      } else {
+        festivalFields?.classList.add("hidden");
+        bugFields?.classList.remove("hidden");
+      }
+    });
+  });
+
+  // Form submission with fetch
+  const form = document.getElementById("submit-form") as HTMLFormElement;
+  const successMsg = document.getElementById("success-msg");
+  const errorMsg = document.getElementById("error-msg");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    successMsg?.classList.add("hidden");
+    errorMsg?.classList.add("hidden");
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        form.reset();
+        form.classList.add("hidden");
+        successMsg?.classList.remove("hidden");
+      } else {
+        errorMsg?.classList.remove("hidden");
+      }
+    } catch {
+      errorMsg?.classList.remove("hidden");
+    }
+  });
+</script>

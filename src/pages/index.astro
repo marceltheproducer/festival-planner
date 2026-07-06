@@ -115,9 +115,12 @@ const steps = [
     <!-- LEDE + CTA -->
     <section class="hero-tail">
       <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees. Every festival worth knowing, in one place, sorted so the soonest and cheapest rise to the top.</p>
-      <div class="btnrow">
-        <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
-        <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
+      <div class="actions">
+        <div class="btnrow">
+          <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
+          <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
+        </div>
+        <p class="micro">Free · no account needed · always verify on the festival's own site</p>
       </div>
     </section>
 
@@ -177,13 +180,15 @@ const steps = [
   @media (max-width: 480px){ .hero h1 { white-space: normal; } }
   .hero h1 .over { color: var(--np-red); }
 
-  /* LEDE — full-width two-column newspaper intro */
-  .hero-tail { padding-bottom: clamp(6px,1.5vw,14px); }
-  .deck { font-family: var(--np-serif); font-size: clamp(16px,1.5vw,19px); line-height: 1.55; color: var(--np-ink-2);
-    columns: 2; column-gap: clamp(30px,4vw,54px); margin: 0; }
-  @media (max-width: 720px){ .deck { columns: 1; max-width: 60ch; } }
+  /* LEDE + CTA — full width: readable lede left, actions right */
+  .hero-tail { display: grid; grid-template-columns: 1.55fr 1fr; gap: clamp(24px,4vw,56px); align-items: start;
+    padding-bottom: clamp(8px,2vw,16px); }
+  @media (max-width: 760px){ .hero-tail { grid-template-columns: 1fr; gap: 20px; } }
+  .deck { font-family: var(--np-serif); font-size: clamp(16px,1.6vw,20px); line-height: 1.55; color: var(--np-ink-2); margin: 0; }
   .deck::first-letter { font-family: var(--np-display); font-size: 3.1em; float: left; line-height: 0.68; padding: 4px 10px 0 0; color: var(--np-red); }
-  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+  .actions { display: flex; flex-direction: column; gap: 14px; }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+  .micro { font-family: var(--np-mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--np-ink-2); margin: 0; max-width: 34ch; line-height: 1.5; }
 
   /* FIG. 1 — the map (real projection, festivals plotted by geography) */
   .map-fig { margin: 0 0 clamp(18px,3vw,28px); border-top: 2px solid var(--np-ink); padding-top: 16px; }

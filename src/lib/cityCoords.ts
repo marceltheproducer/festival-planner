@@ -74,6 +74,12 @@ export const cityCoords: Record<string, [number, number]> = {
   "Woodstock, USA": [42.04, -74.12],
   "Zanzibar, Tanzania": [-6.16, 39.2],
   "Zurich, Switzerland": [47.37, 8.54],
+  "Morelia, Mexico": [19.7, -101.19],
+  "Gramado, Brazil": [-29.38, -50.87],
+  "Buenos Aires, Argentina": [-34.6, -58.38],
+  "Marrakech, Morocco": [31.63, -7.99],
+  "Singapore, Singapore": [1.35, 103.82],
+  "Panaji, India": [15.49, 73.83],
 };
 
 // Equirectangular projection cropped to the populated range so the map fills

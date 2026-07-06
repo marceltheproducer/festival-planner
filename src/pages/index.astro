@@ -15,11 +15,12 @@ const aListCount = festivals.filter((f) => f.tier === "A-list").length;
 // Fig. 1 — a real world map with one dot per festival, all on ONE projection
 // (equirectangular, fitted to the populated window) so land + dots align.
 const MAP_W = 1000;
-const MAP_H = 400;
+const MAP_H = 445;
 const land = feature(landTopo as any, (landTopo as any).objects.land) as any;
+// Cropped tight to where festivals actually are, so the land fills the frame.
 const cropWindow = {
   type: "Polygon",
-  coordinates: [[[-135, 66], [160, 66], [160, -42], [-135, -42], [-135, 66]]],
+  coordinates: [[[-129, 64], [156, 64], [156, -40], [-129, -40], [-129, 64]]],
 } as any;
 const projection = geoEquirectangular().fitSize([MAP_W, MAP_H], cropWindow);
 const landPath = geoPath(projection as any)(land) ?? "";
@@ -91,22 +92,17 @@ const steps = [
     <section class="hero">
       <p class="np-kicker">The lead · this season on the circuit</p>
       <h1>Know <span class="over">where</span> to submit.</h1>
-      <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees.</p>
-      <div class="btnrow">
-        <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
-        <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
-      </div>
     </section>
 
     <!-- FIG. 1 — THE MAP -->
     <figure class="map-fig">
-      <svg class="mapsvg" viewBox="0 0 1000 400" role="img" aria-label={`World map plotting all ${total} tracked festivals`} preserveAspectRatio="xMidYMid meet">
+      <svg class="mapsvg" viewBox="0 0 1000 445" role="img" aria-label={`World map plotting all ${total} tracked festivals`} preserveAspectRatio="xMidYMid meet">
         <path d={landPath} class="land" />
         {regionLabels.map((r) => (
           <text x={r.x} y={r.y} class="rlabel">{r.t}</text>
         ))}
         {dots.map((d) => (
-          <circle cx={d.x} cy={d.y} r={d.aList ? 7 : 5} class:list={["dot", { alist: d.aList }]}><title>{d.name}</title></circle>
+          <circle cx={d.x} cy={d.y} r={d.aList ? 8 : 6} class:list={["dot", { alist: d.aList }]}><title>{d.name}</title></circle>
         ))}
       </svg>
       <figcaption>
@@ -115,6 +111,15 @@ const steps = [
         <span class="lg"><i class="d red"></i> {total - aListCount} more on the circuit</span>
       </figcaption>
     </figure>
+
+    <!-- LEDE + CTA -->
+    <section class="hero-tail">
+      <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees. Every festival worth knowing, in one place, sorted so the soonest and cheapest rise to the top.</p>
+      <div class="btnrow">
+        <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
+        <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
+      </div>
+    </section>
 
     <!-- BY THE NUMBERS -->
     <div class="np-bynum">
@@ -166,17 +171,22 @@ const steps = [
   .np-page { max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px,3vw,32px); }
 
   /* HERO — full width */
-  .hero { padding: clamp(26px,5vw,60px) 0 clamp(20px,3vw,30px); }
+  .hero { padding: clamp(24px,5vw,52px) 0 clamp(10px,2vw,16px); }
   .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.9;
-    letter-spacing: 0.002em; margin: 12px 0 18px; font-size: clamp(46px, 9.2vw, 122px); white-space: nowrap; }
+    letter-spacing: 0.002em; margin: 12px 0 0; font-size: clamp(46px, 9.2vw, 122px); white-space: nowrap; }
   @media (max-width: 480px){ .hero h1 { white-space: normal; } }
   .hero h1 .over { color: var(--np-red); }
-  .deck { font-family: var(--np-serif); font-size: clamp(16px,2vw,22px); line-height: 1.5; max-width: 52ch; color: var(--np-ink-2); }
-  .deck::first-letter { font-family: var(--np-display); font-size: 3.2em; float: left; line-height: 0.7; padding: 4px 10px 0 0; color: var(--np-red); }
-  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+  /* LEDE — full-width two-column newspaper intro */
+  .hero-tail { padding-bottom: clamp(6px,1.5vw,14px); }
+  .deck { font-family: var(--np-serif); font-size: clamp(16px,1.5vw,19px); line-height: 1.55; color: var(--np-ink-2);
+    columns: 2; column-gap: clamp(30px,4vw,54px); margin: 0; }
+  @media (max-width: 720px){ .deck { columns: 1; max-width: 60ch; } }
+  .deck::first-letter { font-family: var(--np-display); font-size: 3.1em; float: left; line-height: 0.68; padding: 4px 10px 0 0; color: var(--np-red); }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
   /* FIG. 1 — the map (real projection, festivals plotted by geography) */
-  .map-fig { margin: 0 0 clamp(20px,3vw,32px); border-top: 2px solid var(--np-ink); padding-top: 16px; }
+  .map-fig { margin: 0 0 clamp(18px,3vw,28px); border-top: 2px solid var(--np-ink); padding-top: 16px; }
   .mapsvg { display: block; width: 100%; height: auto; border: 2.5px solid var(--np-ink); background: var(--np-paper-2);
     box-shadow: 7px 7px 0 var(--np-ink); }
   .land { fill: color-mix(in srgb, var(--np-paper-3) 82%, var(--np-ink) 8%); stroke: var(--np-ink); stroke-width: 1; stroke-linejoin: round; }

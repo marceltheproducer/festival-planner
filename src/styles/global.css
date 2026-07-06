@@ -127,3 +127,76 @@ html.dyslexic h1, html.dyslexic h2, html.dyslexic h3 {
   scrollbar-width: thin;
   scrollbar-color: var(--color-film-600) transparent;
 }
+
+/* ===========================================================================
+   NEWSPRINT THEME  —  scoped under body.theme-np, primitives are .np-*
+   "The Submission Dispatch": kraft paper, three riso inks, condensed display.
+   =========================================================================== */
+:root {
+  --np-paper:   #ece3cd;
+  --np-paper-2: #f1e9d6;
+  --np-paper-3: #e3d7ba;
+  --np-ink:     #1b1712;
+  --np-ink-2:   #4a4234;
+  --np-red:     #d3382a;
+  --np-blue:    #274b8e;
+  --np-mustard: #d8a12b;
+  --np-line:    rgba(27,23,18,0.22);
+  --np-line-2:  rgba(27,23,18,0.5);
+  --np-display: "Anton", "Haettenschweiler", "Arial Narrow Bold", "Impact", sans-serif;
+  --np-serif:   Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --np-mono:    ui-monospace, "Cascadia Code", "Consolas", "Courier New", monospace;
+}
+
+body.theme-np {
+  background: var(--np-paper);
+  color: var(--np-ink);
+  font-family: var(--np-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+/* film grain BEHIND content (textures paper, never muddies type) */
+body.theme-np::after {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.30; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+body.theme-np > * { position: relative; z-index: 1; }
+body.theme-np *:focus-visible { outline: 2px solid var(--np-ink); outline-offset: 2px; }
+
+/* Display / mono helpers */
+.np-display { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; letter-spacing: 0.01em; line-height: 0.9; }
+.np-mono { font-family: var(--np-mono); }
+.np-kicker { font-family: var(--np-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--np-red); }
+
+/* Buttons */
+.np-btn { font-family: var(--np-mono); font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+  padding: 13px 20px; border: 2px solid var(--np-ink); cursor: pointer; display: inline-block; text-decoration: none; }
+.np-btn-solid { background: var(--np-red); color: var(--np-paper); box-shadow: 5px 5px 0 var(--np-ink); }
+.np-btn-ghost { background: var(--np-paper); color: var(--np-ink); box-shadow: 5px 5px 0 var(--np-ink); }
+.np-btn-ink { background: var(--np-ink); color: var(--np-paper); box-shadow: 4px 4px 0 var(--np-mustard); }
+.np-btn-solid:hover, .np-btn-ghost:hover, .np-btn-ink:hover { transform: translate(1px,1px); box-shadow: 3px 3px 0 var(--np-ink); }
+
+/* Section rule */
+.np-secrule { display: flex; align-items: baseline; gap: 12px; margin: clamp(30px,5vw,52px) 0 20px; }
+.np-secrule h2 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; letter-spacing: 0.01em; font-size: clamp(26px,3.6vw,44px); white-space: nowrap; }
+.np-secrule .l { flex: 1; height: 0; border-top: 4px double var(--np-ink); align-self: center; }
+.np-secrule .n { font-family: var(--np-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--np-ink-2); }
+.np-secrule .n b { color: var(--np-red); }
+
+/* By-the-numbers band */
+.np-bynum { display: grid; grid-template-columns: repeat(4,1fr); background: var(--np-ink); color: var(--np-paper); }
+@media (max-width: 620px){ .np-bynum { grid-template-columns: repeat(2,1fr); } }
+.np-bynum .n { padding: 18px 16px; border-right: 1px solid rgba(236,227,205,0.18); }
+.np-bynum .n:last-child { border-right: none; }
+.np-bynum .big { font-family: var(--np-display); font-size: clamp(34px,5vw,54px); line-height: 0.9; color: var(--np-mustard); }
+.np-bynum .big.paper { color: var(--np-paper); }
+.np-bynum .lab { font-family: var(--np-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.92; margin-top: 5px; }
+
+/* Rubber stamp */
+.np-stamp { font-family: var(--np-display); text-transform: uppercase; letter-spacing: 0.05em; border: 2.5px double var(--np-red);
+  color: var(--np-red); padding: 5px 9px; border-radius: 6px; transform: rotate(-8deg); line-height: 1; font-size: 13px; display: inline-block; text-align: center; }
+.np-stamp small { display: block; font-family: var(--np-mono); font-size: 8px; letter-spacing: 0.2em; margin-top: 2px; }
+.np-stamp.blue { border-color: var(--np-blue); color: var(--np-blue); }
+.np-stamp.mus { border-color: var(--np-mustard); color: #9a6f14; }

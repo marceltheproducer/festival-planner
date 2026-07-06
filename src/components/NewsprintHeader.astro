@@ -1,0 +1,96 @@
+---
+import "@fontsource/anton";
+import { getAllFestivals, getNextDeadline } from "../lib/festivals";
+
+const currentPath = Astro.url.pathname;
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/browse", label: "Browse" },
+  { href: "/calendar", label: "Calendar" },
+  { href: "/planner", label: "Strategy" },
+  { href: "/submit", label: "Submit" },
+];
+
+// Live deadline ticker — the next handful of upcoming deadlines
+const upcoming = getAllFestivals()
+  .map((f) => ({ f, d: getNextDeadline(f) }))
+  .filter((x): x is { f: typeof x.f; d: NonNullable<typeof x.d> } => x.d !== null)
+  .sort((a, b) => a.d.date.localeCompare(b.d.date))
+  .slice(0, 10);
+
+function shortDate(dateStr: string): string {
+  return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+const year = new Date().getFullYear();
+const roman = "MMXXVI"; // decorative
+---
+
+<header class="np-masthead-wrap">
+  <div class="np-masthead">
+    <div class="dateline">
+      <span>Est. {roman} · No. 04</span>
+      <span class="mid">A Field Guide to the Festival Circuit</span>
+      <span>Price: Free, Always</span>
+    </div>
+    <a href="/" class="nameplate" aria-label="FestivalPlanner home">Festival<span class="ink2">Planner</span></a>
+    <p class="motto">"You made the film. The hard part's over. Now let's get it seen."</p>
+    <nav class="navbar" aria-label="Main navigation">
+      {links.map((link) => (
+        <a href={link.href} class:list={["navlink", { on: currentPath === link.href }]} aria-current={currentPath === link.href ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  {upcoming.length > 0 && (
+    <div class="ticker" aria-label="Deadlines closing soon">
+      <div class="flag">⚑ Closing Soon</div>
+      <div class="track">
+        <div class="run">
+          {upcoming.map((x) => (
+            <><span><b>{x.f.name}</b> — {shortDate(x.d.date)}</span><span class="sep">///</span></>
+          ))}
+          {upcoming.map((x) => (
+            <><span><b>{x.f.name}</b> — {shortDate(x.d.date)}</span><span class="sep">///</span></>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+</header>
+
+<style>
+  .np-masthead-wrap { background: var(--np-paper); }
+  .np-masthead { max-width: 1120px; margin: 0 auto; padding: clamp(12px,2.4vw,26px) clamp(14px,3vw,32px) 0;
+    border-bottom: 5px solid var(--np-ink); }
+  .dateline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;
+    font-family: var(--np-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--np-ink-2); border-bottom: 1px solid var(--np-line); padding-bottom: 8px; }
+  .dateline .mid { text-align: center; }
+  @media (max-width: 560px){ .dateline .mid { display: none; } }
+  .nameplate { display: block; text-align: center; text-decoration: none; color: var(--np-ink);
+    font-family: var(--np-display); text-transform: uppercase; font-weight: 400; letter-spacing: 0.005em;
+    line-height: 0.82; font-size: clamp(46px, 13vw, 128px); margin: 10px 0 4px; }
+  .nameplate .ink2 { -webkit-text-stroke: 2px var(--np-ink); color: transparent; }
+  .motto { text-align: center; font-style: italic; color: var(--np-ink-2); font-size: clamp(12px,1.7vw,16px); margin: 0 0 12px; }
+  .navbar { display: flex; flex-wrap: wrap; justify-content: center; border-top: 2px solid var(--np-ink); }
+  .navlink { font-family: var(--np-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 11px 20px; text-decoration: none; color: var(--np-ink); border-right: 1px solid var(--np-line); }
+  .navlink:first-child { border-left: 1px solid var(--np-line); }
+  .navlink.on { background: var(--np-ink); color: var(--np-paper); }
+  .navlink:hover { background: var(--np-red); color: var(--np-paper); }
+
+  .ticker { display: flex; align-items: stretch; overflow: hidden; background: var(--np-red); color: var(--np-paper); }
+  .flag { background: var(--np-ink); color: var(--np-paper); font-family: var(--np-mono); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 14px; white-space: nowrap; display: flex; align-items: center; }
+  .track { flex: 1; overflow: hidden; }
+  .run { display: inline-flex; gap: 30px; white-space: nowrap; font-family: var(--np-mono); font-size: 12px;
+    font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 0; }
+  .run .sep { opacity: 0.55; }
+  @media (prefers-reduced-motion: no-preference){
+    .run { animation: np-marquee 40s linear infinite; }
+    @keyframes np-marquee { from { transform: translateX(0);} to { transform: translateX(-50%);} }
+  }
+</style>

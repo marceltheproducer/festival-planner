@@ -1,0 +1,58 @@
+---
+---
+<footer class="np-foot">
+  <div class="inner">
+    <div class="rule"></div>
+    <p class="tag">FestivalPlanner — Plan smarter festival submissions.</p>
+    <p class="fine">Festival data is provided for informational purposes. Always verify deadlines on official festival websites.</p>
+    <div class="links">
+      <a href="https://marcelperez.co/" target="_blank" rel="noopener noreferrer">Built by Marcel Perez</a>
+      <span class="dot">·</span>
+      <a href="https://buymeacoffee.com/marcelperez" target="_blank" rel="noopener noreferrer" class="coffee">Buy me a coffee</a>
+    </div>
+    <div class="a11y">
+      <span class="a11y-k">Accessibility</span>
+      <button type="button" id="dyslexic-toggle" class="dys-btn" aria-pressed="false" title="Toggle dyslexia-friendly font">Dyslexic Font</button>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .np-foot { background: var(--np-paper); margin-top: clamp(30px,5vw,56px); }
+  .inner { max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px,3vw,32px) 34px; text-align: center; }
+  .rule { border-top: 5px solid var(--np-ink); margin-bottom: 16px; }
+  .tag { font-family: var(--np-display); text-transform: uppercase; font-size: clamp(18px,2.6vw,26px); letter-spacing: 0.02em; margin: 0 0 6px; }
+  .fine { font-family: var(--np-serif); font-style: italic; color: var(--np-ink-2); font-size: 13px; max-width: 56ch; margin: 0 auto; }
+  .links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 12px; margin-top: 16px;
+    font-family: var(--np-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .links a { color: var(--np-ink); text-decoration: none; border-bottom: 2px solid var(--np-red); padding-bottom: 1px; }
+  .links a:hover { color: var(--np-red); }
+  .links .dot { color: var(--np-line-2); }
+  .coffee { border: 2px solid var(--np-ink) !important; border-bottom-width: 2px !important; padding: 6px 12px !important; background: var(--np-mustard); }
+  .a11y { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--np-line); }
+  .a11y-k { display: block; font-family: var(--np-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--np-ink-2); margin-bottom: 8px; }
+  .dys-btn { font-family: var(--np-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    padding: 7px 12px; background: var(--np-paper); color: var(--np-ink); border: 1.5px solid var(--np-line-2); }
+  .dys-btn[aria-pressed="true"] { background: var(--np-ink); color: var(--np-paper); border-color: var(--np-ink); }
+</style>
+
+<script>
+  const dyslexicBtn = document.getElementById("dyslexic-toggle");
+  const DYSLEXIC_KEY = "fp-dyslexic-font";
+  function setDyslexicFont(enabled: boolean) {
+    document.documentElement.classList.toggle("dyslexic", enabled);
+    dyslexicBtn?.setAttribute("aria-pressed", String(enabled));
+    if (enabled && !document.getElementById("opendyslexic-font")) {
+      const link = document.createElement("link");
+      link.id = "opendyslexic-font";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.cdnfonts.com/css/opendyslexic";
+      document.head.appendChild(link);
+    }
+    localStorage.setItem(DYSLEXIC_KEY, String(enabled));
+  }
+  if (localStorage.getItem(DYSLEXIC_KEY) === "true") setDyslexicFont(true);
+  dyslexicBtn?.addEventListener("click", () => {
+    setDyslexicFont(!document.documentElement.classList.contains("dyslexic"));
+  });
+</script>

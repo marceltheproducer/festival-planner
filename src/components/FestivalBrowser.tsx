@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import type { Festival, Filters, SortOption } from "../lib/types";
-import { createDefaultFilters, applyFilters, sortFestivals } from "../lib/filters";
+import { createDefaultFilters, applyFilters, sortFestivals, isShortFocused } from "../lib/filters";
 import FilterPanel from "./FilterPanel";
 import FestivalCard from "./FestivalCard";
 
@@ -84,7 +84,7 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
 
   const filteredAndSorted = useMemo(() => {
     const filtered = applyFilters(festivals, filters);
-    return sortFestivals(filtered, sort, filters.search);
+    return sortFestivals(filtered, sort, filters.search, isShortFocused(filters));
   }, [festivals, filters, sort]);
 
   const chips = useMemo(() => getActiveChips(filters, setFilters), [filters]);
@@ -133,7 +133,7 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             {filteredAndSorted.map((festival) => (
-              <FestivalCard key={festival.id} festival={festival} />
+              <FestivalCard key={festival.id} festival={festival} shortFocused={isShortFocused(filters)} />
             ))}
           </div>
         )}

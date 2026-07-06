@@ -68,6 +68,13 @@
         "fee": 0
       }
     ],
+    "shortDeadlines": [
+      {
+        "type": "regular",
+        "date": "2026-03-02",
+        "fee": 0
+      }
+    ],
     "fees": {
       "regular": 0,
       "currency": "EUR"
@@ -139,6 +146,13 @@
       {
         "type": "regular",
         "date": "2026-06-04",
+        "fee": 0
+      }
+    ],
+    "shortDeadlines": [
+      {
+        "type": "regular",
+        "date": "2026-05-28",
         "fee": 0
       }
     ],
@@ -453,12 +467,14 @@
     "deadlines": [
       {
         "type": "regular",
-        "date": "2026-06-02",
-        "fee": 0
-      },
-      {
-        "type": "late",
         "date": "2026-07-08",
+        "fee": 0
+      }
+    ],
+    "shortDeadlines": [
+      {
+        "type": "regular",
+        "date": "2026-06-02",
         "fee": 0
       }
     ],
@@ -613,6 +629,13 @@
         "fee": 0
       }
     ],
+    "shortDeadlines": [
+      {
+        "type": "regular",
+        "date": "2027-01-15",
+        "fee": 0
+      }
+    ],
     "fees": {
       "regular": 0,
       "currency": "EUR"
@@ -624,7 +647,7 @@
     },
     "website": "https://www.annecy.org",
     "submissionPlatform": "direct",
-    "notes": "No fee. Premier animation festival. Oscar-qualifying. Features: intl premiere required. Shorts: world premiere preferred. Shorts deadline typically earlier (~Jan)."
+    "notes": "No fee. Premier animation festival. Oscar-qualifying. Features: intl premiere required. Shorts: world premiere preferred. Shorts deadline is earlier — approx. mid-January (confirm exact date on Annecy's site)."
   },
   {
     "id": "hot-docs",

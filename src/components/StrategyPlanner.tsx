@@ -17,6 +17,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     premiereStatus: "unscreened",
     targetFestivalIds: [],
     budget: null,
+    premiereFlexible: false,
   });
   const [options, setOptions] = useState<StrategyOptions>({
     autoIncludeFree: true,
@@ -162,6 +163,43 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
               min="0"
               className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg placeholder:text-film-500 focus:outline-none focus:ring-2 focus:ring-gold-500"
             />
+          </div>
+
+          {/* Premiere flexibility */}
+          <div className="md:col-span-2">
+            <button
+              type="button"
+              onClick={() => update({ premiereFlexible: !profile.premiereFlexible })}
+              aria-pressed={profile.premiereFlexible}
+              className="flex items-start gap-3 cursor-pointer group w-full text-left"
+            >
+              <span
+                className={`relative inline-flex h-5 w-9 shrink-0 mt-0.5 rounded-full border-2 border-transparent transition-colors ${
+                  profile.premiereFlexible ? "bg-gold-500" : "bg-film-600"
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                    profile.premiereFlexible ? "translate-x-4" : "translate-x-0"
+                  }`}
+                />
+              </span>
+              <div>
+                <span className="text-sm text-film-200 group-hover:text-film-50 transition-colors">
+                  Premiere status isn't a priority
+                  {profile.type === "short" && (
+                    <span className="ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-gold-500/15 text-gold-300 align-middle">
+                      Common for shorts
+                    </span>
+                  )}
+                </span>
+                <p className="text-xs text-film-500">
+                  Rank by fit, cost, and deadline instead of premiere strategy, and skip the
+                  &ldquo;wait to protect your premiere&rdquo; warnings. Festivals&rsquo; own
+                  premiere requirements are still respected.
+                </p>
+              </div>
+            </button>
           </div>
         </div>
 

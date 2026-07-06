@@ -18,6 +18,15 @@ export interface Festival {
   tier: "A-list" | "major" | "mid" | "emerging";
   premiereRequirement: "world" | "international" | "national" | "regional" | "none";
   deadlines: Deadline[];
+  /**
+   * Shorts-specific submission schedule, used when shorts close on different
+   * dates than features (common at "both" festivals). When present, short-film
+   * flows use these deadlines instead of `deadlines`. Fees here are the short
+   * fees directly (no separate shortFee needed). Omit when shorts and features
+   * share the same schedule (a per-deadline `shortFee` still captures fee-only
+   * differences in that case).
+   */
+  shortDeadlines?: Deadline[];
   fees: {
     earlybird?: number;
     regular: number;
@@ -55,6 +64,15 @@ export interface FilmProfile {
   premiereStatus: "unscreened" | "screened_domestically" | "screened_internationally";
   targetFestivalIds: string[];
   budget: number | null;
+  /**
+   * When true, the filmmaker isn't strategically protecting their premiere
+   * status — common for short films, which routinely screen widely. The
+   * strategy still respects each festival's hard premiere requirements (a
+   * world-premiere festival genuinely can't accept an already-screened film),
+   * but it drops the "wait to protect your premiere" nudges and ranks by fit,
+   * cost, and deadline instead of premiere hierarchy.
+   */
+  premiereFlexible: boolean;
 }
 
 export interface StrategyRecommendation {

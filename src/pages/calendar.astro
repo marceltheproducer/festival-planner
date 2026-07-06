@@ -6,14 +6,15 @@ import { getAllFestivals } from "../lib/festivals";
 const festivals = getAllFestivals();
 ---
 
-<Layout title="Deadline Calendar" description="Visualize all film festival submission deadlines on an interactive calendar. Never miss a submission window again.">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold text-film-50">Deadline Calendar</h1>
-      <p class="text-film-400 mt-1">
-        Visualize all festival submission deadlines. Click on a date to see details.
+<Layout newsprint title="Deadline Calendar" description="Visualize all film festival submission deadlines on an interactive calendar. Never miss a submission window again.">
+  <div class="np-wrap">
+    <header class="np-pagehead">
+      <p class="np-kicker">The diary</p>
+      <h1>Deadline diary</h1>
+      <p class="np-pagehead__sub">
+        Every submission window on one page. Click a date for details — colour marks the deadline type, from early (blue) to final (red).
       </p>
-    </div>
+    </header>
     <DeadlineCalendar festivals={festivals} client:idle />
   </div>
 </Layout>

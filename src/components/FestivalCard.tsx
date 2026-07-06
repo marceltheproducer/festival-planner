@@ -45,7 +45,7 @@ export default function FestivalCard({
   }
 
   return (
-    <article className="np-ticket">
+    <article className={`np-ticket${oscar ? " has-stamp" : ""}`}>
       {oscar && (
         <span className="np-stamp mus np-ticket__stamp">Oscar<br />Qual.</span>
       )}

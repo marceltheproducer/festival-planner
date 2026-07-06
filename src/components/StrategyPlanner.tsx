@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
 import type { Festival, FilmProfile, StrategyResult, StrategyOptions } from "../lib/types";
+import { ALL_GENRES } from "../lib/types";
 import { generateStrategy } from "../lib/strategy";
 import { genresMatch } from "../lib/genres";
 import StrategyResults from "./StrategyResults";
-import GenreTagPicker from "./GenreTagPicker";
 
 interface StrategyPlannerProps {
   festivals: Festival[];
@@ -20,9 +20,9 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
   const readyPresets = useMemo(
     () => [
       { label: "Ready now", value: today },
-      { label: "In 3 months", value: addMonths(3) },
-      { label: "In 6 months", value: addMonths(6) },
-      { label: "In 1 year", value: addMonths(12) },
+      { label: "+3 mo", value: addMonths(3) },
+      { label: "+6 mo", value: addMonths(6) },
+      { label: "+1 yr", value: addMonths(12) },
     ],
     [today]
   );
@@ -35,19 +35,15 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     targetFestivalIds: [],
     budget: null,
     premiereFlexible: false,
-    readyDate: new Date().toISOString().split("T")[0],
+    readyDate: today,
   });
-  const [options, setOptions] = useState<StrategyOptions>({
-    autoIncludeFree: true,
-    maxSuggestions: 5,
-  });
+  const [options, setOptions] = useState<StrategyOptions>({ autoIncludeFree: true, maxSuggestions: 5 });
   const [results, setResults] = useState<StrategyResult | null>(null);
   const [targetSearch, setTargetSearch] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = generateStrategy(festivals, profile, options);
-    setResults(result);
+    setResults(generateStrategy(festivals, profile, options));
   };
 
   const update = (partial: Partial<FilmProfile>) => {
@@ -67,334 +63,197 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     setResults(null);
   };
 
-  const genreFilteredFestivals = useMemo(() => {
-    return festivals.filter((f) => {
-      if (f.type !== "both" && f.type !== profile.type) return false;
-      if (profile.genres.length > 0 && !genresMatch(f.genres, profile.genres)) return false;
-      return true;
-    });
-  }, [festivals, profile.genres, profile.type]);
+  const toggleGenre = (g: string) => {
+    const has = profile.genres.includes(g);
+    update({ genres: has ? profile.genres.filter((x) => x !== g) : [...profile.genres, g] });
+  };
+
+  const genreFilteredFestivals = useMemo(
+    () =>
+      festivals.filter((f) => {
+        if (f.type !== "both" && f.type !== profile.type) return false;
+        if (profile.genres.length > 0 && !genresMatch(f.genres, profile.genres)) return false;
+        return true;
+      }),
+    [festivals, profile.genres, profile.type]
+  );
 
   const hasTargets = profile.targetFestivalIds.length > 0;
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="bg-film-800/60 rounded-xl border border-film-700/50 p-4 sm:p-6 mb-8">
-        <h2 className="text-lg font-semibold text-film-50 mb-6">
-          Tell us about your film
-        </h2>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Film type */}
-          <div>
-            <label className="block text-sm font-medium text-film-300 mb-1">
-              Film type
-            </label>
-            <select
-              value={profile.type}
-              onChange={(e) => update({ type: e.target.value as "short" | "feature" })}
-              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
-            >
-              <option value="short">Short Film</option>
-              <option value="feature">Feature Film</option>
-            </select>
+      <form onSubmit={handleSubmit} style={{ marginBottom: 32 }}>
+        <div className="np-form">
+          <div className="np-form__head">
+            Film Particulars <span>ALL FIELDS OPTIONAL BUT ONE</span>
           </div>
 
-          {/* Ready date */}
-          <div>
-            <label htmlFor="ready-date" className="block text-sm font-medium text-film-300 mb-1">
-              When will your film be ready?
-            </label>
-            <input
-              id="ready-date"
-              type="date"
-              value={profile.readyDate}
-              min={today}
-              onChange={(e) => update({ readyDate: e.target.value || today })}
-              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
-            />
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {readyPresets.map((preset) => {
-                const active = profile.readyDate === preset.value;
-                return (
-                  <button
-                    key={preset.label}
-                    type="button"
-                    onClick={() => update({ readyDate: preset.value })}
-                    aria-pressed={active}
-                    className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
-                      active
-                        ? "bg-gold-500 text-film-950 border-gold-500"
-                        : "bg-film-800 text-film-300 border-film-600 hover:border-gold-500/50"
-                    }`}
-                  >
-                    {preset.label}
-                  </button>
-                );
-              })}
+          <div className="np-fgrid">
+            {/* A — Format */}
+            <div className="np-field">
+              <span className="np-lab"><span className="no">A</span> Format</span>
+              <div className="np-seg">
+                <button type="button" className={profile.type === "short" ? "on" : ""} onClick={() => update({ type: "short" })}>Short</button>
+                <button type="button" className={profile.type === "feature" ? "on" : ""} onClick={() => update({ type: "feature" })}>Feature</button>
+              </div>
             </div>
-            <p className="text-xs text-film-500 mt-1">
-              {profile.readyDate <= today
-                ? "Planning from today. Showing deadlines you can still make."
-                : "Planning ahead. Deadlines before this date are skipped, and festivals whose current cycle has closed show an estimated next cycle."}
-            </p>
-          </div>
 
-          {/* Genres */}
-          <div className="md:col-span-2">
-            <GenreTagPicker
-              selectedGenres={profile.genres}
-              onChange={(genres) => update({ genres })}
-            />
-          </div>
-
-          {/* Country */}
-          <div>
-            <label className="block text-sm font-medium text-film-300 mb-1">
-              Country of origin
-            </label>
-            <input
-              type="text"
-              value={profile.country}
-              onChange={(e) => update({ country: e.target.value })}
-              placeholder="e.g. USA, France, Japan"
-              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg placeholder:text-film-500 focus:outline-none focus:ring-2 focus:ring-gold-500"
-            />
-          </div>
-
-          {/* Premiere status */}
-          <div>
-            <label className="block text-sm font-medium text-film-300 mb-1">
-              Current premiere status
-            </label>
-            <select
-              value={profile.premiereStatus}
-              onChange={(e) =>
-                update({
-                  premiereStatus: e.target.value as FilmProfile["premiereStatus"],
-                })
-              }
-              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
-            >
-              <option value="unscreened">
-                Unscreened (never shown publicly)
-              </option>
-              <option value="screened_domestically">
-                Screened domestically only
-              </option>
-              <option value="screened_internationally">
-                Screened internationally
-              </option>
-            </select>
-            {profile.premiereStatus === "screened_internationally" && (
-              <div className="mt-2 flex items-start gap-1.5 text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2">
-                <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-                Most top-tier festivals require a world or international premiere. Your results will be limited to national premiere and open festivals.
-              </div>
-            )}
-            {profile.premiereStatus === "screened_domestically" && (
-              <div className="mt-2 flex items-start gap-1.5 text-xs text-blue-300 bg-blue-500/10 border border-blue-500/30 rounded-lg px-3 py-2">
-                <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                World premiere festivals won't be available, but you can still target international, national, and open festivals.
-              </div>
-            )}
-          </div>
-
-          {/* Budget */}
-          <div>
-            <label className="block text-sm font-medium text-film-300 mb-1">
-              Submission budget (USD, optional)
-            </label>
-            <input
-              type="number"
-              value={profile.budget ?? ""}
-              onChange={(e) =>
-                update({
-                  budget: e.target.value ? parseInt(e.target.value) : null,
-                })
-              }
-              placeholder="e.g. 500"
-              min="0"
-              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg placeholder:text-film-500 focus:outline-none focus:ring-2 focus:ring-gold-500"
-            />
-          </div>
-
-          {/* Premiere flexibility */}
-          <div className="md:col-span-2">
-            <button
-              type="button"
-              onClick={() => update({ premiereFlexible: !profile.premiereFlexible })}
-              aria-pressed={profile.premiereFlexible}
-              className="flex items-start gap-3 cursor-pointer group w-full text-left"
-            >
-              <span
-                className={`relative inline-flex h-5 w-9 shrink-0 mt-0.5 rounded-full border-2 border-transparent transition-colors ${
-                  profile.premiereFlexible ? "bg-gold-500" : "bg-film-600"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
-                    profile.premiereFlexible ? "translate-x-4" : "translate-x-0"
-                  }`}
-                />
-              </span>
-              <div>
-                <span className="text-sm text-film-200 group-hover:text-film-50 transition-colors">
-                  Premiere status isn't a priority
-                  {profile.type === "short" && (
-                    <span className="ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-gold-500/15 text-gold-300 align-middle">
-                      Common for shorts
-                    </span>
-                  )}
-                </span>
-                <p className="text-xs text-film-500">
-                  Rank by fit, cost, and deadline instead of premiere strategy, and skip the
-                  &ldquo;wait to protect your premiere&rdquo; warnings. Festivals&rsquo; own
-                  premiere requirements are still respected.
-                </p>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Target festivals (optional multi-select) */}
-        <div className="mt-6">
-          <div className="flex items-baseline justify-between mb-2">
-            <label className="block text-sm font-medium text-film-300">
-              Target specific festivals (optional)
-            </label>
-            {profile.genres.length > 0 && (
-              <span className="text-xs text-film-500">
-                {genreFilteredFestivals.length} of {festivals.length} matching
-              </span>
-            )}
-          </div>
-
-          {/* Selected festivals — always visible above the scroll area */}
-          {hasTargets && (
-            <div className="flex flex-wrap gap-1.5 mb-2">
-              {profile.targetFestivalIds.map((id) => {
-                const f = festivals.find((fest) => fest.id === id);
-                if (!f) return null;
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() =>
-                      update({
-                        targetFestivalIds: profile.targetFestivalIds.filter((tid) => tid !== f.id),
-                      })
-                    }
-                    className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-gold-500 text-film-950 border-gold-500 flex items-center gap-1"
-                  >
-                    {f.name}
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Search + scrollable festival picker */}
-          <div className="rounded-lg border border-film-700/40 bg-film-900/50 overflow-hidden">
-            <div className="px-2 pt-2 pb-1">
+            {/* B — Ready date */}
+            <div className="np-field np-field--rt">
+              <span className="np-lab"><span className="no">B</span> When's it ready?</span>
               <input
-                type="text"
-                value={targetSearch}
-                onChange={(e) => setTargetSearch(e.target.value)}
-                placeholder="Search festivals..."
-                className="w-full px-2.5 py-1.5 text-xs bg-film-800 border border-film-600 text-film-100 rounded-md placeholder:text-film-500 focus:outline-none focus:ring-1 focus:ring-gold-500 focus:border-gold-500"
+                type="date"
+                min={today}
+                value={profile.readyDate}
+                onChange={(e) => update({ readyDate: e.target.value || today })}
+                className="np-inp"
+                aria-label="Ready date"
+              />
+              <div className="np-presets">
+                {readyPresets.map((p) => (
+                  <button key={p.label} type="button" className={`np-preset${profile.readyDate === p.value ? " on" : ""}`} onClick={() => update({ readyDate: p.value })}>
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* C — Genre */}
+            <div className="np-field np-field--full">
+              <span className="np-lab"><span className="no">C</span> Genre</span>
+              <div className="np-chips">
+                {ALL_GENRES.map((g) => (
+                  <button key={g} type="button" className="np-chip" aria-pressed={profile.genres.includes(g)} onClick={() => toggleGenre(g)}>
+                    {g}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* D — Country */}
+            <div className="np-field">
+              <span className="np-lab"><span className="no">D</span> Country of origin</span>
+              <input type="text" value={profile.country} onChange={(e) => update({ country: e.target.value })} className="np-inp" aria-label="Country" placeholder="e.g. USA" />
+            </div>
+
+            {/* E — Budget */}
+            <div className="np-field np-field--rt">
+              <span className="np-lab"><span className="no">E</span> Submission budget</span>
+              <input
+                type="number"
+                min="0"
+                value={profile.budget ?? ""}
+                onChange={(e) => update({ budget: e.target.value ? parseInt(e.target.value) : null })}
+                className="np-inp"
+                aria-label="Budget"
+                placeholder="e.g. 500"
               />
             </div>
-            <div className="max-h-32 overflow-y-auto p-2 pt-1 scrollbar-thin">
-              <div className="flex flex-wrap gap-1.5">
-                {genreFilteredFestivals
-                  .filter((f) => !profile.targetFestivalIds.includes(f.id))
-                  .filter((f) => !targetSearch || f.name.toLowerCase().includes(targetSearch.toLowerCase()) || f.location.city.toLowerCase().includes(targetSearch.toLowerCase()) || f.location.country.toLowerCase().includes(targetSearch.toLowerCase()))
-                  .map((f) => (
-                    <button
-                      key={f.id}
-                      type="button"
-                      onClick={() => {
-                        update({
-                          targetFestivalIds: [...profile.targetFestivalIds, f.id],
-                        });
-                        setTargetSearch("");
-                      }}
-                      className="text-xs px-2.5 py-1 rounded-full border transition-colors bg-film-800 text-film-300 border-film-600 hover:border-gold-400"
-                    >
-                      {f.name}
-                    </button>
-                  ))}
+
+            {/* F — Premiere status */}
+            <div className="np-field np-field--full">
+              <span className="np-lab"><span className="no">F</span> Premiere status <span className="hint">— where has it screened?</span></span>
+              <div className="np-seg np-seg--wide">
+                <button type="button" className={profile.premiereStatus === "unscreened" ? "on" : ""} onClick={() => update({ premiereStatus: "unscreened" })}>Unscreened</button>
+                <button type="button" className={profile.premiereStatus === "screened_domestically" ? "on" : ""} onClick={() => update({ premiereStatus: "screened_domestically" })}>Shown at home</button>
+                <button type="button" className={profile.premiereStatus === "screened_internationally" ? "on" : ""} onClick={() => update({ premiereStatus: "screened_internationally" })}>Shown abroad</button>
+              </div>
+              {profile.premiereStatus === "screened_internationally" && (
+                <div className="np-warn" style={{ marginTop: 10 }}>
+                  <div><div className="np-warn__t">Heads up</div>Most top-tier festivals want a world or international premiere. Results will lean toward national and open festivals.</div>
+                </div>
+              )}
+              {profile.premiereStatus === "screened_domestically" && (
+                <div className="np-note-good" style={{ marginTop: 10 }}>
+                  <div>World-premiere festivals won't appear, but international, national, and open festivals are still in play.</div>
+                </div>
+              )}
+            </div>
+
+            {/* G — Premiere priority */}
+            <div className="np-field">
+              <span className="np-lab"><span className="no">G</span> Premiere priority</span>
+              <button type="button" className="np-toggle" aria-pressed={profile.premiereFlexible} onClick={() => update({ premiereFlexible: !profile.premiereFlexible })}>
+                <span className={`sw${profile.premiereFlexible ? " on" : ""}`} />
+                <span className="tx"><b>Premiere status isn't a priority</b><p>Common for shorts. Rank by fit &amp; cost, skip the "protect your premiere" nags.</p></span>
+              </button>
+            </div>
+
+            {/* H — Auto-include free */}
+            <div className="np-field np-field--rt">
+              <span className="np-lab"><span className="no">H</span> Free festivals</span>
+              <button
+                type="button"
+                className="np-toggle"
+                aria-pressed={options.autoIncludeFree}
+                onClick={() => { setOptions((o) => ({ ...o, autoIncludeFree: !o.autoIncludeFree })); setResults(null); }}
+              >
+                <span className={`sw${options.autoIncludeFree ? " on" : ""}`} />
+                <span className="tx"><b>Auto-include free festivals</b><p>Fold matching no-fee festivals into the plan automatically.</p></span>
+              </button>
+            </div>
+
+            {/* Targets */}
+            <div className="np-field np-field--full">
+              <span className="np-lab"><span className="no">I</span> Target festivals <span className="hint">— optional; we build a plan around them</span></span>
+              {hasTargets && (
+                <div className="np-chips" style={{ marginBottom: 8 }}>
+                  {profile.targetFestivalIds.map((id) => {
+                    const f = festivals.find((fest) => fest.id === id);
+                    if (!f) return null;
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        className="np-chip on"
+                        onClick={() => update({ targetFestivalIds: profile.targetFestivalIds.filter((t) => t !== id) })}
+                      >
+                        {f.name} ✕
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              <div className="np-target-picker">
+                <input
+                  type="text"
+                  value={targetSearch}
+                  onChange={(e) => setTargetSearch(e.target.value)}
+                  placeholder="Search festivals to pin…"
+                  aria-label="Search target festivals"
+                />
+                <div className="np-target-list scrollbar-thin">
+                  {genreFilteredFestivals
+                    .filter((f) => !profile.targetFestivalIds.includes(f.id))
+                    .filter((f) => !targetSearch || f.name.toLowerCase().includes(targetSearch.toLowerCase()) || f.location.city.toLowerCase().includes(targetSearch.toLowerCase()))
+                    .slice(0, 40)
+                    .map((f) => (
+                      <button
+                        key={f.id}
+                        type="button"
+                        className="np-chip"
+                        onClick={() => { update({ targetFestivalIds: [...profile.targetFestivalIds, f.id] }); setTargetSearch(""); }}
+                      >
+                        {f.name}
+                      </button>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
-          {!hasTargets && (
-            <p className="text-xs text-film-500 mt-1">
-              Leave empty to consider all festivals.
-            </p>
-          )}
-          {hasTargets && (
-            <p className="text-xs text-film-500 mt-1">
-              {profile.targetFestivalIds.length} target{profile.targetFestivalIds.length !== 1 ? "s" : ""} selected. We'll build a smart strategy around {profile.targetFestivalIds.length === 1 ? "this festival" : "these festivals"}.
-            </p>
-          )}
-        </div>
 
-        {/* Strategy options — shown when targets are selected */}
-        {hasTargets && (
-          <div className="mt-4 pt-4 border-t border-film-700/30">
-            <button
-              type="button"
-              onClick={() => {
-                setOptions((prev) => ({ ...prev, autoIncludeFree: !prev.autoIncludeFree }));
-                setResults(null);
-              }}
-              className="flex items-center gap-3 cursor-pointer group w-full text-left"
-            >
-              <span
-                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors ${
-                  options.autoIncludeFree ? "bg-gold-500" : "bg-film-600"
-                }`}
-              >
-                <span
-                  className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
-                    options.autoIncludeFree ? "translate-x-4" : "translate-x-0"
-                  }`}
-                />
-              </span>
-              <div>
-                <span className="text-sm text-film-200 group-hover:text-film-50 transition-colors">
-                  Auto-include free festivals
-                </span>
-                <p className="text-xs text-film-500">
-                  Suggest matching festivals with no submission fee
-                </p>
-              </div>
-            </button>
+          <div className="np-form__foot">
+            <span className="np-fnote">
+              {hasTargets
+                ? `${profile.targetFestivalIds.length} target${profile.targetFestivalIds.length !== 1 ? "s" : ""} pinned`
+                : "Leave targets empty to consider all festivals."}
+            </span>
+            <button type="submit" className="np-btn np-btn-ink">Generate Strategy →</button>
           </div>
-        )}
-
-        <button
-          type="submit"
-          className="mt-6 px-6 py-2.5 bg-gold-500 text-film-950 rounded-lg font-medium text-sm hover:bg-gold-400 transition-colors"
-        >
-          Generate Strategy
-        </button>
+        </div>
       </form>
 
-      {results !== null && (
-        <StrategyResults
-          recommendations={results.recommendations}
-          meta={results.meta}
-        />
-      )}
+      {results !== null && <StrategyResults recommendations={results.recommendations} meta={results.meta} />}
     </div>
   );
 }

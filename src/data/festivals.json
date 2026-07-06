@@ -4225,5 +4225,212 @@
     "website": "https://www.psfilmfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Major awards-season festival; 38th edition in 2027. Features must be 70+ minutes and completed in 2026. No premiere requirement, but films cannot have screened in the Coachella Valley or been available online in the US beforehand. Strong Academy Award International Feature showcase."
+  },
+  {
+    "id": "morelia",
+    "name": "Morelia International Film Festival (FICM)",
+    "location": {
+      "city": "Morelia",
+      "country": "Mexico",
+      "region": "North America"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Animation"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-06-30",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "MXN"
+    },
+    "festivalDates": {
+      "start": "2026-10-16",
+      "end": "2026-10-25"
+    },
+    "website": "https://moreliafilmfest.com/en",
+    "submissionPlatform": "other",
+    "notes": "Mexico's leading film festival, founded 2003. Oscar-qualifying for fiction, documentary, and animated short films. Strong showcase of Mexican and international cinema. Free to submit; exact deadline varies (typically June — confirm on the festival site)."
+  },
+  {
+    "id": "gramado",
+    "name": "Gramado Film Festival",
+    "location": {
+      "city": "Gramado",
+      "country": "Brazil",
+      "region": "South America"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-03-30",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "BRL"
+    },
+    "festivalDates": {
+      "start": "2026-08-12",
+      "end": "2026-08-22"
+    },
+    "website": "https://festivaldecinemadegramado.com/en/",
+    "submissionPlatform": "other",
+    "notes": "The largest and most prestigious film festival in Brazil, held in Gramado since 1973. Competitions for Brazilian and Latin American features and shorts. Free to submit; submissions typically close in late March."
+  },
+  {
+    "id": "bafici",
+    "name": "Buenos Aires Festival of Independent Cinema (BAFICI)",
+    "location": {
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "region": "South America"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary",
+      "Experimental"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2025-12-18",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "ARS"
+    },
+    "festivalDates": {
+      "start": "2026-04-15",
+      "end": "2026-04-26"
+    },
+    "website": "https://bafici.org",
+    "submissionPlatform": "direct",
+    "notes": "One of Latin America's most important festivals for independent cinema, held in Buenos Aires since 1999. Free to submit. Features and shorts in fiction, documentary, and experimental. Priority to national, international, and world premieres."
+  },
+  {
+    "id": "marrakech",
+    "name": "Marrakech International Film Festival (FIFM)",
+    "location": {
+      "city": "Marrakech",
+      "country": "Morocco",
+      "region": "Africa"
+    },
+    "type": "feature",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-07-31",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "MAD"
+    },
+    "festivalDates": {
+      "start": "2026-11-20",
+      "end": "2026-11-28"
+    },
+    "website": "https://marrakech-festival.com/en/home/",
+    "submissionPlatform": "direct",
+    "notes": "The leading film festival in Morocco and one of the most prominent in the Arab world and Africa, founded 2001. FIAPF-recognized. Free to submit; features only (no shorts). Star-studded gala with a feature competition and tributes."
+  },
+  {
+    "id": "sgiff",
+    "name": "Singapore International Film Festival (SGIFF)",
+    "location": {
+      "city": "Singapore",
+      "country": "Singapore",
+      "region": "Asia"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "national",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-06-15",
+        "fee": 35
+      }
+    ],
+    "fees": {
+      "regular": 35,
+      "currency": "USD"
+    },
+    "notificationDate": "2026-09-15",
+    "festivalDates": {
+      "start": "2026-11-26",
+      "end": "2026-12-06"
+    },
+    "website": "https://sgiff.com",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Southeast Asia's longest-running international film festival, founded 1987. Competition for Asian feature films and Southeast Asian short films. Requires at least a Singapore premiere; priority to world, international, and Asian premieres. Festival dates approximate."
+  },
+  {
+    "id": "iffi-goa",
+    "name": "International Film Festival of India (IFFI)",
+    "location": {
+      "city": "Panaji",
+      "country": "India",
+      "region": "Asia"
+    },
+    "type": "feature",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-08-31",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "INR"
+    },
+    "festivalDates": {
+      "start": "2026-11-20",
+      "end": "2026-11-28"
+    },
+    "website": "https://www.iffigoa.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "India's premier and oldest film festival, founded 1952, held in Goa and organized by the government (NFDC). FIAPF-recognized competitive festival. Features from India and around the world. Free to submit."
   }
 ]

@@ -74,7 +74,8 @@ export default function StrategyResults({
   }, [selectedIds, recommendations]);
 
   const startHereIds = useMemo(() => {
-    const allEntries = recommendations.flatMap((rec) => rec.festivals);
+    // Only actionable festivals can be a starting point — never a passed deadline.
+    const allEntries = recommendations.flatMap((rec) => rec.festivals).filter((e) => !isDeadlinePast(e.deadline.date));
     const scored = allEntries.map((e) => {
       let score = 0;
       if (e.source.type === "target") score += 100;
@@ -100,7 +101,12 @@ export default function StrategyResults({
   }
 
   const totalFestivals = recommendations.reduce((sum, rec) => sum + rec.festivals.length, 0);
-  const totalFee = recommendations.reduce((sum, rec) => sum + rec.festivals.reduce((s, e) => s + e.deadline.fee, 0), 0);
+  // Est. total fees counts only what you'd actually pay: skip passed deadlines
+  // (longshots you'd have to contact about, not budgeted into the plan).
+  const totalFee = recommendations.reduce(
+    (sum, rec) => sum + rec.festivals.reduce((s, e) => s + (isDeadlinePast(e.deadline.date) ? 0 : e.deadline.fee), 0),
+    0
+  );
   const targetCount = hasTargetMode ? recommendations.reduce((sum, rec) => sum + rec.festivals.filter((e) => e.source.type === "target").length, 0) : 0;
   const suggestedCount = hasTargetMode ? totalFestivals - targetCount : 0;
 

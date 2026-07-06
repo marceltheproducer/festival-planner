@@ -1,141 +1,159 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getAllFestivals } from "../lib/festivals";
+
+const festivals = getAllFestivals();
+const total = festivals.length;
+const oscar = festivals.filter((f) => /oscar|academy award/i.test(f.notes ?? "")).length;
+const regions = new Set(festivals.map((f) => f.location.region)).size;
+
+const features = [
+  {
+    href: "/browse",
+    no: "I",
+    title: "The Circuit",
+    body: "Every festival, filterable by genre, region, tier, premiere rules, fee, and deadline. Sorted so the soonest — and cheapest — rise to the top.",
+    cta: "Browse festivals",
+  },
+  {
+    href: "/calendar",
+    no: "II",
+    title: "The Diary",
+    body: "All your deadlines on one calendar, colour-coded by type. Red means a fee is due; you'll never blow a window again.",
+    cta: "Open the diary",
+  },
+  {
+    href: "/planner",
+    no: "III",
+    title: "The Dispatch",
+    body: "Tell us about your film — we plot the whole run in the order that protects your premiere and your budget, with a plan you can export.",
+    cta: "Build your plan",
+  },
+];
+
+const steps = [
+  { step: "1", title: "Browse", desc: "Explore festivals filtered by what matters to your film." },
+  { step: "2", title: "Learn premieres", desc: "See which festivals want world, international, or national premieres." },
+  { step: "3", title: "Plan the run", desc: "Get a phased submission plan built around your ready date and budget." },
+  { step: "4", title: "Track deadlines", desc: "Keep the diary close so no submission window slips by." },
+];
 ---
 
-<Layout title="Home" description="Stop guessing which film festivals to submit to. Browse deadlines, protect your premiere status, and build an optimal submission strategy — all in one free tool.">
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-film-950 via-film-900 to-film-800"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(232,168,64,0.08),_transparent_60%)]"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-36">
-      <div class="max-w-3xl">
-        <p class="text-gold-400 text-sm font-medium tracking-widest uppercase mb-4">Festival Strategy Tool</p>
-        <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-6 text-white">
-          Your premiere is<br />
-          <span class="text-gold-400">your currency.</span>
-        </h1>
-        <p class="text-base sm:text-lg text-film-300 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
-          Stop guessing which festivals to submit to. Browse deadlines, protect your premiere status,
-          and build an optimal submission strategy &mdash; all in one place.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="/browse"
-            class="inline-flex items-center px-7 py-3.5 bg-gold-500 text-film-950 font-semibold rounded-lg hover:bg-gold-400 transition-colors"
-          >
-            Browse Festivals
-          </a>
-          <a
-            href="/planner"
-            class="inline-flex items-center px-7 py-3.5 bg-film-800 text-gold-300 font-semibold rounded-lg border border-film-600 hover:border-gold-500/50 hover:bg-film-700 transition-colors"
-          >
-            Build Strategy
-          </a>
+<Layout
+  newsprint
+  title="Home"
+  description="Stop guessing which film festivals to submit to. Browse deadlines, protect your premiere status, and build an optimal submission strategy — a free tool by a filmmaker, for filmmakers."
+>
+  <div class="np-page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="lede">
+        <p class="np-kicker">The lead · this season on the circuit</p>
+        <h1>Stop guessing.<br /><span class="over">Start submitting.</span></h1>
+        <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees.</p>
+        <div class="btnrow">
+          <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
+          <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
         </div>
       </div>
+      <div class="halfphoto" role="img" aria-label="Duotone halftone film-frame illustration">
+        <div class="frame"></div>
+        <div class="cap">Fig. 1 — every festival, one map</div>
+      </div>
+    </section>
+
+    <!-- BY THE NUMBERS -->
+    <div class="np-bynum">
+      <div class="n"><div class="big">{total}</div><div class="lab">Festivals tracked</div></div>
+      <div class="n"><div class="big">{oscar}</div><div class="lab">Oscar-qualifying</div></div>
+      <div class="n"><div class="big">{regions}</div><div class="lab">Regions covered</div></div>
+      <div class="n"><div class="big paper">$0</div><div class="lab">To start planning</div></div>
     </div>
-    <!-- Film strip decorative element -->
-    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
-  </section>
 
-  <!-- Features -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-    <h2 class="text-2xl font-bold text-film-50 text-center mb-4">
-      Everything you need to navigate the festival circuit
-    </h2>
-    <p class="text-film-400 text-center mb-14 max-w-xl mx-auto">
-      From Sundance to Cannes, plan your submissions with data-driven confidence.
-    </p>
-
-    <div class="grid gap-6 md:grid-cols-3">
-      <!-- Browse -->
-      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
-        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
-          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-film-50 text-lg mb-2">Festival Browser</h3>
-        <p class="text-film-400 text-sm leading-relaxed mb-4">
-          Search and filter festivals by genre, region, tier, premiere requirements, fees, and deadlines.
-        </p>
-        <a href="/browse" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
-          Browse festivals &rarr;
+    <!-- FEATURES -->
+    <div class="np-secrule"><h2>What's inside</h2><span class="l"></span><span class="n">three desks, one newsroom</span></div>
+    <div class="features">
+      {features.map((f) => (
+        <a href={f.href} class="feat">
+          <div class="feat-top"><span class="feat-no">{f.no}</span></div>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+          <span class="feat-cta">{f.cta} →</span>
         </a>
-      </div>
-
-      <!-- Calendar -->
-      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
-        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
-          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-film-50 text-lg mb-2">Deadline Calendar</h3>
-        <p class="text-film-400 text-sm leading-relaxed mb-4">
-          Visualize all submission deadlines on a calendar. Color-coded by type so you never miss a window.
-        </p>
-        <a href="/calendar" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
-          View calendar &rarr;
-        </a>
-      </div>
-
-      <!-- Strategy -->
-      <div class="bg-film-800/50 rounded-xl border border-film-700/50 p-6 hover:border-gold-500/30 transition-colors group">
-        <div class="w-12 h-12 bg-gold-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gold-500/20 transition-colors">
-          <svg class="w-6 h-6 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-        </div>
-        <h3 class="font-semibold text-film-50 text-lg mb-2">Strategy Planner</h3>
-        <p class="text-film-400 text-sm leading-relaxed mb-4">
-          Input your film details and get an optimized submission plan that maximizes your premiere status value.
-        </p>
-        <a href="/planner" class="text-sm text-gold-400 hover:text-gold-300 font-medium">
-          Build strategy &rarr;
-        </a>
-      </div>
+      ))}
     </div>
-  </section>
 
-  <!-- How it works -->
-  <section class="bg-film-900/50 border-t border-b border-film-700/30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-      <h2 class="text-2xl font-bold text-film-50 text-center mb-14">
-        How it works
-      </h2>
-      <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
-        {[
-          {
-            step: "1",
-            title: "Browse",
-            desc: "Explore festivals filtered by what matters to your film.",
-          },
-          {
-            step: "2",
-            title: "Understand Premieres",
-            desc: "Learn which festivals require world, international, or national premieres.",
-          },
-          {
-            step: "3",
-            title: "Plan Strategy",
-            desc: "Input your film details and get a phased submission plan.",
-          },
-          {
-            step: "4",
-            title: "Track Deadlines",
-            desc: "Use the calendar to stay on top of submission windows.",
-          },
-        ].map((item) => (
-          <div class="text-center">
-            <div class="w-10 h-10 bg-gold-500 text-film-950 rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-sm">
-              {item.step}
-            </div>
-            <h3 class="font-semibold text-film-50 mb-1">{item.title}</h3>
-            <p class="text-sm text-film-400">{item.desc}</p>
+    <!-- HOW IT WORKS -->
+    <div class="np-secrule"><h2>How it works</h2><span class="l"></span><span class="n">four steps, in order</span></div>
+    <ol class="steps">
+      {steps.map((s) => (
+        <li>
+          <span class="s-no">{s.step}</span>
+          <div>
+            <h4>{s.title}</h4>
+            <p>{s.desc}</p>
           </div>
-        ))}
+        </li>
+      ))}
+    </ol>
+
+    <!-- CLOSING CTA -->
+    <div class="closer">
+      <div>
+        <div class="closer-h">You made the film.</div>
+        <div class="closer-s">The hard part's over. Let's get it seen.</div>
       </div>
+      <a class="np-btn np-btn-ink" href="/planner">Build my plan →</a>
     </div>
-  </section>
+  </div>
 </Layout>
+
+<style>
+  .np-page { max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px,3vw,32px); }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1.55fr 1fr; gap: clamp(18px,3vw,44px); align-items: center;
+    padding: clamp(26px,5vw,56px) 0 clamp(22px,4vw,36px); border-bottom: 2px solid var(--np-ink); }
+  @media (max-width: 760px){ .hero { grid-template-columns: 1fr; } }
+  .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.82;
+    letter-spacing: 0.004em; margin: 10px 0 16px; font-size: clamp(56px, 11vw, 132px); text-wrap: balance; }
+  .hero h1 .over { color: var(--np-red); text-shadow: 4px 0 0 rgba(39,75,142,0.6); }
+  .deck { font-family: var(--np-serif); font-size: clamp(15px,1.9vw,20px); line-height: 1.5; max-width: 40ch; color: var(--np-ink-2); }
+  .deck::first-letter { font-family: var(--np-display); font-size: 3.2em; float: left; line-height: 0.7; padding: 4px 8px 0 0; color: var(--np-red); }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+  .halfphoto { position: relative; border: 2.5px solid var(--np-ink); aspect-ratio: 4/5; overflow: hidden;
+    background: linear-gradient(135deg, var(--np-blue), var(--np-red)); box-shadow: 8px 8px 0 var(--np-ink); }
+  .halfphoto::before { content:""; position:absolute; inset:0; background-image: radial-gradient(var(--np-paper) 32%, transparent 34%);
+    background-size: 7px 7px; mix-blend-mode: screen; opacity: 0.85; }
+  .halfphoto .frame { position:absolute; inset: 14px; border: 2px dashed var(--np-paper); opacity: 0.7; }
+  .halfphoto .cap { position: absolute; bottom: 0; left: 0; right: 0; background: var(--np-ink); color: var(--np-paper);
+    font-family: var(--np-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 10px; }
+
+  /* FEATURES */
+  .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media (max-width: 820px){ .features { grid-template-columns: 1fr; max-width: 440px; } }
+  .feat { display: block; text-decoration: none; color: var(--np-ink); background: var(--np-paper-2);
+    border: 2.5px solid var(--np-ink); box-shadow: 6px 6px 0 var(--np-ink); padding: 18px; transition: transform .12s, box-shadow .12s; }
+  .feat:hover { transform: translate(2px,2px); box-shadow: 4px 4px 0 var(--np-ink); }
+  .feat-top { border-bottom: 1px dashed var(--np-line-2); padding-bottom: 10px; margin-bottom: 12px; }
+  .feat-no { font-family: var(--np-display); font-size: 30px; color: var(--np-red); line-height: 1; }
+  .feat h3 { font-family: var(--np-display); text-transform: uppercase; font-size: 30px; line-height: 0.95; margin: 0 0 8px; }
+  .feat p { font-family: var(--np-serif); font-size: 14px; line-height: 1.55; color: var(--np-ink-2); margin: 0 0 14px; }
+  .feat-cta { font-family: var(--np-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--np-ink);
+    border-bottom: 2px solid var(--np-red); padding-bottom: 1px; }
+
+  /* STEPS */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+  @media (max-width: 720px){ .steps { grid-template-columns: repeat(2,1fr); } }
+  .steps li { display: flex; gap: 12px; align-items: flex-start; }
+  .s-no { font-family: var(--np-display); font-size: 44px; line-height: 0.8; color: var(--np-mustard); flex: none; -webkit-text-stroke: 1px var(--np-ink); }
+  .steps h4 { font-family: var(--np-display); text-transform: uppercase; font-size: 19px; margin: 4px 0 4px; letter-spacing: 0.02em; }
+  .steps p { font-family: var(--np-serif); font-size: 13.5px; line-height: 1.5; color: var(--np-ink-2); margin: 0; }
+
+  /* CLOSER */
+  .closer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--np-ink); color: var(--np-paper); padding: clamp(20px,3vw,32px); margin-top: clamp(30px,5vw,52px); }
+  .closer-h { font-family: var(--np-display); text-transform: uppercase; font-size: clamp(26px,4vw,44px); line-height: 0.9; color: var(--np-mustard); }
+  .closer-s { font-family: var(--np-serif); font-style: italic; font-size: clamp(14px,2vw,18px); opacity: 0.9; margin-top: 4px; }
+</style>

@@ -1,7 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getAllFestivals } from "../lib/festivals";
-import { cityCoords, projectXY } from "../lib/cityCoords";
+import { cityCoords } from "../lib/cityCoords";
+import { geoEquirectangular, geoPath } from "d3-geo";
+import { feature } from "topojson-client";
+import landTopo from "world-atlas/land-110m.json";
 
 const festivals = getAllFestivals();
 const total = festivals.length;
@@ -9,18 +12,42 @@ const oscar = festivals.filter((f) => /oscar|academy award/i.test(f.notes ?? "")
 const regions = new Set(festivals.map((f) => f.location.region)).size;
 const aListCount = festivals.filter((f) => f.tier === "A-list").length;
 
-// Fig. 1 — one plotted dot per festival, positioned by real geography.
+// Fig. 1 — a real world map with one dot per festival, all on ONE projection
+// (equirectangular, fitted to the populated window) so land + dots align.
+const MAP_W = 1000;
+const MAP_H = 400;
+const land = feature(landTopo as any, (landTopo as any).objects.land) as any;
+const cropWindow = {
+  type: "Polygon",
+  coordinates: [[[-135, 66], [160, 66], [160, -42], [-135, -42], [-135, 66]]],
+} as any;
+const projection = geoEquirectangular().fitSize([MAP_W, MAP_H], cropWindow);
+const landPath = geoPath(projection as any)(land) ?? "";
+
 const dots = festivals
   .map((f, i) => {
     const c = cityCoords[`${f.location.city}, ${f.location.country}`];
     if (!c) return null;
-    const { x, y } = projectXY(c[0], c[1]);
+    const p = projection([c[1], c[0]]); // projection takes [lng, lat]
+    if (!p) return null;
     // deterministic jitter so festivals sharing a city fan out instead of stacking
-    const jx = (((i * 37) % 7) - 3) * 0.45;
-    const jy = (((i * 53) % 7) - 3) * 0.45;
-    return { x: x + jx, y: y + jy, aList: f.tier === "A-list", name: f.name };
+    const jx = (((i * 37) % 7) - 3) * 3;
+    const jy = (((i * 53) % 7) - 3) * 3;
+    return { x: p[0] + jx, y: p[1] + jy, aList: f.tier === "A-list", name: f.name };
   })
   .filter((d): d is { x: number; y: number; aList: boolean; name: string } => d !== null);
+
+const regionLabels = [
+  { t: "N. America", lng: -100, lat: 41 },
+  { t: "Europe", lng: 10, lat: 54 },
+  { t: "Asia", lng: 96, lat: 47 },
+  { t: "Africa", lng: 20, lat: 2 },
+  { t: "S. America", lng: -60, lat: -12 },
+  { t: "Oceania", lng: 143, lat: -26 },
+].map((r) => {
+  const p = projection([r.lng, r.lat]);
+  return { t: r.t, x: p ? p[0] : 0, y: p ? p[1] : 0 };
+});
 
 const features = [
   {
@@ -63,7 +90,7 @@ const steps = [
     <!-- HERO -->
     <section class="hero">
       <p class="np-kicker">The lead · this season on the circuit</p>
-      <h1>Stop guessing. <span class="over">Start submitting.</span></h1>
+      <h1>Know <span class="over">where</span> to submit.</h1>
       <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees.</p>
       <div class="btnrow">
         <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
@@ -73,17 +100,15 @@ const steps = [
 
     <!-- FIG. 1 — THE MAP -->
     <figure class="map-fig">
-      <div class="map" role="img" aria-label={`World map plotting all ${total} tracked festivals`}>
-        <span class="rlabel" style="left:15%;top:22%">N. America</span>
-        <span class="rlabel" style="left:50%;top:18%">Europe</span>
-        <span class="rlabel" style="left:80%;top:30%">Asia</span>
-        <span class="rlabel" style="left:52%;top:70%">Africa</span>
-        <span class="rlabel" style="left:28%;top:82%">S. America</span>
-        <span class="rlabel" style="left:88%;top:82%">Oceania</span>
-        {dots.map((d) => (
-          <span class:list={["dot", { alist: d.aList }]} style={`left:${d.x}%;top:${d.y}%`} title={d.name}></span>
+      <svg class="mapsvg" viewBox="0 0 1000 400" role="img" aria-label={`World map plotting all ${total} tracked festivals`} preserveAspectRatio="xMidYMid meet">
+        <path d={landPath} class="land" />
+        {regionLabels.map((r) => (
+          <text x={r.x} y={r.y} class="rlabel">{r.t}</text>
         ))}
-      </div>
+        {dots.map((d) => (
+          <circle cx={d.x} cy={d.y} r={d.aList ? 7 : 5} class:list={["dot", { alist: d.aList }]}><title>{d.name}</title></circle>
+        ))}
+      </svg>
       <figcaption>
         <span class="fig">Fig. 1</span> — {total} festivals across {regions} regions.
         <span class="lg"><i class="d mus"></i> {aListCount} A-list</span>
@@ -142,28 +167,23 @@ const steps = [
 
   /* HERO — full width */
   .hero { padding: clamp(26px,5vw,60px) 0 clamp(20px,3vw,30px); }
-  .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.84;
-    letter-spacing: 0.004em; margin: 12px 0 18px; font-size: clamp(58px, 13vw, 168px); text-wrap: balance; max-width: 15ch; }
-  .hero h1 .over { color: var(--np-red); text-shadow: 4px 0 0 rgba(39,75,142,0.6); }
+  .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.9;
+    letter-spacing: 0.002em; margin: 12px 0 18px; font-size: clamp(46px, 9.2vw, 122px); white-space: nowrap; }
+  @media (max-width: 480px){ .hero h1 { white-space: normal; } }
+  .hero h1 .over { color: var(--np-red); }
   .deck { font-family: var(--np-serif); font-size: clamp(16px,2vw,22px); line-height: 1.5; max-width: 52ch; color: var(--np-ink-2); }
   .deck::first-letter { font-family: var(--np-display); font-size: 3.2em; float: left; line-height: 0.7; padding: 4px 10px 0 0; color: var(--np-red); }
   .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 
-  /* FIG. 1 — the map (festivals plotted by real geography) */
+  /* FIG. 1 — the map (real projection, festivals plotted by geography) */
   .map-fig { margin: 0 0 clamp(20px,3vw,32px); border-top: 2px solid var(--np-ink); padding-top: 16px; }
-  .map { position: relative; width: 100%; aspect-ratio: 2.5 / 1; border: 2.5px solid var(--np-ink); background: var(--np-paper-2);
-    box-shadow: 7px 7px 0 var(--np-ink); overflow: hidden;
-    background-image:
-      linear-gradient(var(--np-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--np-line) 1px, transparent 1px);
-    background-size: 8.333% 16.66%, 8.333% 16.66%; }
-  @media (max-width: 640px){ .map { aspect-ratio: 1.6 / 1; } }
-  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--np-red);
-    border: 1px solid var(--np-ink); transform: translate(-50%,-50%); box-shadow: 0 0 0 2px color-mix(in srgb, var(--np-paper-2) 70%, transparent); }
-  .dot.alist { width: 11px; height: 11px; background: var(--np-mustard); z-index: 2; }
-  .rlabel { position: absolute; transform: translate(-50%,-50%); font-family: var(--np-mono); font-size: 10px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--np-ink-2); opacity: 0.55; pointer-events: none; white-space: nowrap; }
-  @media (max-width: 640px){ .rlabel { font-size: 8px; } .dot { width: 6px; height: 6px; } .dot.alist { width: 8px; height: 8px; } }
+  .mapsvg { display: block; width: 100%; height: auto; border: 2.5px solid var(--np-ink); background: var(--np-paper-2);
+    box-shadow: 7px 7px 0 var(--np-ink); }
+  .land { fill: color-mix(in srgb, var(--np-paper-3) 82%, var(--np-ink) 8%); stroke: var(--np-ink); stroke-width: 1; stroke-linejoin: round; }
+  .mapsvg .rlabel { fill: var(--np-ink-2); opacity: 0.5; font-family: var(--np-mono); font-size: 15px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; text-anchor: middle; }
+  .mapsvg .dot { fill: var(--np-red); stroke: var(--np-ink); stroke-width: 1; }
+  .mapsvg .dot.alist { fill: var(--np-mustard); stroke-width: 1.3; }
   .map-fig figcaption { font-family: var(--np-mono); font-size: 12px; color: var(--np-ink-2); margin-top: 10px;
     display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
   .map-fig .fig { font-weight: 700; color: var(--np-ink); letter-spacing: 0.06em; }

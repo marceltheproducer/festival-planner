@@ -102,22 +102,17 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
 
       <div className="flex-1">
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-film-400">
-            {filteredAndSorted.length} festival{filteredAndSorted.length !== 1 ? "s" : ""} found
+          <p className="np-count">
+            <b>{filteredAndSorted.length}</b> festival{filteredAndSorted.length !== 1 ? "s" : ""} found
           </p>
         </div>
 
         {chips.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="np-activechips" style={{ marginBottom: 18 }}>
             {chips.map((chip) => (
-              <button
-                key={chip.label}
-                type="button"
-                onClick={chip.remove}
-                className="text-xs px-2.5 py-1 rounded-full border bg-gold-500/15 text-gold-300 border-gold-500/30 hover:bg-red-500/15 hover:text-red-300 hover:border-red-500/30 transition-colors flex items-center gap-1"
-              >
+              <button key={chip.label} type="button" onClick={chip.remove} className="np-activechip">
                 {chip.label}
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -126,12 +121,16 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
         )}
 
         {filteredAndSorted.length === 0 ? (
-          <div className="text-center py-16 text-film-500">
-            <p className="text-lg mb-2">No festivals match your filters</p>
-            <p className="text-sm text-film-600">Try adjusting your filters or search criteria.</p>
+          <div style={{ textAlign: "center", padding: "56px 0" }}>
+            <p style={{ fontFamily: "var(--np-display)", textTransform: "uppercase", fontSize: 28, color: "var(--np-ink)" }}>
+              No festivals match
+            </p>
+            <p style={{ fontFamily: "var(--np-serif)", fontStyle: "italic", color: "var(--np-ink-2)", marginTop: 4 }}>
+              Try loosening your filters or search.
+            </p>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2">
             {filteredAndSorted.map((festival) => (
               <FestivalCard key={festival.id} festival={festival} shortFocused={isShortFocused(filters)} />
             ))}

@@ -204,7 +204,7 @@ function generatePlanText(entries: SelectedEntry[], steps: TimelineStep[]): stri
 
   lines.push("-".repeat(40));
   lines.push("Always verify deadlines on official festival websites.");
-  lines.push("festivalplanner.app");
+  lines.push("fest.marcelperez.co");
 
   return lines.join("\n");
 }
@@ -236,7 +236,7 @@ function generateICS(entries: SelectedEntry[]): string {
     const estNote = entry.projected ? "\\nNOTE: Estimated next-cycle date. Verify on the festival website." : "";
     const description = `Fee: ${feeStr}\\nTier: ${entry.festival.tier}\\nPhase: ${PHASE_LABELS[phase]}\\nWebsite: ${entry.festival.website}${estNote}`;
     const location = `${entry.festival.location.city}, ${entry.festival.location.country}`;
-    const uid = `${entry.festival.id}-${entry.deadline.type}@festivalplanner.app`;
+    const uid = `${entry.festival.id}-${entry.deadline.type}@fest.marcelperez.co`;
 
     lines.push("BEGIN:VEVENT");
     lines.push(`DTSTART;VALUE=DATE:${dateStr}`);

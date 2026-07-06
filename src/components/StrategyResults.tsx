@@ -281,19 +281,19 @@ export default function StrategyResults({
               <div className="grid gap-2 text-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
-                  <span><span className="text-red-300 font-medium">World Premiere</span> — Never shown anywhere. The most prestigious and competitive tier.</span>
+                  <span><span className="text-red-300 font-medium">World Premiere</span>: Never shown anywhere. The most prestigious and competitive tier.</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-orange-400 shrink-0" />
-                  <span><span className="text-orange-300 font-medium">International Premiere</span> — Shown in your home country only. Still valuable for major international festivals.</span>
+                  <span><span className="text-orange-300 font-medium">International Premiere</span>: Shown in your home country only. Still valuable for major international festivals.</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-yellow-400 shrink-0" />
-                  <span><span className="text-yellow-300 font-medium">National Premiere</span> — First screening in a specific country. Good for regional circuit festivals.</span>
+                  <span><span className="text-yellow-300 font-medium">National Premiere</span>: First screening in a specific country. Good for regional circuit festivals.</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                  <span><span className="text-emerald-300 font-medium">Open</span> — No premiere requirement. Submit anytime regardless of screening history.</span>
+                  <span><span className="text-emerald-300 font-medium">Open</span>: No premiere requirement. Submit anytime regardless of screening history.</span>
                 </div>
               </div>
               <p className="text-xs text-film-400">
@@ -422,7 +422,7 @@ export default function StrategyResults({
                                 {entry.projected && (
                                   <span
                                     className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/25"
-                                    title="This cycle has closed for your ready date — date estimated from the festival's annual schedule"
+                                    title="This cycle has closed for your ready date. Date estimated from the festival's annual schedule."
                                   >
                                     Est. next cycle
                                   </span>

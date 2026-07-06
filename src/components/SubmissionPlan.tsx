@@ -76,7 +76,7 @@ function buildTimeline(entries: SelectedEntry[]): TimelineStep[] {
       steps.push({
         type: "parallel_note",
         phase,
-        text: "Submit anytime — no premiere requirement",
+        text: "Submit anytime. No premiere requirement",
         subtext: "These festivals don't require a premiere status, so you can submit regardless of other results.",
       });
     }
@@ -140,7 +140,7 @@ function buildTimeline(entries: SelectedEntry[]): TimelineStep[] {
           type: "decision",
           phase,
           text: `If not accepted → proceed to ${PHASE_LABELS[nextPremierePhase].toLowerCase()} targets`,
-          subtext: "Your premiere status is preserved — you haven't screened, so you can still target the next tier.",
+          subtext: "Your premiere status is preserved. You haven't screened, so you can still target the next tier.",
         });
       }
     }
@@ -240,7 +240,7 @@ function generateICS(entries: SelectedEntry[]): string {
     const dateStr = entry.deadline.date.replace(/-/g, "");
     const feeStr = entry.deadline.fee === 0 ? "Free" : `$${entry.deadline.fee}`;
     const summary = `${entry.festival.name} - ${entry.deadline.type} deadline${entry.projected ? " (estimated)" : ""}`;
-    const estNote = entry.projected ? "\\nNOTE: Estimated next-cycle date — verify on the festival website." : "";
+    const estNote = entry.projected ? "\\nNOTE: Estimated next-cycle date. Verify on the festival website." : "";
     const description = `Fee: ${feeStr}\\nTier: ${entry.festival.tier}\\nPhase: ${PHASE_LABELS[phase]}\\nWebsite: ${entry.festival.website}${estNote}`;
     const location = `${entry.festival.location.city}, ${entry.festival.location.country}`;
     const uid = `${entry.festival.id}-${entry.deadline.type}@festivalplanner.app`;

@@ -135,8 +135,8 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
             </div>
             <p className="text-xs text-film-500 mt-1">
               {profile.readyDate <= today
-                ? "Planning from today — showing deadlines you can still make."
-                : "Planning ahead — deadlines before this date are skipped, and festivals whose current cycle has closed show an estimated next cycle."}
+                ? "Planning from today. Showing deadlines you can still make."
+                : "Planning ahead. Deadlines before this date are skipped, and festivals whose current cycle has closed show an estimated next cycle."}
             </p>
           </div>
 

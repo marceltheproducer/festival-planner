@@ -55,7 +55,7 @@ const features = [
     href: "/browse",
     no: "I",
     title: "The Circuit",
-    body: "Every festival, filterable by genre, region, tier, premiere rules, fee, and deadline. Sorted so the soonest — and cheapest — rise to the top.",
+    body: "Every festival, filterable by genre, region, tier, premiere rules, fee, and deadline. Sorted so the soonest and cheapest rise to the top.",
     cta: "Browse festivals",
   },
   {
@@ -69,7 +69,7 @@ const features = [
     href: "/planner",
     no: "III",
     title: "The Dispatch",
-    body: "Tell us about your film — we plot the whole run in the order that protects your premiere and your budget, with a plan you can export.",
+    body: "Tell us about your film, and we plot the whole run in the order that protects your premiere and your budget, with a plan you can export.",
     cta: "Build your plan",
   },
 ];
@@ -85,7 +85,7 @@ const steps = [
 <Layout
   newsprint
   title="Home"
-  description="Stop guessing which film festivals to submit to. Browse deadlines, protect your premiere status, and build an optimal submission strategy — a free tool by a filmmaker, for filmmakers."
+  description="Stop guessing which film festivals to submit to. Browse deadlines, protect your premiere status, and build an optimal submission strategy. A free tool by a filmmaker, for filmmakers."
 >
   <div class="np-page">
     <!-- HERO -->
@@ -94,7 +94,7 @@ const steps = [
       <h1>Know <span class="over">where</span> to submit.</h1>
     </section>
 
-    <!-- FIG. 1 — THE MAP -->
+    <!-- FIG. 1 : THE MAP -->
     <figure class="map-fig">
       <svg class="mapsvg" viewBox="0 0 1000 445" role="img" aria-label={`World map plotting all ${total} tracked festivals`} preserveAspectRatio="xMidYMid meet">
         <path d={landPath} class="land" />
@@ -106,7 +106,7 @@ const steps = [
         ))}
       </svg>
       <figcaption>
-        <span class="fig">Fig. 1</span> — {total} festivals across {regions} regions.
+        <span class="fig">Fig. 1</span> · {total} festivals across {regions} regions.
         <span class="lg"><i class="d mus"></i> {aListCount} A-list</span>
         <span class="lg"><i class="d red"></i> {total - aListCount} more on the circuit</span>
       </figcaption>
@@ -114,7 +114,7 @@ const steps = [
 
     <!-- LEDE + CTA -->
     <section class="hero-tail">
-      <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees. Every festival worth knowing, in one place, sorted so the soonest and cheapest rise to the top.</p>
+      <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget. No jargon, no "synergy," no $600 in wasted entry fees. Every festival worth knowing, in one place, sorted so the soonest and cheapest rise to the top.</p>
       <div class="actions">
         <div class="btnrow">
           <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>

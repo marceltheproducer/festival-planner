@@ -5,10 +5,7 @@ import type { Festival } from "../../lib/types";
 
 export function getStaticPaths() {
   const festivals = getAllFestivals();
-  return festivals.map((f) => ({
-    params: { id: f.id },
-    props: { festival: f },
-  }));
+  return festivals.map((f) => ({ params: { id: f.id }, props: { festival: f } }));
 }
 
 interface Props {
@@ -17,32 +14,10 @@ interface Props {
 
 const { festival } = Astro.props;
 const allFestivals = getAllFestivals();
-
 const nextDeadline = getNextDeadline(festival);
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
-const tierColors: Record<string, string> = {
-  "A-list": "bg-gold-500/20 text-gold-300 border border-gold-500/30",
-  major: "bg-blue-500/15 text-blue-300 border border-blue-500/25",
-  mid: "bg-emerald-500/15 text-emerald-300 border border-emerald-500/25",
-  emerging: "bg-purple-500/15 text-purple-300 border border-purple-500/25",
-};
-
-const premiereColors: Record<string, string> = {
-  world: "bg-red-500/15 text-red-300",
-  international: "bg-orange-500/15 text-orange-300",
-  national: "bg-yellow-500/15 text-yellow-300",
-  regional: "bg-teal-500/15 text-teal-300",
-  none: "bg-film-600/40 text-film-300",
-};
+const now = new Date().toISOString().split("T")[0];
+const oscar = /oscar|academy award/i.test(festival.notes ?? "");
+const hasShortSchedule = !!(festival.shortDeadlines && festival.shortDeadlines.length > 0);
 
 const platformLabels: Record<string, string> = {
   filmfreeway: "FilmFreeway",
@@ -50,22 +25,30 @@ const platformLabels: Record<string, string> = {
   withoutabox: "Withoutabox",
   other: "Other",
 };
+const typeLabel = festival.type === "both" ? "Shorts & Features" : festival.type === "short" ? "Short Films" : "Feature Films";
+const premLabel = festival.premiereRequirement === "none"
+  ? "No premiere requirement"
+  : `${festival.premiereRequirement.charAt(0).toUpperCase() + festival.premiereRequirement.slice(1)} premiere`;
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
+}
+function feeText(fee: number, shortFee?: number): string {
+  if (fee === 0) return "Free";
+  if (shortFee !== undefined) return `Shorts ${shortFee} / Features ${fee} ${festival.fees.currency}`;
+  return `${fee} ${festival.fees.currency}`;
+}
 
 // Related festivals: scored by genre overlap, tier, region, premiere, and film type
 const related = allFestivals
   .filter((f) => f.id !== festival.id)
   .map((f) => {
     let score = 0;
-    // Genre overlap (most important — shared genres mean similar programming)
     const sharedGenres = f.genres.filter((g) => festival.genres.includes(g)).length;
     score += sharedGenres * 15;
-    // Same tier
     if (f.tier === festival.tier) score += 10;
-    // Same region
     if (f.location.region === festival.location.region) score += 8;
-    // Same premiere requirement
     if (f.premiereRequirement === festival.premiereRequirement) score += 5;
-    // Compatible film type
     if (f.type === festival.type || f.type === "both" || festival.type === "both") score += 3;
     return { festival: f, score };
   })
@@ -76,10 +59,10 @@ const related = allFestivals
 ---
 
 <Layout
+  newsprint
   title={festival.name}
   description={`${festival.name} · ${festival.location.city}, ${festival.location.country}. ${festival.tier} tier film festival. Deadlines, fees, and submission info.`}
 >
-  {/* Structured data for search engines */}
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Event",
@@ -89,209 +72,107 @@ const related = allFestivals
     "endDate": festival.festivalDates?.end,
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": festival.location.city,
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": festival.location.city,
-        "addressCountry": festival.location.country,
-      },
-    },
+    "location": { "@type": "Place", "name": festival.location.city, "address": { "@type": "PostalAddress", "addressLocality": festival.location.city, "addressCountry": festival.location.country } },
     "url": festival.website,
-    "organizer": {
-      "@type": "Organization",
-      "name": festival.name,
-      "url": festival.website,
-    },
+    "organizer": { "@type": "Organization", "name": festival.name, "url": festival.website },
   })} />
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-    <!-- Breadcrumb -->
-    <nav class="text-sm text-film-500 mb-6 flex items-center gap-1.5">
-      <a href="/browse" class="hover:text-gold-400 transition-colors">Browse</a>
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-      <span class="text-film-300">{festival.name}</span>
+  <div class="np-wrap" style="max-width: 920px;">
+    <nav class="np-crumb" aria-label="Breadcrumb">
+      <a href="/browse">Browse</a> <span>›</span> <span>{festival.name}</span>
     </nav>
 
-    <!-- Header -->
-    <div class="bg-film-800/60 rounded-xl border border-film-700/50 p-5 sm:p-8 mb-6">
-      <div class="flex flex-wrap items-start gap-3 mb-4">
-        <h1 class="text-2xl sm:text-3xl font-bold text-film-50 flex-1 min-w-0">
-          {festival.name}
-        </h1>
-        <span class={`text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap ${tierColors[festival.tier]}`}>
-          {festival.tier}
-        </span>
+    <!-- Article header -->
+    <div class="np-article">
+      {oscar && <span class="np-stamp mus np-article__stamp">Oscar<br />Qual.</span>}
+      <p class="np-article__kicker">{festival.tier} · {festival.location.region}</p>
+      <h1>{festival.name}</h1>
+      <p class="np-article__loc">{festival.location.city}, {festival.location.country} · {platformLabels[festival.submissionPlatform]}</p>
+
+      <div class="np-article__meta">
+        <span class="np-metatag prem">{premLabel}</span>
+        <span class="np-metatag">{typeLabel}</span>
+        {festival.genres.map((g) => <span class="np-metatag">{g}</span>)}
       </div>
 
-      <p class="text-film-400 text-lg mb-4">
-        {festival.location.city}, {festival.location.country} · {festival.location.region}
-      </p>
+      {festival.notes && <p class="np-article__notes">{festival.notes}</p>}
 
-      <div class="flex flex-wrap gap-2 mb-5">
-        <span class={`text-xs px-2.5 py-1 rounded-full ${premiereColors[festival.premiereRequirement]}`}>
-          {festival.premiereRequirement === "none"
-            ? "No premiere requirement"
-            : `${festival.premiereRequirement.charAt(0).toUpperCase() + festival.premiereRequirement.slice(1)} premiere`}
-        </span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-film-600/40 text-film-300">
-          {festival.type === "both" ? "Shorts & Features" : festival.type === "short" ? "Short Films" : "Feature Films"}
-        </span>
-        <span class="text-xs px-2.5 py-1 rounded-full bg-film-600/40 text-film-300">
-          {platformLabels[festival.submissionPlatform]}
-        </span>
-      </div>
-
-      <div class="flex flex-wrap gap-1.5 mb-5">
-        {festival.genres.map((g) => (
-          <span class="text-xs px-2 py-0.5 rounded bg-film-700/60 text-film-300">{g}</span>
-        ))}
-      </div>
-
-      {festival.notes && (
-        <p class="text-sm text-film-300 leading-relaxed mb-5">
-          {festival.notes}
-        </p>
-      )}
-
-      <a
-        href={festival.website}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1.5 px-4 py-2 bg-gold-500 text-film-950 font-semibold rounded-lg text-sm hover:bg-gold-400 transition-colors"
-      >
-        Visit official website
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
-      </a>
+      <a href={festival.website} target="_blank" rel="noopener noreferrer" class="np-btn np-btn-solid">Visit official website →</a>
     </div>
 
-    <!-- Deadlines & Fees -->
-    <div class="grid gap-6 md:grid-cols-2 mb-6">
-      <div class="bg-film-800/60 rounded-xl border border-film-700/50 p-5">
-        <h2 class="text-sm font-semibold text-film-300 uppercase tracking-wider mb-4">
-          Deadlines & Fees
-        </h2>
-        <div class="space-y-3">
-          {festival.deadlines.map((d) => {
-            const now = new Date().toISOString().split("T")[0];
-            const isPast = d.date < now;
-            // When a separate short schedule exists, these dates are the feature dates.
-            const featureLabel = festival.shortDeadlines && festival.shortDeadlines.length > 0;
-            return (
-              <div class={`flex items-center justify-between ${isPast ? "opacity-50" : ""}`}>
-                <div>
-                  <p class="text-sm font-medium text-film-100 capitalize">
-                    {d.type} deadline{featureLabel ? " (features)" : ""}
-                    {isPast && <span class="text-xs text-film-500 ml-1">(passed)</span>}
-                  </p>
-                  <p class="text-xs text-film-400">{formatDate(d.date)}</p>
-                </div>
-                <span class="text-sm font-medium text-gold-400">
-                  {d.fee === 0 ? "Free" : (
-                    d.shortFee !== undefined
-                      ? `Shorts ${d.shortFee} / Features ${d.fee} ${festival.fees.currency}`
-                      : `${d.fee} ${festival.fees.currency}`
-                  )}
-                </span>
+    <!-- Deadlines + Dates -->
+    <div class="grid gap-5 md:grid-cols-2" style="margin-bottom: 22px;">
+      <div class="np-panelbox">
+        <div class="np-panelbox__h">Deadlines &amp; Fees</div>
+        <div class="np-panelbox__body">
+          {festival.deadlines.map((d) => (
+            <div class={`np-dlrow${d.date < now ? " past" : ""}`}>
+              <div>
+                <div class="np-dlrow__t">{d.type} deadline{hasShortSchedule ? " (features)" : ""}{d.date < now ? " · passed" : ""}</div>
+                <div class="np-dlrow__d">{formatDate(d.date)}</div>
               </div>
-            );
-          })}
-          {festival.shortDeadlines && festival.shortDeadlines.length > 0 && (
-            <div class="pt-3 mt-1 border-t border-film-700/30 space-y-3">
-              <p class="text-xs font-semibold text-gold-300 uppercase tracking-wider flex items-center gap-1.5">
-                Shorts submit earlier
-              </p>
-              {festival.shortDeadlines.map((d) => {
-                const now = new Date().toISOString().split("T")[0];
-                const isPast = d.date < now;
-                return (
-                  <div class={`flex items-center justify-between ${isPast ? "opacity-50" : ""}`}>
-                    <div>
-                      <p class="text-sm font-medium text-film-100 capitalize">
-                        {d.type} deadline (shorts)
-                        {isPast && <span class="text-xs text-film-500 ml-1">(passed)</span>}
-                      </p>
-                      <p class="text-xs text-film-400">{formatDate(d.date)}</p>
-                    </div>
-                    <span class="text-sm font-medium text-gold-400">
-                      {d.fee === 0 ? "Free" : `${d.fee} ${festival.fees.currency}`}
-                    </span>
-                  </div>
-                );
-              })}
+              <span class="np-dlrow__fee">{feeText(d.fee, d.shortFee)}</span>
             </div>
+          ))}
+          {hasShortSchedule && (
+            <>
+              <div class="np-subhead">Shorts submit earlier</div>
+              {festival.shortDeadlines!.map((d) => (
+                <div class={`np-dlrow${d.date < now ? " past" : ""}`}>
+                  <div>
+                    <div class="np-dlrow__t">{d.type} deadline (shorts){d.date < now ? " · passed" : ""}</div>
+                    <div class="np-dlrow__d">{formatDate(d.date)}</div>
+                  </div>
+                  <span class="np-dlrow__fee">{d.fee === 0 ? "Free" : `${d.fee} ${festival.fees.currency}`}</span>
+                </div>
+              ))}
+            </>
           )}
         </div>
       </div>
 
-      <div class="bg-film-800/60 rounded-xl border border-film-700/50 p-5">
-        <h2 class="text-sm font-semibold text-film-300 uppercase tracking-wider mb-4">
-          Festival Dates
-        </h2>
-        <div class="space-y-3">
+      <div class="np-panelbox">
+        <div class="np-panelbox__h">The Facts</div>
+        <div class="np-panelbox__body">
           {festival.festivalDates && (
-            <div>
-              <p class="text-sm font-medium text-film-100">Festival</p>
-              <p class="text-xs text-film-400">
-                {formatDate(festival.festivalDates.start)} &ndash; {formatDate(festival.festivalDates.end)}
-              </p>
+            <div class="np-factrow">
+              <div class="np-factrow__k">Festival dates</div>
+              <div class="np-factrow__v">{formatDate(festival.festivalDates.start)} &ndash; {formatDate(festival.festivalDates.end)}</div>
             </div>
           )}
           {festival.notificationDate && (
-            <div>
-              <p class="text-sm font-medium text-film-100">Notification</p>
-              <p class="text-xs text-film-400">Expected by {formatDate(festival.notificationDate)}</p>
+            <div class="np-factrow">
+              <div class="np-factrow__k">Notification</div>
+              <div class="np-factrow__v">Expected by {formatDate(festival.notificationDate)}</div>
             </div>
           )}
           {nextDeadline && (
-            <div class="pt-3 border-t border-film-700/30">
-              <p class="text-sm font-medium text-gold-400">
-                Next deadline: {formatDate(nextDeadline.date)}
-              </p>
-              <p class="text-xs text-film-400">
-                {nextDeadline.type} &middot; {nextDeadline.fee === 0 ? "Free" : (
-                  nextDeadline.shortFee !== undefined
-                    ? `Shorts ${nextDeadline.shortFee} / Features ${nextDeadline.fee} ${festival.fees.currency}`
-                    : `${nextDeadline.fee} ${festival.fees.currency}`
-                )}
-              </p>
+            <div class="np-factrow">
+              <div class="np-factrow__k">Next deadline</div>
+              <div class="np-factrow__v" style="color: var(--np-red);">{formatDate(nextDeadline.date)}</div>
+              <div class="np-dlrow__d" style="margin-top:2px;">{nextDeadline.type} · {feeText(nextDeadline.fee, nextDeadline.shortFee)}</div>
             </div>
           )}
         </div>
       </div>
     </div>
 
-    <!-- Related Festivals -->
+    <!-- Related -->
     {related.length > 0 && (
-      <div class="bg-film-800/60 rounded-xl border border-film-700/50 p-5">
-        <h2 class="text-sm font-semibold text-film-300 uppercase tracking-wider mb-4">
-          Related Festivals
-        </h2>
-        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((f) => (
-            <a
-              href={`/festivals/${f.id}`}
-              class="block rounded-lg border border-film-700/40 p-3 hover:border-gold-500/30 transition-colors"
-            >
-              <p class="text-sm font-medium text-film-100 truncate">{f.name}</p>
-              <p class="text-xs text-film-400 mt-0.5">
-                {f.location.city}, {f.location.country}
-              </p>
-              <div class="flex items-center gap-2 mt-2">
-                <span class={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${tierColors[f.tier]}`}>
-                  {f.tier}
-                </span>
-                <span class="text-[10px] text-film-500">
-                  {f.location.region}
-                </span>
-              </div>
-            </a>
-          ))}
+      <div class="np-panelbox">
+        <div class="np-panelbox__h">Also on the circuit</div>
+        <div class="np-panelbox__body">
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((f) => (
+              <a href={`/festivals/${f.id}`} class="np-related-card">
+                <div class="np-related-card__n">{f.name}</div>
+                <div class="np-related-card__m">
+                  <span class={`np-tier${f.tier === "A-list" ? " alist" : ""}`} style="font-size:9px;padding:2px 5px;">{f.tier}</span>
+                  {f.location.city}, {f.location.country}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     )}

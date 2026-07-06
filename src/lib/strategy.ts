@@ -10,7 +10,7 @@ import type {
   EntrySource,
 } from "./types";
 import { TIER_ORDER, PREMIERE_ORDER } from "./types";
-import { getNextDeadline, getDeadlines } from "./festivals";
+import { getNextDeadline, getDeadlines, getNextOrProjectedDeadline } from "./festivals";
 import { genresMatch } from "./genres";
 
 const DEFAULT_OPTIONS: StrategyOptions = {
@@ -26,7 +26,11 @@ const TIER_SCORES: Record<Festival["tier"], number> = {
 };
 
 function meetsPremiereRequirement(festival: Festival, profile: FilmProfile): boolean {
-  switch (festival.premiereRequirement) {
+  // Eligibility is governed by the most lenient premiere the festival accepts,
+  // which may be broader than its headline requirement (e.g. Sundance is
+  // world-premiere by reputation but also takes North American premieres).
+  const requirement = festival.premiereAccepts ?? festival.premiereRequirement;
+  switch (requirement) {
     case "world":
       return profile.premiereStatus === "unscreened";
     case "international":
@@ -43,6 +47,19 @@ function meetsPremiereRequirement(festival: Festival, profile: FilmProfile): boo
     default:
       return true;
   }
+}
+
+/**
+ * True when the film clears the festival's lenient acceptance floor but NOT its
+ * headline premiere requirement — i.e. it's eligible via a broader section/slot
+ * (Sundance's NA premiere, Berlin's Panorama) rather than the marquee tier.
+ */
+function qualifiesViaBroaderPremiere(festival: Festival, profile: FilmProfile): boolean {
+  if (!festival.premiereAccepts || festival.premiereAccepts === festival.premiereRequirement) {
+    return false;
+  }
+  const headlineFestival = { ...festival, premiereAccepts: undefined };
+  return meetsPremiereRequirement(festival, profile) && !meetsPremiereRequirement(headlineFestival, profile);
 }
 
 function toPhase(req: Festival["premiereRequirement"]): StrategyRecommendation["phase"] {
@@ -104,11 +121,15 @@ export function generateStrategy(
 
 // ── No targets: original behavior with source field ──────────────────────
 
-function getRecentlyPassedDeadline(festival: Festival, filmType: FilmProfile["type"]): Deadline | null {
-  const now = new Date().toISOString().split("T")[0];
-  const cutoff = new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+function getRecentlyPassedDeadline(
+  festival: Festival,
+  filmType: FilmProfile["type"],
+  referenceDate: string
+): Deadline | null {
+  const refMs = new Date(referenceDate + "T00:00:00Z").getTime();
+  const cutoff = new Date(refMs - 45 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
   const recent = getDeadlines(festival, filmType)
-    .filter((d) => d.date < now && d.date >= cutoff)
+    .filter((d) => d.date < referenceDate && d.date >= cutoff)
     .sort((a, b) => b.date.localeCompare(a.date));
   return recent[0] ?? null;
 }
@@ -125,91 +146,113 @@ function generateDiscoveryStrategy(
 
   eligible = eligible.filter((f) => meetsPremiereRequirement(f, profile));
 
-  // Split into upcoming and recently-passed
-  const withUpcoming = eligible.filter((f) => getNextDeadline(f, profile.type) !== null);
-  const recentlyPassed = eligible.filter((f) => getNextDeadline(f, profile.type) === null && getRecentlyPassedDeadline(f, profile.type) !== null);
+  // Resolve each festival to its actionable deadline relative to the film's
+  // ready date: an upcoming deadline if one remains, else a recently-passed one
+  // (contact for late submission), else a projected next annual cycle.
+  const resolved = eligible
+    .map((festival) => resolveForProfile(festival, profile))
+    .filter((r): r is ResolvedEntry => r !== null);
 
-  withUpcoming.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
+  const actionableNow = resolved.filter((r) => !r.projected && !r.recentlyPassed);
+  const totalEligible = actionableNow.length;
+  const freeCount = actionableNow.filter((r) => r.deadline.fee === 0).length;
 
-  const totalEligible = withUpcoming.length;
-  const freeCount = withUpcoming.filter((f) => {
-    const d = getNextDeadline(f, profile.type);
-    return d && resolveDeadline(d, profile.type).fee === 0;
-  }).length;
+  // Order within each phase: submit-now first, then projected future cycles,
+  // then recently-passed; each sorted by date, tie-broken by prestige.
+  const rank = (r: ResolvedEntry) => (r.recentlyPassed ? 2 : r.projected ? 1 : 0);
+  resolved.sort(
+    (a, b) =>
+      rank(a) - rank(b) ||
+      a.deadline.date.localeCompare(b.deadline.date) ||
+      TIER_ORDER[a.festival.tier] - TIER_ORDER[b.festival.tier]
+  );
 
-  const worldPremiere: StrategyEntry[] = [];
-  const intlPremiere: StrategyEntry[] = [];
-  const nationalPremiere: StrategyEntry[] = [];
-  const open: StrategyEntry[] = [];
+  const phases: Record<StrategyRecommendation["phase"], StrategyEntry[]> = {
+    world_premiere: [],
+    international_premiere: [],
+    national_premiere: [],
+    open: [],
+  };
+  const allFestivals = resolved.map((r) => r.festival);
   let totalFees = 0;
   let excludedByBudget = 0;
 
-  for (const festival of withUpcoming) {
-    const rawDeadline = getNextDeadline(festival, profile.type);
-    if (!rawDeadline) continue;
-    const deadline = resolveDeadline(rawDeadline, profile.type);
+  for (const r of resolved) {
+    const { festival, deadline, projected, recentlyPassed } = r;
 
-    if (profile.budget !== null && totalFees + deadline.fee > profile.budget) {
+    // Budget applies to festivals you'd actually submit to now or next cycle,
+    // not to recently-passed ones (whose late-submission cost is unknown).
+    if (!recentlyPassed && profile.budget !== null && totalFees + deadline.fee > profile.budget) {
       excludedByBudget++;
       continue;
     }
 
-    const source: EntrySource = { type: "discovery", detail: "" };
+    const source: EntrySource = { type: "discovery", detail: sourceDetail(recentlyPassed, projected) };
     const entry: StrategyEntry = {
       festival,
       deadline,
-      reason: buildReason(festival, deadline, source),
-      warning: buildWarning(festival, withUpcoming, profile),
+      reason: withPremiereNote(buildReason(festival, deadline, source), festival, profile),
+      warning: recentlyPassed ? undefined : buildWarning(festival, allFestivals, profile),
       source,
+      projected,
     };
 
-    totalFees += deadline.fee;
-
-    switch (festival.premiereRequirement) {
-      case "world": worldPremiere.push(entry); break;
-      case "international": intlPremiere.push(entry); break;
-      case "national": nationalPremiere.push(entry); break;
-      default: open.push(entry); break;
-    }
+    if (!recentlyPassed) totalFees += deadline.fee;
+    phases[toPhase(festival.premiereRequirement)].push(entry);
   }
-
-  // Add recently-passed festivals at the end of their respective phase groups
-  for (const festival of recentlyPassed) {
-    const rawDeadline = getRecentlyPassedDeadline(festival, profile.type);
-    if (!rawDeadline) continue;
-    const deadline = resolveDeadline(rawDeadline, profile.type);
-
-    const source: EntrySource = { type: "discovery", detail: "Deadline recently passed — contact festival for late submission" };
-    const entry: StrategyEntry = {
-      festival,
-      deadline,
-      reason: buildReason(festival, deadline, source),
-      source,
-    };
-
-    switch (festival.premiereRequirement) {
-      case "world": worldPremiere.push(entry); break;
-      case "international": intlPremiere.push(entry); break;
-      case "national": nationalPremiere.push(entry); break;
-      default: open.push(entry); break;
-    }
-  }
-
-  const sortByDeadline = (a: StrategyEntry, b: StrategyEntry) =>
-    a.deadline.date.localeCompare(b.deadline.date);
-
-  worldPremiere.sort(sortByDeadline);
-  intlPremiere.sort(sortByDeadline);
-  nationalPremiere.sort(sortByDeadline);
-  open.sort(sortByDeadline);
 
   const recommendations: StrategyRecommendation[] = [];
-  if (worldPremiere.length > 0) recommendations.push({ phase: "world_premiere", label: "World Premiere Targets", festivals: worldPremiere });
-  if (intlPremiere.length > 0) recommendations.push({ phase: "international_premiere", label: "International Premiere Targets", festivals: intlPremiere });
-  if (nationalPremiere.length > 0) recommendations.push({ phase: "national_premiere", label: "National Premiere Targets", festivals: nationalPremiere });
-  if (open.length > 0) recommendations.push({ phase: "open", label: "No Premiere Requirement", festivals: open });
+  if (phases.world_premiere.length > 0) recommendations.push({ phase: "world_premiere", label: "World Premiere Targets", festivals: phases.world_premiere });
+  if (phases.international_premiere.length > 0) recommendations.push({ phase: "international_premiere", label: "International Premiere Targets", festivals: phases.international_premiere });
+  if (phases.national_premiere.length > 0) recommendations.push({ phase: "national_premiere", label: "National Premiere Targets", festivals: phases.national_premiere });
+  if (phases.open.length > 0) recommendations.push({ phase: "open", label: "No Premiere Requirement", festivals: phases.open });
 
   return { recommendations, meta: { excludedByBudget, totalEligible, freeCount } };
+}
+
+// ── Reference-date resolution helpers ─────────────────────────────────────
+
+interface ResolvedEntry {
+  festival: Festival;
+  deadline: { type: Deadline["type"]; date: string; fee: number };
+  projected: boolean;
+  recentlyPassed: boolean;
+}
+
+/**
+ * Resolve a festival's actionable deadline relative to the film's ready date.
+ * Prefers an upcoming deadline; falls back to a recently-passed one (worth a
+ * late-submission inquiry); otherwise projects the next annual cycle.
+ */
+function resolveForProfile(festival: Festival, profile: FilmProfile): ResolvedEntry | null {
+  const ref = profile.readyDate;
+  const upcoming = getNextDeadline(festival, profile.type, ref);
+  if (upcoming) {
+    return { festival, deadline: resolveDeadline(upcoming, profile.type), projected: false, recentlyPassed: false };
+  }
+  const recent = getRecentlyPassedDeadline(festival, profile.type, ref);
+  if (recent) {
+    return { festival, deadline: resolveDeadline(recent, profile.type), projected: false, recentlyPassed: true };
+  }
+  const proj = getNextOrProjectedDeadline(festival, profile.type, ref);
+  if (proj) {
+    return { festival, deadline: resolveDeadline(proj.deadline, profile.type), projected: proj.projected, recentlyPassed: false };
+  }
+  return null;
+}
+
+function sourceDetail(recentlyPassed: boolean, projected: boolean): string {
+  if (recentlyPassed) return "Deadline recently passed — contact festival for late submission";
+  if (projected) return "Estimated next cycle — festival recurs annually";
+  return "";
+}
+
+/** Append an informational note when eligibility comes via a broader section. */
+function withPremiereNote(reason: string, festival: Festival, profile: FilmProfile): string {
+  if (!qualifiesViaBroaderPremiere(festival, profile)) return reason;
+  const accepts = premiereLabel(festival.premiereAccepts ?? festival.premiereRequirement);
+  const headline = premiereLabel(festival.premiereRequirement);
+  return `${reason} · Eligible via ${accepts} (not a full ${headline})`;
 }
 
 // ── With targets: smart anchor + suggestion logic ────────────────────────
@@ -228,7 +271,7 @@ function generateTargetedStrategy(
     const typeMatch = festival.type === "both" || festival.type === profile.type;
     const genreMatch = genresMatch(festival.genres, profile.genres);
     const premiereOk = meetsPremiereRequirement(festival, profile);
-    const deadline = getNextDeadline(festival, profile.type);
+    const resolvedAnchor = resolveForProfile(festival, profile);
 
     let warning: string | undefined;
     if (!typeMatch) {
@@ -236,33 +279,42 @@ function generateTargetedStrategy(
     } else if (!genreMatch) {
       warning = `This festival may not be the best genre fit, but you selected it as a target.`;
     } else if (!premiereOk) {
-      const req = premiereLabel(festival.premiereRequirement);
+      const req = premiereLabel(festival.premiereAccepts ?? festival.premiereRequirement);
       warning = `Your film has already screened ${profile.premiereStatus === "screened_internationally" ? "internationally" : "domestically"}. This festival requires a ${req}.`;
-    } else if (!deadline) {
-      warning = "All submission deadlines have passed. Some festivals accept late submissions — contact them directly to inquire.";
+    } else if (resolvedAnchor?.recentlyPassed) {
+      warning = "This cycle's deadline just passed — some festivals accept late submissions, so contact them directly to inquire.";
     }
 
-    const rawDisplayDeadline = deadline ?? getLatestDeadline(festival, profile.type);
-    if (!rawDisplayDeadline) continue;
-    const displayDeadline = resolveDeadline(rawDisplayDeadline, profile.type);
+    let displayDeadline: ResolvedEntry["deadline"];
+    let projected = false;
+    if (resolvedAnchor) {
+      displayDeadline = resolvedAnchor.deadline;
+      projected = resolvedAnchor.projected;
+    } else {
+      const latest = getLatestDeadline(festival, profile.type);
+      if (!latest) continue;
+      displayDeadline = resolveDeadline(latest, profile.type);
+    }
 
     const source: EntrySource = { type: "target" };
     anchorEntries.push({
       festival,
       deadline: displayDeadline,
-      reason: buildReason(festival, displayDeadline, source),
+      reason: withPremiereNote(buildReason(festival, displayDeadline, source), festival, profile),
       warning,
       source,
+      projected,
     });
   }
 
-  // Step B: Build suggestion pool — all eligible non-target festivals
+  // Step B: Build suggestion pool — all eligible non-target festivals with an
+  // upcoming or projected next-cycle deadline relative to the film's ready date.
   const pool = festivals.filter((f) => {
     if (profile.targetFestivalIds.includes(f.id)) return false;
     if (f.type !== "both" && f.type !== profile.type) return false;
     if (!genresMatch(f.genres, profile.genres)) return false;
     if (!meetsPremiereRequirement(f, profile)) return false;
-    if (!getNextDeadline(f, profile.type)) return false;
+    if (!getNextOrProjectedDeadline(f, profile.type, profile.readyDate)) return false;
     return true;
   });
 
@@ -270,7 +322,10 @@ function generateTargetedStrategy(
   const anchorPhases = new Set(anchorEntries.map((e) => toPhase(e.festival.premiereRequirement)));
 
   const scored = pool.map((festival) => {
-    const deadline = resolveDeadline(getNextDeadline(festival, profile.type)!, profile.type);
+    const resolvedSug = resolveForProfile(festival, profile)!;
+    const deadline = resolvedSug.deadline;
+    const projected = resolvedSug.projected;
+    const recentlyPassed = resolvedSug.recentlyPassed;
     let score = 0;
     let detail = "";
 
@@ -317,15 +372,17 @@ function generateTargetedStrategy(
 
     // Classify source
     let source: EntrySource;
-    if (deadline.fee === 0 && opts.autoIncludeFree) {
+    if (recentlyPassed) {
+      source = { type: "discovery", detail: sourceDetail(true, false) };
+    } else if (deadline.fee === 0 && opts.autoIncludeFree) {
       source = { type: "free_match", detail: detail || `No submission fee · ${festival.tier}` };
     } else if (detail) {
       source = { type: "complementary", detail };
     } else {
-      source = { type: "discovery", detail: `${festival.tier} festival · matches your film` };
+      source = { type: "discovery", detail: projected ? sourceDetail(false, true) : `${festival.tier} festival · matches your film` };
     }
 
-    return { festival, deadline, score, source };
+    return { festival, deadline, score, source, projected, recentlyPassed };
   });
 
   scored.sort((a, b) => b.score - a.score);
@@ -360,9 +417,10 @@ function generateTargetedStrategy(
     suggestionEntries.push({
       festival: item.festival,
       deadline: item.deadline,
-      reason: buildReason(item.festival, item.deadline, item.source),
-      warning: buildWarning(item.festival, allFestivalsForWarnings, profile),
+      reason: withPremiereNote(buildReason(item.festival, item.deadline, item.source), item.festival, profile),
+      warning: item.recentlyPassed ? undefined : buildWarning(item.festival, allFestivalsForWarnings, profile),
       source: item.source,
+      projected: item.projected,
     });
 
     phaseCounts[phase]++;
@@ -460,7 +518,7 @@ function buildWarning(festival: Festival, allEligible: Festival[], profile: Film
   );
 
   for (const higher of higherTier) {
-    const hDeadline = getNextDeadline(higher, profile.type);
+    const hDeadline = getNextDeadline(higher, profile.type, profile.readyDate);
     if (hDeadline && hDeadline.date > festival.notificationDate) {
       return `${higher.name} has a later deadline — consider waiting for notification from ${festival.name} before committing your premiere.`;
     }

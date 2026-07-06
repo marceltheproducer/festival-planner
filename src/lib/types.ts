@@ -17,6 +17,16 @@ export interface Festival {
   genres: string[];
   tier: "A-list" | "major" | "mid" | "emerging";
   premiereRequirement: "world" | "international" | "national" | "regional" | "none";
+  /**
+   * The MOST LENIENT premiere a festival will actually accept, when it accepts
+   * more than its headline `premiereRequirement` (e.g. Sundance requires "world"
+   * but also takes North American premieres; Berlin's Panorama accepts
+   * international premieres even though Competition is world-only). Used for
+   * ELIGIBILITY only — `premiereRequirement` remains the headline tier for
+   * display, phase grouping, and prestige scoring. Omit when the festival
+   * accepts exactly its headline tier.
+   */
+  premiereAccepts?: "world" | "international" | "national" | "regional" | "none";
   deadlines: Deadline[];
   /**
    * Shorts-specific submission schedule, used when shorts close on different
@@ -65,6 +75,15 @@ export interface FilmProfile {
   targetFestivalIds: string[];
   budget: number | null;
   /**
+   * The date the film will be ready to submit — the reference point ("now")
+   * for the whole strategy. Defaults to today, so submitting immediately works
+   * unchanged. Filmmakers planning ahead can set a future date; deadlines
+   * before it are unreachable (the film isn't finished yet), and festivals
+   * whose current cycle has passed are projected to their next annual cycle.
+   * ISO date string (YYYY-MM-DD).
+   */
+  readyDate: string;
+  /**
    * When true, the filmmaker isn't strategically protecting their premiere
    * status — common for short films, which routinely screen widely. The
    * strategy still respects each festival's hard premiere requirements (a
@@ -93,6 +112,13 @@ export interface StrategyEntry {
   reason: string;
   warning?: string;
   source: EntrySource;
+  /**
+   * True when this festival's current cycle had already closed by the film's
+   * ready date, so `deadline.date` is an ESTIMATED next-cycle date projected
+   * forward by whole years from the festival's real deadline. Shown clearly
+   * as an estimate in the UI.
+   */
+  projected?: boolean;
 }
 
 export interface StrategyOptions {

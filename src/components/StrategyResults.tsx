@@ -419,6 +419,14 @@ export default function StrategyResults({
                                     Start here
                                   </span>
                                 )}
+                                {entry.projected && (
+                                  <span
+                                    className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-300 border border-sky-500/25"
+                                    title="This cycle has closed for your ready date — date estimated from the festival's annual schedule"
+                                  >
+                                    Est. next cycle
+                                  </span>
+                                )}
                                 <SourceBadge source={entry.source} />
                                 <a
                                   href={entry.festival.website}
@@ -456,7 +464,7 @@ export default function StrategyResults({
                                       : `$${entry.deadline.fee}`}
                                   </p>
                                   <p className="text-xs text-film-500">
-                                    by {formatDate(entry.deadline.date)}
+                                    {entry.projected ? "est. " : "by "}{formatDate(entry.deadline.date)}
                                   </p>
                                 </>
                               )}

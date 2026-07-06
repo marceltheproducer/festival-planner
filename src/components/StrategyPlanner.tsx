@@ -9,7 +9,24 @@ interface StrategyPlannerProps {
   festivals: Festival[];
 }
 
+function addMonths(months: number): string {
+  const d = new Date();
+  d.setMonth(d.getMonth() + months);
+  return d.toISOString().split("T")[0];
+}
+
 export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
+  const today = new Date().toISOString().split("T")[0];
+  const readyPresets = useMemo(
+    () => [
+      { label: "Ready now", value: today },
+      { label: "In 3 months", value: addMonths(3) },
+      { label: "In 6 months", value: addMonths(6) },
+      { label: "In 1 year", value: addMonths(12) },
+    ],
+    [today]
+  );
+
   const [profile, setProfile] = useState<FilmProfile>({
     type: "short",
     genres: [],
@@ -18,6 +35,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
     targetFestivalIds: [],
     budget: null,
     premiereFlexible: false,
+    readyDate: new Date().toISOString().split("T")[0],
   });
   const [options, setOptions] = useState<StrategyOptions>({
     autoIncludeFree: true,
@@ -80,6 +98,46 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
               <option value="short">Short Film</option>
               <option value="feature">Feature Film</option>
             </select>
+          </div>
+
+          {/* Ready date */}
+          <div>
+            <label htmlFor="ready-date" className="block text-sm font-medium text-film-300 mb-1">
+              When will your film be ready?
+            </label>
+            <input
+              id="ready-date"
+              type="date"
+              value={profile.readyDate}
+              min={today}
+              onChange={(e) => update({ readyDate: e.target.value || today })}
+              className="w-full px-3 py-2 text-sm bg-film-900 border border-film-600 text-film-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+            />
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {readyPresets.map((preset) => {
+                const active = profile.readyDate === preset.value;
+                return (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => update({ readyDate: preset.value })}
+                    aria-pressed={active}
+                    className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                      active
+                        ? "bg-gold-500 text-film-950 border-gold-500"
+                        : "bg-film-800 text-film-300 border-film-600 hover:border-gold-500/50"
+                    }`}
+                  >
+                    {preset.label}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-film-500 mt-1">
+              {profile.readyDate <= today
+                ? "Planning from today — showing deadlines you can still make."
+                : "Planning ahead — deadlines before this date are skipped, and festivals whose current cycle has closed show an estimated next cycle."}
+            </p>
           </div>
 
           {/* Genres */}

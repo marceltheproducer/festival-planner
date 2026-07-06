@@ -21,15 +21,61 @@ export function getDeadlines(festival: Festival, filmType?: "short" | "feature")
   return festival.deadlines;
 }
 
+function today(): string {
+  return new Date().toISOString().split("T")[0];
+}
+
 export function getNextDeadline(
   festival: Festival,
-  filmType?: "short" | "feature"
+  filmType?: "short" | "feature",
+  referenceDate?: string
 ): Deadline | null {
-  const now = new Date().toISOString().split("T")[0];
+  const ref = referenceDate ?? today();
   const upcoming = getDeadlines(festival, filmType)
-    .filter((d) => d.date >= now)
+    .filter((d) => d.date >= ref)
     .sort((a, b) => a.date.localeCompare(b.date));
   return upcoming[0] ?? null;
+}
+
+/** Shift an ISO date forward by whole years, preserving month/day. */
+function addYears(dateStr: string, years: number): string {
+  const [y, m, d] = dateStr.split("-");
+  return `${Number(y) + years}-${m}-${d}`;
+}
+
+/**
+ * The next actionable deadline relative to `referenceDate`. If the festival's
+ * current cycle has already closed, its deadline is projected forward by whole
+ * years to estimate the next annual cycle (flagged `projected: true`). This
+ * keeps the full festival landscape visible for filmmakers planning ahead,
+ * while being explicit that far-future dates are estimates.
+ */
+export function getNextOrProjectedDeadline(
+  festival: Festival,
+  filmType?: "short" | "feature",
+  referenceDate?: string
+): { deadline: Deadline; projected: boolean } | null {
+  const ref = referenceDate ?? today();
+  const upcoming = getNextDeadline(festival, filmType, ref);
+  if (upcoming) return { deadline: upcoming, projected: false };
+
+  const deadlines = getDeadlines(festival, filmType);
+  if (deadlines.length === 0) return null;
+
+  let best: Deadline | null = null;
+  for (const d of deadlines) {
+    let years = 0;
+    let projectedDate = d.date;
+    while (projectedDate < ref && years < 5) {
+      years += 1;
+      projectedDate = addYears(d.date, years);
+    }
+    if (projectedDate < ref) continue;
+    if (!best || projectedDate < best.date) {
+      best = { ...d, date: projectedDate };
+    }
+  }
+  return best ? { deadline: best, projected: true } : null;
 }
 
 export function getAllGenres(festivals: Festival[]): string[] {

@@ -84,12 +84,15 @@ function buildTimeline(entries: SelectedEntry[]): TimelineStep[] {
     // Add submit steps for each festival in this phase
     for (const { entry } of phaseEntries) {
       const feeStr = entry.deadline.fee === 0 ? "Free" : `$${entry.deadline.fee}`;
+      const dateStr = entry.projected
+        ? `est. ${formatDate(entry.deadline.date)} (next cycle)`
+        : formatDate(entry.deadline.date);
       steps.push({
         type: "submit",
         phase,
         festival: entry,
         text: `Submit to ${entry.festival.name}`,
-        subtext: `${entry.deadline.type} deadline: ${formatDate(entry.deadline.date)} · ${feeStr}`,
+        subtext: `${entry.deadline.type} deadline: ${dateStr} · ${feeStr}`,
       });
     }
 
@@ -179,7 +182,7 @@ function generatePlanText(entries: SelectedEntry[], steps: TimelineStep[]): stri
         : "";
       lines.push(`  -> ${f.festival.name}${sourceLabel}`);
       lines.push(`     ${f.festival.location.city}, ${f.festival.location.country} | ${f.festival.tier}`);
-      lines.push(`     Deadline: ${formatDate(f.deadline.date)} (${f.deadline.type}) | ${feeStr}`);
+      lines.push(`     Deadline: ${formatDate(f.deadline.date)}${f.projected ? " (est. next cycle)" : ""} (${f.deadline.type}) | ${feeStr}`);
       if (f.festival.notificationDate) {
         lines.push(`     Notification: ~${formatDate(f.festival.notificationDate)}`);
       }
@@ -236,8 +239,9 @@ function generateICS(entries: SelectedEntry[]): string {
   for (const { entry, phase } of entries) {
     const dateStr = entry.deadline.date.replace(/-/g, "");
     const feeStr = entry.deadline.fee === 0 ? "Free" : `$${entry.deadline.fee}`;
-    const summary = `${entry.festival.name} - ${entry.deadline.type} deadline`;
-    const description = `Fee: ${feeStr}\\nTier: ${entry.festival.tier}\\nPhase: ${PHASE_LABELS[phase]}\\nWebsite: ${entry.festival.website}`;
+    const summary = `${entry.festival.name} - ${entry.deadline.type} deadline${entry.projected ? " (estimated)" : ""}`;
+    const estNote = entry.projected ? "\\nNOTE: Estimated next-cycle date — verify on the festival website." : "";
+    const description = `Fee: ${feeStr}\\nTier: ${entry.festival.tier}\\nPhase: ${PHASE_LABELS[phase]}\\nWebsite: ${entry.festival.website}${estNote}`;
     const location = `${entry.festival.location.city}, ${entry.festival.location.country}`;
     const uid = `${entry.festival.id}-${entry.deadline.type}@festivalplanner.app`;
 
@@ -496,6 +500,11 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                           <p className="text-sm font-medium text-gold-400">
                             {step.festival.deadline.fee === 0 ? "Free" : `$${step.festival.deadline.fee}`}
                           </p>
+                          {step.festival.projected && (
+                            <span className="text-[10px] font-semibold text-sky-300">
+                              est. next cycle
+                            </span>
+                          )}
                         </div>
                       </div>
                       {step.festival.festival.notificationDate && (

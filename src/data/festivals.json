@@ -17,6 +17,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "national",
     "deadlines": [
       {
         "type": "earlybird",
@@ -106,6 +107,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "international",
     "deadlines": [
       {
         "type": "regular",
@@ -229,6 +231,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "national",
     "deadlines": [
       {
         "type": "regular",
@@ -267,6 +270,7 @@
     ],
     "tier": "major",
     "premiereRequirement": "world",
+    "premiereAccepts": "national",
     "deadlines": [
       {
         "type": "earlybird",
@@ -320,6 +324,7 @@
     ],
     "tier": "major",
     "premiereRequirement": "world",
+    "premiereAccepts": "national",
     "deadlines": [
       {
         "type": "earlybird",
@@ -371,6 +376,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "international",
     "deadlines": [
       {
         "type": "earlybird",
@@ -1168,6 +1174,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "international",
     "deadlines": [
       {
         "type": "regular",
@@ -1204,6 +1211,7 @@
     ],
     "tier": "A-list",
     "premiereRequirement": "world",
+    "premiereAccepts": "international",
     "deadlines": [
       {
         "type": "regular",
@@ -2262,13 +2270,13 @@
     "deadlines": [
       {
         "type": "regular",
-        "date": "2026-10-01",
-        "fee": 0
+        "date": "2026-10-15",
+        "fee": 35
       }
     ],
     "fees": {
-      "regular": 0,
-      "currency": "SEK"
+      "regular": 35,
+      "currency": "EUR"
     },
     "notificationDate": "2026-12-15",
     "festivalDates": {
@@ -2277,7 +2285,7 @@
     },
     "website": "https://goteborgfilmfestival.se",
     "submissionPlatform": "direct",
-    "notes": "No fee. Largest film festival in Scandinavia. Nordic premiere preferred for Nordic films."
+    "notes": "Largest film festival in the Nordics; 50th edition in 2027. Swedish films submit free; non-Swedish films pay 35 EUR. Nordic premiere preferred for Nordic films; first public screening must be on or after January 1, 2026."
   },
   {
     "id": "sundance-london",
@@ -4137,5 +4145,85 @@
     "website": "https://indyfilmfest.org",
     "submissionPlatform": "filmfreeway",
     "notes": "Formerly the Indianapolis International Film Festival (2004-2013), rebranded in 2014. Programs ~25 features and 100+ shorts annually. Hybrid format with in-person screenings at Kan-Kan Cinema followed by virtual window. Awards include American Spectrum, World Cinema, Documentary, and Hoosier Lens (Indiana-tied films) categories. Cash prizes awarded. Films with ongoing commercial distribution are ineligible for juried awards."
+  },
+  {
+    "id": "sarajevo",
+    "name": "Sarajevo Film Festival",
+    "location": {
+      "city": "Sarajevo",
+      "country": "Bosnia and Herzegovina",
+      "region": "Europe"
+    },
+    "type": "both",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "national",
+    "deadlines": [
+      {
+        "type": "regular",
+        "date": "2026-05-25",
+        "fee": 0
+      }
+    ],
+    "fees": {
+      "regular": 0,
+      "currency": "EUR"
+    },
+    "festivalDates": {
+      "start": "2026-08-14",
+      "end": "2026-08-21"
+    },
+    "website": "https://www.sff.ba/en",
+    "submissionPlatform": "direct",
+    "notes": "The leading film festival in Southeast Europe; 32nd edition in 2026. No submission fee. The main Competition Programme is dedicated to regional cinema (SE Europe, the Caucasus, and Türkiye); filmmakers from outside the region are eligible for non-competitive and industry programmes. National premiere required for competition."
+  },
+  {
+    "id": "palm-springs",
+    "name": "Palm Springs International Film Festival",
+    "location": {
+      "city": "Palm Springs",
+      "country": "USA",
+      "region": "North America"
+    },
+    "type": "feature",
+    "genres": [
+      "Narrative",
+      "Documentary"
+    ],
+    "tier": "major",
+    "premiereRequirement": "none",
+    "deadlines": [
+      {
+        "type": "earlybird",
+        "date": "2026-06-06",
+        "fee": 75
+      },
+      {
+        "type": "regular",
+        "date": "2026-07-31",
+        "fee": 95
+      },
+      {
+        "type": "late",
+        "date": "2026-08-31",
+        "fee": 115
+      }
+    ],
+    "fees": {
+      "earlybird": 75,
+      "regular": 95,
+      "late": 115,
+      "currency": "USD"
+    },
+    "festivalDates": {
+      "start": "2027-01-07",
+      "end": "2027-01-18"
+    },
+    "website": "https://www.psfilmfest.org",
+    "submissionPlatform": "filmfreeway",
+    "notes": "Major awards-season festival; 38th edition in 2027. Features must be 70+ minutes and completed in 2026. No premiere requirement, but films cannot have screened in the Coachella Valley or been available online in the US beforehand. Strong Academy Award International Feature showcase."
   }
 ]

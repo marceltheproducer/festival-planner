@@ -26,13 +26,6 @@ const PHASE_LABELS: Record<StrategyRecommendation["phase"], string> = {
   open: "No Premiere Requirement",
 };
 
-const PHASE_COLORS: Record<StrategyRecommendation["phase"], { dot: string; line: string; bg: string; text: string }> = {
-  world_premiere: { dot: "bg-red-400", line: "bg-red-500/30", bg: "bg-red-500/10", text: "text-red-300" },
-  international_premiere: { dot: "bg-orange-400", line: "bg-orange-500/30", bg: "bg-orange-500/10", text: "text-orange-300" },
-  national_premiere: { dot: "bg-yellow-400", line: "bg-yellow-500/30", bg: "bg-yellow-500/10", text: "text-yellow-300" },
-  open: { dot: "bg-emerald-400", line: "bg-emerald-500/30", bg: "bg-emerald-500/10", text: "text-emerald-300" },
-};
-
 function formatDate(dateStr: string): string {
   return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
     month: "short",
@@ -301,12 +294,10 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
   return (
     <div>
       {/* Header */}
-      <div className="bg-film-800/60 rounded-xl border border-film-700/50 p-5 mb-6">
-        <div className="flex items-center justify-between mb-4 gap-2">
-          <h2 className="text-lg font-semibold text-film-50">
-            Your Submission Plan
-          </h2>
-          <div className="flex items-center gap-2">
+      <div className="np-planhead">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 14 }}>
+          <h2 style={{ fontFamily: "var(--np-display)", textTransform: "uppercase", fontSize: 24, letterSpacing: "0.02em" }}>Your Submission Plan</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <button
               type="button"
               onClick={() => {
@@ -317,224 +308,77 @@ export default function SubmissionPlan({ selectedEntries, onBack }: SubmissionPl
                   copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
                 });
               }}
-              className={`text-sm px-3 py-1.5 rounded-lg border transition-colors flex items-center gap-1.5 ${
-                copied
-                  ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-300"
-                  : "bg-film-700/50 border-film-600 text-film-300 hover:border-gold-400 hover:text-gold-400"
-              }`}
+              className={`np-planbtn${copied ? " on" : ""}`}
             >
-              {copied ? (
-                <>
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  Copied
-                </>
-              ) : (
-                <>
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  Copy plan
-                </>
-              )}
+              {copied ? "Copied ✓" : "Copy plan"}
             </button>
-            <button
-              type="button"
-              onClick={() => downloadFile(generateICS(selectedEntries), "festival-deadlines.ics", "text/calendar")}
-              className="text-sm px-3 py-1.5 rounded-lg border bg-film-700/50 border-film-600 text-film-300 hover:border-gold-400 hover:text-gold-400 transition-colors flex items-center gap-1.5"
-              title="Download calendar file"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              Calendar
-            </button>
-            <button
-              type="button"
-              onClick={() => downloadFile(generateCSV(selectedEntries), "festival-plan.csv", "text/csv")}
-              className="text-sm px-3 py-1.5 rounded-lg border bg-film-700/50 border-film-600 text-film-300 hover:border-gold-400 hover:text-gold-400 transition-colors flex items-center gap-1.5"
-              title="Download CSV spreadsheet"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              CSV
-            </button>
-            <button
-              type="button"
-              onClick={onBack}
-              className="text-sm text-film-400 hover:text-gold-400 transition-colors flex items-center gap-1"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-              Back
-            </button>
+            <button type="button" onClick={() => downloadFile(generateICS(selectedEntries), "festival-deadlines.ics", "text/calendar")} className="np-planbtn" title="Download calendar file">Calendar</button>
+            <button type="button" onClick={() => downloadFile(generateCSV(selectedEntries), "festival-plan.csv", "text/csv")} className="np-planbtn" title="Download CSV spreadsheet">CSV</button>
+            <button type="button" onClick={onBack} className="np-planbtn">← Back</button>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-4 sm:gap-6">
-          <div>
-            <p className="text-xl sm:text-2xl font-bold text-gold-400">{selectedEntries.length}</p>
-            <p className="text-xs sm:text-sm text-film-400">Festivals</p>
-          </div>
-          <div>
-            <p className="text-xl sm:text-2xl font-bold text-gold-400">
-              {totalFees === 0 ? "Free" : `$${totalFees}`}
-            </p>
-            <p className="text-xs sm:text-sm text-film-400">Est. total fees</p>
-          </div>
-          {earliestDeadline && (
-            <div>
-              <p className="text-xl sm:text-2xl font-bold text-gold-400">
-                {formatDate(earliestDeadline).split(",")[0]}
-              </p>
-              <p className="text-xs sm:text-sm text-film-400">First deadline</p>
-            </div>
-          )}
+        <div className="np-bynum">
+          <div className="n"><div className="big">{selectedEntries.length}</div><div className="lab">Festivals</div></div>
+          <div className="n"><div className="big paper">{totalFees === 0 ? "Free" : `$${totalFees}`}</div><div className="lab">Est. total fees</div></div>
+          {earliestDeadline && <div className="n"><div className="big">{formatDate(earliestDeadline).split(",")[0]}</div><div className="lab">First deadline</div></div>}
         </div>
 
         {premiereCount > 0 && openCount > 0 && (
-          <p className="text-xs text-film-500 mt-3">
-            {premiereCount} premiere-tier festival{premiereCount !== 1 ? "s" : ""} (submit in order) · {openCount} open festival{openCount !== 1 ? "s" : ""} (submit anytime)
+          <p style={{ fontFamily: "var(--np-mono)", fontSize: 11, color: "var(--np-ink-2)", marginTop: 12, textTransform: "uppercase", letterSpacing: "0.04em" }}>
+            {premiereCount} premiere-tier (submit in order) · {openCount} open (submit anytime)
           </p>
         )}
       </div>
 
       {/* Timeline */}
-      <div className="bg-film-800/60 rounded-xl border border-film-700/50 p-4 sm:p-6">
-        <h3 className="text-sm font-semibold text-film-300 uppercase tracking-wider mb-6">
-          Step-by-step timeline
-        </h3>
+      <div className="np-timeline">
+        <h3 style={{ fontFamily: "var(--np-display)", textTransform: "uppercase", fontSize: 18, letterSpacing: "0.02em", margin: "0 0 16px" }}>Step-by-step timeline</h3>
 
-        <div className="relative">
-          {timeline.map((step, idx) => {
-            const colors = PHASE_COLORS[step.phase];
-            const isLast = idx === timeline.length - 1;
-
-            return (
-              <div key={idx} className="relative flex gap-4 pb-6 last:pb-0">
-                {/* Vertical line */}
-                {!isLast && (
-                  <div
-                    className={`absolute left-[11px] top-6 bottom-0 w-0.5 ${
-                      step.type === "wait" || step.type === "decision"
-                        ? "bg-film-600/50"
-                        : colors.line
-                    }`}
-                  />
-                )}
-
-                {/* Dot / icon */}
-                <div className="relative shrink-0 z-10">
-                  {step.type === "submit" ? (
-                    <div className={`w-6 h-6 rounded-full ${colors.dot} flex items-center justify-center`}>
-                      <svg className="w-3.5 h-3.5 text-film-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                      </svg>
-                    </div>
-                  ) : step.type === "wait" ? (
-                    <div className="w-6 h-6 rounded-full bg-film-700 border-2 border-film-500 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-film-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  ) : step.type === "acceptance" ? (
-                    <div className="w-6 h-6 rounded-full bg-film-700 border-2 border-emerald-500/50 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                  ) : step.type === "decision" ? (
-                    <div className="w-6 h-6 rounded-full bg-film-700 border-2 border-amber-500/50 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  ) : (
-                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0 pt-0.5">
-                  <p className={`text-sm font-medium ${
-                    step.type === "submit" ? "text-film-50" :
-                    step.type === "wait" ? "text-film-300" :
-                    step.type === "acceptance" ? "text-emerald-300" :
-                    step.type === "decision" ? "text-amber-300" :
-                    colors.text
-                  }`}>
-                    {step.text}
-                  </p>
-                  {step.subtext && (
-                    <p className="text-xs text-film-500 mt-0.5">{step.subtext}</p>
-                  )}
-
-                  {/* Festival card for submit steps */}
-                  {step.type === "submit" && step.festival && (
-                    <div className={`mt-2 rounded-lg border border-film-700/50 ${colors.bg} px-3 py-2.5`}>
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <a
-                            href={step.festival.festival.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-film-50 hover:text-gold-400 transition-colors inline-flex items-center gap-1.5"
-                          >
-                            {step.festival.festival.name}
-                            <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                          </a>
-                          <p className="text-xs text-film-400">
-                            {step.festival.festival.location.city}, {step.festival.festival.location.country} · {step.festival.festival.tier}
-                          </p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-sm font-medium text-gold-400">
-                            {step.festival.deadline.fee === 0 ? "Free" : `$${step.festival.deadline.fee}`}
-                          </p>
-                          {step.festival.projected && (
-                            <span className="text-[10px] font-semibold text-sky-300">
-                              est. next cycle
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      {step.festival.festival.notificationDate && (
-                        <p className="text-xs text-film-500 mt-1.5">
-                          Notification: ~{formatDate(step.festival.festival.notificationDate)}
-                        </p>
-                      )}
-                      {step.festival.festival.festivalDates && (
-                        <p className="text-xs text-film-500">
-                          Festival: {formatDate(step.festival.festival.festivalDates.start)} – {formatDate(step.festival.festival.festivalDates.end)}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
+        {timeline.map((step, idx) => {
+          const isLast = idx === timeline.length - 1;
+          const icon =
+            step.type === "submit" ? "M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+            : step.type === "wait" ? "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            : step.type === "acceptance" ? "M5 13l4 4L19 7"
+            : step.type === "decision" ? "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            : "M13 10V3L4 14h7v7l9-11h-7z";
+          return (
+            <div key={idx} className="np-step">
+              {!isLast && <div className="np-step__line" />}
+              <div className={`np-step__dot${step.type === "submit" ? " submit" : ""}`}>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.4}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d={icon} />
+                </svg>
               </div>
-            );
-          })}
-        </div>
+              <div className="np-step__body">
+                <p className="np-step__text">{step.text}</p>
+                {step.subtext && <p className="np-step__sub">{step.subtext}</p>}
+
+                {step.type === "submit" && step.festival && (
+                  <div className="np-step__card">
+                    <div style={{ minWidth: 0 }}>
+                      <a href={step.festival.festival.website} target="_blank" rel="noopener noreferrer">{step.festival.festival.name}</a>
+                      <div className="np-step__cmeta">
+                        {step.festival.festival.location.city}, {step.festival.festival.location.country} · {step.festival.festival.tier}
+                        {step.festival.festival.notificationDate && ` · notif ~${formatDate(step.festival.festival.notificationDate)}`}
+                      </div>
+                    </div>
+                    <div style={{ textAlign: "right", whiteSpace: "nowrap" }}>
+                      <span style={{ fontFamily: "var(--np-mono)", fontWeight: 700, fontSize: 13 }}>{step.festival.deadline.fee === 0 ? "Free" : `$${step.festival.deadline.fee}`}</span>
+                      {step.festival.projected && <div style={{ fontFamily: "var(--np-mono)", fontSize: 10, fontWeight: 600, color: "var(--np-blue)", textTransform: "uppercase" }}>est. next cycle</div>}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Bottom back button */}
-      <div className="mt-6 flex justify-center">
-        <button
-          type="button"
-          onClick={onBack}
-          className="px-6 py-2.5 bg-film-800 text-film-300 rounded-lg font-medium text-sm border border-film-600 hover:border-gold-400 hover:text-gold-400 transition-colors"
-        >
-          Back to festival selection
-        </button>
+      <div style={{ marginTop: 24, display: "flex", justifyContent: "center" }}>
+        <button type="button" onClick={onBack} className="np-btn np-btn-ghost">Back to festival selection</button>
       </div>
     </div>
   );

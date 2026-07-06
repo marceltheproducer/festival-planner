@@ -1,11 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getAllFestivals } from "../lib/festivals";
+import { cityCoords, projectXY } from "../lib/cityCoords";
 
 const festivals = getAllFestivals();
 const total = festivals.length;
 const oscar = festivals.filter((f) => /oscar|academy award/i.test(f.notes ?? "")).length;
 const regions = new Set(festivals.map((f) => f.location.region)).size;
+const aListCount = festivals.filter((f) => f.tier === "A-list").length;
+
+// Fig. 1 — one plotted dot per festival, positioned by real geography.
+const dots = festivals
+  .map((f, i) => {
+    const c = cityCoords[`${f.location.city}, ${f.location.country}`];
+    if (!c) return null;
+    const { x, y } = projectXY(c[0], c[1]);
+    // deterministic jitter so festivals sharing a city fan out instead of stacking
+    const jx = (((i * 37) % 7) - 3) * 0.45;
+    const jy = (((i * 53) % 7) - 3) * 0.45;
+    return { x: x + jx, y: y + jy, aList: f.tier === "A-list", name: f.name };
+  })
+  .filter((d): d is { x: number; y: number; aList: boolean; name: string } => d !== null);
 
 const features = [
   {
@@ -47,20 +62,34 @@ const steps = [
   <div class="np-page">
     <!-- HERO -->
     <section class="hero">
-      <div class="lede">
-        <p class="np-kicker">The lead · this season on the circuit</p>
-        <h1>Stop guessing.<br /><span class="over">Start submitting.</span></h1>
-        <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees.</p>
-        <div class="btnrow">
-          <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
-          <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
-        </div>
-      </div>
-      <div class="halfphoto" role="img" aria-label="Duotone halftone film-frame illustration">
-        <div class="frame"></div>
-        <div class="cap">Fig. 1 — every festival, one map</div>
+      <p class="np-kicker">The lead · this season on the circuit</p>
+      <h1>Stop guessing. <span class="over">Start submitting.</span></h1>
+      <p class="deck">Deadlines, premiere rules, fees, and a submission plan built around <em>your</em> film and <em>your</em> budget — no jargon, no "synergy," no $600 in wasted entry fees.</p>
+      <div class="btnrow">
+        <a class="np-btn np-btn-solid" href="/browse">Browse the circuit</a>
+        <a class="np-btn np-btn-ghost" href="/planner">Build my plan</a>
       </div>
     </section>
+
+    <!-- FIG. 1 — THE MAP -->
+    <figure class="map-fig">
+      <div class="map" role="img" aria-label={`World map plotting all ${total} tracked festivals`}>
+        <span class="rlabel" style="left:15%;top:22%">N. America</span>
+        <span class="rlabel" style="left:50%;top:18%">Europe</span>
+        <span class="rlabel" style="left:80%;top:30%">Asia</span>
+        <span class="rlabel" style="left:52%;top:70%">Africa</span>
+        <span class="rlabel" style="left:28%;top:82%">S. America</span>
+        <span class="rlabel" style="left:88%;top:82%">Oceania</span>
+        {dots.map((d) => (
+          <span class:list={["dot", { alist: d.aList }]} style={`left:${d.x}%;top:${d.y}%`} title={d.name}></span>
+        ))}
+      </div>
+      <figcaption>
+        <span class="fig">Fig. 1</span> — {total} festivals across {regions} regions.
+        <span class="lg"><i class="d mus"></i> {aListCount} A-list</span>
+        <span class="lg"><i class="d red"></i> {total - aListCount} more on the circuit</span>
+      </figcaption>
+    </figure>
 
     <!-- BY THE NUMBERS -->
     <div class="np-bynum">
@@ -111,24 +140,37 @@ const steps = [
 <style>
   .np-page { max-width: 1120px; margin: 0 auto; padding: 0 clamp(14px,3vw,32px); }
 
-  /* HERO */
-  .hero { display: grid; grid-template-columns: 1.55fr 1fr; gap: clamp(18px,3vw,44px); align-items: center;
-    padding: clamp(26px,5vw,56px) 0 clamp(22px,4vw,36px); border-bottom: 2px solid var(--np-ink); }
-  @media (max-width: 760px){ .hero { grid-template-columns: 1fr; } }
-  .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.82;
-    letter-spacing: 0.004em; margin: 10px 0 16px; font-size: clamp(56px, 11vw, 132px); text-wrap: balance; }
+  /* HERO — full width */
+  .hero { padding: clamp(26px,5vw,60px) 0 clamp(20px,3vw,30px); }
+  .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.84;
+    letter-spacing: 0.004em; margin: 12px 0 18px; font-size: clamp(58px, 13vw, 168px); text-wrap: balance; max-width: 15ch; }
   .hero h1 .over { color: var(--np-red); text-shadow: 4px 0 0 rgba(39,75,142,0.6); }
-  .deck { font-family: var(--np-serif); font-size: clamp(15px,1.9vw,20px); line-height: 1.5; max-width: 40ch; color: var(--np-ink-2); }
-  .deck::first-letter { font-family: var(--np-display); font-size: 3.2em; float: left; line-height: 0.7; padding: 4px 8px 0 0; color: var(--np-red); }
+  .deck { font-family: var(--np-serif); font-size: clamp(16px,2vw,22px); line-height: 1.5; max-width: 52ch; color: var(--np-ink-2); }
+  .deck::first-letter { font-family: var(--np-display); font-size: 3.2em; float: left; line-height: 0.7; padding: 4px 10px 0 0; color: var(--np-red); }
   .btnrow { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 
-  .halfphoto { position: relative; border: 2.5px solid var(--np-ink); aspect-ratio: 4/5; overflow: hidden;
-    background: linear-gradient(135deg, var(--np-blue), var(--np-red)); box-shadow: 8px 8px 0 var(--np-ink); }
-  .halfphoto::before { content:""; position:absolute; inset:0; background-image: radial-gradient(var(--np-paper) 32%, transparent 34%);
-    background-size: 7px 7px; mix-blend-mode: screen; opacity: 0.85; }
-  .halfphoto .frame { position:absolute; inset: 14px; border: 2px dashed var(--np-paper); opacity: 0.7; }
-  .halfphoto .cap { position: absolute; bottom: 0; left: 0; right: 0; background: var(--np-ink); color: var(--np-paper);
-    font-family: var(--np-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 10px; }
+  /* FIG. 1 — the map (festivals plotted by real geography) */
+  .map-fig { margin: 0 0 clamp(20px,3vw,32px); border-top: 2px solid var(--np-ink); padding-top: 16px; }
+  .map { position: relative; width: 100%; aspect-ratio: 2.5 / 1; border: 2.5px solid var(--np-ink); background: var(--np-paper-2);
+    box-shadow: 7px 7px 0 var(--np-ink); overflow: hidden;
+    background-image:
+      linear-gradient(var(--np-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--np-line) 1px, transparent 1px);
+    background-size: 8.333% 16.66%, 8.333% 16.66%; }
+  @media (max-width: 640px){ .map { aspect-ratio: 1.6 / 1; } }
+  .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--np-red);
+    border: 1px solid var(--np-ink); transform: translate(-50%,-50%); box-shadow: 0 0 0 2px color-mix(in srgb, var(--np-paper-2) 70%, transparent); }
+  .dot.alist { width: 11px; height: 11px; background: var(--np-mustard); z-index: 2; }
+  .rlabel { position: absolute; transform: translate(-50%,-50%); font-family: var(--np-mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--np-ink-2); opacity: 0.55; pointer-events: none; white-space: nowrap; }
+  @media (max-width: 640px){ .rlabel { font-size: 8px; } .dot { width: 6px; height: 6px; } .dot.alist { width: 8px; height: 8px; } }
+  .map-fig figcaption { font-family: var(--np-mono); font-size: 12px; color: var(--np-ink-2); margin-top: 10px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+  .map-fig .fig { font-weight: 700; color: var(--np-ink); letter-spacing: 0.06em; }
+  .map-fig .lg { display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
+  .map-fig .lg .d { width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--np-ink); display: inline-block; }
+  .map-fig .lg .d.mus { background: var(--np-mustard); }
+  .map-fig .lg .d.red { background: var(--np-red); }
 
   /* FEATURES */
   .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }

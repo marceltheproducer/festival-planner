@@ -1,7 +1,27 @@
-import type { Festival, Filters, SortOption } from "./types";
+import type { Festival, Filters, SortOption, Deadline } from "./types";
 import { TIER_ORDER } from "./types";
-import { getNextDeadline } from "./festivals";
+import { getNextDeadline, getDeadlines } from "./festivals";
 import { genresMatch } from "./genres";
+
+/**
+ * Whether the active filters indicate the user is browsing specifically for
+ * short films (Film type = Short, without Feature also selected). When true,
+ * fee comparisons should prefer a deadline's shortFee.
+ */
+export function isShortFocused(filters: Filters): boolean {
+  return filters.filmType.includes("short") && !filters.filmType.includes("feature");
+}
+
+/**
+ * The submission fee most relevant to the user given their film-type filter.
+ * For short-focused browsing, a deadline's shortFee takes precedence when set;
+ * otherwise the standard (feature) fee is used.
+ */
+function relevantFee(deadline: Deadline | null, fallback: number, shortFocused: boolean): number {
+  if (!deadline) return fallback;
+  if (shortFocused && deadline.shortFee !== undefined) return deadline.shortFee;
+  return deadline.fee;
+}
 
 /** Score how well a festival matches a search query. 0 = no match. */
 export function searchScore(festival: Festival, query: string): number {
@@ -43,6 +63,8 @@ export function createDefaultFilters(): Filters {
 
 export function applyFilters(festivals: Festival[], filters: Filters): Festival[] {
   const now = new Date();
+  const shortFocused = isShortFocused(filters);
+  const feeType = shortFocused ? "short" : undefined;
 
   return festivals.filter((f) => {
     if (filters.search) {
@@ -77,9 +99,9 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
     }
 
     if (filters.maxFee !== null) {
-      const nextDl = getNextDeadline(f);
-      const relevantFee = nextDl ? nextDl.fee : f.fees.regular;
-      if (relevantFee > filters.maxFee) return false;
+      const nextDl = getNextDeadline(f, feeType);
+      const fee = relevantFee(nextDl, f.fees.regular, shortFocused);
+      if (fee > filters.maxFee) return false;
     }
 
     if (filters.deadlineWindow !== null) {
@@ -87,7 +109,7 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
       cutoff.setDate(cutoff.getDate() + filters.deadlineWindow);
       const cutoffStr = cutoff.toISOString().split("T")[0];
       const nowStr = now.toISOString().split("T")[0];
-      const hasUpcoming = f.deadlines.some((d) => d.date >= nowStr && d.date <= cutoffStr);
+      const hasUpcoming = getDeadlines(f, feeType).some((d) => d.date >= nowStr && d.date <= cutoffStr);
       if (!hasUpcoming) return false;
     }
 
@@ -95,7 +117,12 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
   });
 }
 
-export function sortFestivals(festivals: Festival[], sort: SortOption, searchQuery?: string): Festival[] {
+export function sortFestivals(
+  festivals: Festival[],
+  sort: SortOption,
+  searchQuery?: string,
+  shortFocused = false
+): Festival[] {
   const sorted = [...festivals];
 
   // When there's an active search, sort by relevance first
@@ -109,11 +136,13 @@ export function sortFestivals(festivals: Festival[], sort: SortOption, searchQue
     });
   }
 
+  const feeType = shortFocused ? "short" : undefined;
+
   switch (sort) {
     case "deadline":
       return sorted.sort((a, b) => {
-        const da = getNextDeadline(a);
-        const db = getNextDeadline(b);
+        const da = getNextDeadline(a, feeType);
+        const db = getNextDeadline(b, feeType);
         if (!da && !db) return 0;
         if (!da) return 1;
         if (!db) return -1;
@@ -123,8 +152,8 @@ export function sortFestivals(festivals: Festival[], sort: SortOption, searchQue
       return sorted.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
     case "fee":
       return sorted.sort((a, b) => {
-        const feeA = getNextDeadline(a)?.fee ?? a.fees.regular;
-        const feeB = getNextDeadline(b)?.fee ?? b.fees.regular;
+        const feeA = relevantFee(getNextDeadline(a, feeType), a.fees.regular, shortFocused);
+        const feeB = relevantFee(getNextDeadline(b, feeType), b.fees.regular, shortFocused);
         return feeA - feeB;
       });
     case "name":

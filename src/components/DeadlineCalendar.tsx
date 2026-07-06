@@ -4,6 +4,7 @@ import type { Festival, Deadline } from "../lib/types";
 interface CalendarEvent {
   festival: Festival;
   deadline: Deadline;
+  forShorts?: boolean;
 }
 
 const deadlineColors: Record<Deadline["type"], string> = {
@@ -53,11 +54,18 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
 
   const eventsByDate = useMemo(() => {
     const map = new Map<string, CalendarEvent[]>();
+    const add = (festival: Festival, deadline: Deadline, forShorts?: boolean) => {
+      const existing = map.get(deadline.date) ?? [];
+      existing.push({ festival, deadline, forShorts });
+      map.set(deadline.date, existing);
+    };
     for (const festival of festivals) {
       for (const deadline of festival.deadlines) {
-        const existing = map.get(deadline.date) ?? [];
-        existing.push({ festival, deadline });
-        map.set(deadline.date, existing);
+        add(festival, deadline);
+      }
+      // Surface shorts-specific deadlines (often earlier than the feature date)
+      for (const deadline of festival.shortDeadlines ?? []) {
+        add(festival, deadline, true);
       }
     }
     return map;
@@ -233,7 +241,7 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
                       <span
                         key={idx}
                         className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${deadlineColors[ev.deadline.type]}`}
-                        title={`${ev.festival.name} (${ev.deadline.type})`}
+                        title={`${ev.festival.name} (${ev.deadline.type}${ev.forShorts ? ", shorts" : ""})`}
                       />
                     ))}
                     {events.length > 3 && (
@@ -271,13 +279,18 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-medium text-film-50 text-sm sm:text-base">
                       {ev.festival.name}
+                      {ev.forShorts && (
+                        <span className="ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-gold-500/15 text-gold-300 align-middle">
+                          Shorts
+                        </span>
+                      )}
                     </span>
                     <span className="text-sm text-gold-400 shrink-0">
                       {ev.deadline.fee === 0 ? "Free" : `$${ev.deadline.fee}`}
                     </span>
                   </div>
                   <div className="text-xs text-film-400 mt-1">
-                    {ev.deadline.type} deadline &middot;{" "}
+                    {ev.deadline.type} deadline{ev.forShorts ? " (shorts)" : ""} &middot;{" "}
                     {ev.festival.location.city}, {ev.festival.location.country}
                   </div>
                 </div>
@@ -311,6 +324,11 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-film-100 truncate">
                       {ev.festival.name}
+                      {ev.forShorts && (
+                        <span className="ml-1.5 text-[10px] font-semibold text-gold-300">
+                          · Shorts
+                        </span>
+                      )}
                     </p>
                     <p className="text-xs text-film-400">
                       {formatDate(ev.deadline.date)} &middot;{" "}

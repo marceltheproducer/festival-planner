@@ -180,11 +180,13 @@ const related = allFestivals
           {festival.deadlines.map((d) => {
             const now = new Date().toISOString().split("T")[0];
             const isPast = d.date < now;
+            // When a separate short schedule exists, these dates are the feature dates.
+            const featureLabel = festival.shortDeadlines && festival.shortDeadlines.length > 0;
             return (
               <div class={`flex items-center justify-between ${isPast ? "opacity-50" : ""}`}>
                 <div>
                   <p class="text-sm font-medium text-film-100 capitalize">
-                    {d.type} deadline
+                    {d.type} deadline{featureLabel ? " (features)" : ""}
                     {isPast && <span class="text-xs text-film-500 ml-1">(passed)</span>}
                   </p>
                   <p class="text-xs text-film-400">{formatDate(d.date)}</p>
@@ -199,6 +201,31 @@ const related = allFestivals
               </div>
             );
           })}
+          {festival.shortDeadlines && festival.shortDeadlines.length > 0 && (
+            <div class="pt-3 mt-1 border-t border-film-700/30 space-y-3">
+              <p class="text-xs font-semibold text-gold-300 uppercase tracking-wider flex items-center gap-1.5">
+                Shorts submit earlier
+              </p>
+              {festival.shortDeadlines.map((d) => {
+                const now = new Date().toISOString().split("T")[0];
+                const isPast = d.date < now;
+                return (
+                  <div class={`flex items-center justify-between ${isPast ? "opacity-50" : ""}`}>
+                    <div>
+                      <p class="text-sm font-medium text-film-100 capitalize">
+                        {d.type} deadline (shorts)
+                        {isPast && <span class="text-xs text-film-500 ml-1">(passed)</span>}
+                      </p>
+                      <p class="text-xs text-film-400">{formatDate(d.date)}</p>
+                    </div>
+                    <span class="text-sm font-medium text-gold-400">
+                      {d.fee === 0 ? "Free" : `${d.fee} ${festival.fees.currency}`}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 

@@ -36,8 +36,14 @@ function currencyPrefix(code: string): string {
   return currencySymbols[code] ?? `${code}\u00A0`;
 }
 
-export default function FestivalCard({ festival }: { festival: Festival }) {
-  const nextDeadline = getNextDeadline(festival);
+export default function FestivalCard({
+  festival,
+  shortFocused = false,
+}: {
+  festival: Festival;
+  shortFocused?: boolean;
+}) {
+  const nextDeadline = getNextDeadline(festival, shortFocused ? "short" : undefined);
   const cur = currencyPrefix(festival.fees.currency);
 
   return (
@@ -101,9 +107,14 @@ export default function FestivalCard({ festival }: { festival: Festival }) {
         <div className="font-medium text-gold-400 shrink-0">
           {nextDeadline && nextDeadline.fee > 0
             ? (nextDeadline.shortFee !== undefined
-                ? `${cur}${nextDeadline.shortFee}–${cur}${nextDeadline.fee}`
+                ? (shortFocused
+                    ? `${cur}${nextDeadline.shortFee}`
+                    : `${cur}${nextDeadline.shortFee}–${cur}${nextDeadline.fee}`)
                 : `${cur}${nextDeadline.fee}`)
             : "Free"}
+          {shortFocused && nextDeadline && nextDeadline.shortFee !== undefined && nextDeadline.fee > 0 && (
+            <span className="text-film-500 text-xs font-normal ml-1">shorts</span>
+          )}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { Festival, Filters, SortOption } from "../lib/types";
 import { createDefaultFilters, applyFilters, sortFestivals, isShortFocused } from "../lib/filters";
 import FilterPanel from "./FilterPanel";
@@ -81,6 +81,25 @@ function getActiveChips(filters: Filters, onChange: (f: Filters) => void): Filte
 export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
   const [filters, setFilters] = useState<Filters>(createDefaultFilters);
   const [sort, setSort] = useState<SortOption>("deadline");
+  const [visibleCount, setVisibleCount] = useState(30);
+
+  // Persist filters + sort so a returning visitor keeps their view.
+  useEffect(() => {
+    try {
+      const f = localStorage.getItem("fp-filters");
+      if (f) setFilters((prev) => ({ ...prev, ...JSON.parse(f) }));
+      const s = localStorage.getItem("fp-sort");
+      if (s) setSort(JSON.parse(s));
+    } catch { /* ignore corrupt storage */ }
+  }, []);
+  useEffect(() => {
+    try { localStorage.setItem("fp-filters", JSON.stringify(filters)); } catch { /* private mode */ }
+  }, [filters]);
+  useEffect(() => {
+    try { localStorage.setItem("fp-sort", JSON.stringify(sort)); } catch { /* private mode */ }
+  }, [sort]);
+  // Reset the visible window whenever the result set changes.
+  useEffect(() => { setVisibleCount(30); }, [filters, sort]);
 
   const filteredAndSorted = useMemo(() => {
     const filtered = applyFilters(festivals, filters);
@@ -130,11 +149,20 @@ export default function FestivalBrowser({ festivals }: FestivalBrowserProps) {
             </p>
           </div>
         ) : (
-          <div className="grid gap-5 sm:grid-cols-2">
-            {filteredAndSorted.map((festival) => (
-              <FestivalCard key={festival.id} festival={festival} shortFocused={isShortFocused(filters)} />
-            ))}
-          </div>
+          <>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {filteredAndSorted.slice(0, visibleCount).map((festival) => (
+                <FestivalCard key={festival.id} festival={festival} shortFocused={isShortFocused(filters)} />
+              ))}
+            </div>
+            {filteredAndSorted.length > visibleCount && (
+              <div style={{ textAlign: "center", marginTop: 24 }}>
+                <button type="button" className="np-btn np-btn-ghost" onClick={() => setVisibleCount((c) => c + 30)}>
+                  Show more ({filteredAndSorted.length - visibleCount} left)
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

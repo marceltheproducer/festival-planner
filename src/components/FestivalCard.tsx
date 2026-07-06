@@ -1,5 +1,5 @@
 import type { Festival } from "../lib/types";
-import { getNextDeadline } from "../lib/festivals";
+import { getNextOrProjectedDeadline } from "../lib/festivals";
 
 const currencySymbols: Record<string, string> = {
   USD: "$",
@@ -24,7 +24,9 @@ export default function FestivalCard({
   festival: Festival;
   shortFocused?: boolean;
 }) {
-  const nd = getNextDeadline(festival, shortFocused ? "short" : undefined);
+  const resolved = getNextOrProjectedDeadline(festival, shortFocused ? "short" : undefined);
+  const nd = resolved?.deadline ?? null;
+  const projected = resolved?.projected ?? false;
   const c = cur(festival.fees.currency);
   const oscar = /oscar|academy award/i.test(festival.notes ?? "");
 
@@ -73,7 +75,7 @@ export default function FestivalCard({
 
       <div className="np-ticket__foot">
         <div>
-          <div className="np-dlk">{nd ? `Next deadline · ${nd.type}` : "Submissions"}</div>
+          <div className="np-dlk">{nd ? `${projected ? "Est. next" : "Next"} deadline · ${nd.type}` : "Submissions"}</div>
           {nd ? (
             <div className="np-dl">{fmtMD(nd.date)}</div>
           ) : (

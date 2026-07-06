@@ -12,18 +12,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.0",
+    "@astrojs/preact": "^6.0.1",
     "@astrojs/sitemap": "^3.7.1",
     "@fontsource/anton": "^5.2.7",
     "@tailwindcss/vite": "^4.2.1",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "astro": "^6.0.4",
     "d3-geo": "^3.1.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "preact": "^10.29.4",
     "tailwindcss": "^4.2.1",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2"

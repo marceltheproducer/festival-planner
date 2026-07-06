@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { Festival, FilmProfile, StrategyResult, StrategyOptions } from "../lib/types";
 import { ALL_GENRES } from "../lib/types";
 import { generateStrategy } from "../lib/strategy";
@@ -41,7 +41,29 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
   const [results, setResults] = useState<StrategyResult | null>(null);
   const [targetSearch, setTargetSearch] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Restore a saved film profile so returning filmmakers don't re-enter everything.
+  useEffect(() => {
+    try {
+      const savedProfile = localStorage.getItem("fp-profile");
+      if (savedProfile) {
+        const parsed = JSON.parse(savedProfile);
+        if (parsed.readyDate && parsed.readyDate < today) parsed.readyDate = today;
+        setProfile((p) => ({ ...p, ...parsed }));
+      }
+      const savedOptions = localStorage.getItem("fp-options");
+      if (savedOptions) setOptions((o) => ({ ...o, ...JSON.parse(savedOptions) }));
+    } catch { /* ignore corrupt storage */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    try { localStorage.setItem("fp-profile", JSON.stringify(profile)); } catch { /* quota / private mode */ }
+  }, [profile]);
+  useEffect(() => {
+    try { localStorage.setItem("fp-options", JSON.stringify(options)); } catch { /* quota / private mode */ }
+  }, [options]);
+
+  const handleSubmit = (e: Event) => {
     e.preventDefault();
     setResults(generateStrategy(festivals, profile, options));
   };
@@ -105,7 +127,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
                 type="date"
                 min={today}
                 value={profile.readyDate}
-                onChange={(e) => update({ readyDate: e.target.value || today })}
+                onChange={(e) => update({ readyDate: e.currentTarget.value || today })}
                 className="np-inp"
                 aria-label="Ready date"
               />
@@ -133,7 +155,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
             {/* D — Country */}
             <div className="np-field">
               <span className="np-lab"><span className="no">D</span> Country of origin</span>
-              <input type="text" value={profile.country} onChange={(e) => update({ country: e.target.value })} className="np-inp" aria-label="Country" placeholder="e.g. USA" />
+              <input type="text" value={profile.country} onChange={(e) => update({ country: e.currentTarget.value })} className="np-inp" aria-label="Country" placeholder="e.g. USA" />
             </div>
 
             {/* E — Budget */}
@@ -143,7 +165,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
                 type="number"
                 min="0"
                 value={profile.budget ?? ""}
-                onChange={(e) => update({ budget: e.target.value ? parseInt(e.target.value) : null })}
+                onChange={(e) => update({ budget: e.currentTarget.value ? parseInt(e.currentTarget.value) : null })}
                 className="np-inp"
                 aria-label="Budget"
                 placeholder="e.g. 500"
@@ -218,7 +240,7 @@ export default function StrategyPlanner({ festivals }: StrategyPlannerProps) {
                 <input
                   type="text"
                   value={targetSearch}
-                  onChange={(e) => setTargetSearch(e.target.value)}
+                  onChange={(e) => setTargetSearch(e.currentTarget.value)}
                   placeholder="Search festivals to pin…"
                   aria-label="Search target festivals"
                 />

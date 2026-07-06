@@ -1,6 +1,6 @@
 import type { Festival, Filters, SortOption, Deadline } from "./types";
 import { TIER_ORDER } from "./types";
-import { getNextDeadline, getDeadlines } from "./festivals";
+import { getNextOrProjectedDeadline, getForwardDeadlines } from "./festivals";
 import { genresMatch } from "./genres";
 
 /**
@@ -99,7 +99,7 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
     }
 
     if (filters.maxFee !== null) {
-      const nextDl = getNextDeadline(f, feeType);
+      const nextDl = getNextOrProjectedDeadline(f, feeType)?.deadline ?? null;
       const fee = relevantFee(nextDl, f.fees.regular, shortFocused);
       if (fee > filters.maxFee) return false;
     }
@@ -109,7 +109,7 @@ export function applyFilters(festivals: Festival[], filters: Filters): Festival[
       cutoff.setDate(cutoff.getDate() + filters.deadlineWindow);
       const cutoffStr = cutoff.toISOString().split("T")[0];
       const nowStr = now.toISOString().split("T")[0];
-      const hasUpcoming = getDeadlines(f, feeType).some((d) => d.date >= nowStr && d.date <= cutoffStr);
+      const hasUpcoming = getForwardDeadlines(f, feeType).some(({ deadline: d }) => d.date >= nowStr && d.date <= cutoffStr);
       if (!hasUpcoming) return false;
     }
 
@@ -141,8 +141,8 @@ export function sortFestivals(
   switch (sort) {
     case "deadline":
       return sorted.sort((a, b) => {
-        const da = getNextDeadline(a, feeType);
-        const db = getNextDeadline(b, feeType);
+        const da = getNextOrProjectedDeadline(a, feeType)?.deadline ?? null;
+        const db = getNextOrProjectedDeadline(b, feeType)?.deadline ?? null;
         if (!da && !db) return 0;
         if (!da) return 1;
         if (!db) return -1;
@@ -152,8 +152,8 @@ export function sortFestivals(
       return sorted.sort((a, b) => TIER_ORDER[a.tier] - TIER_ORDER[b.tier]);
     case "fee":
       return sorted.sort((a, b) => {
-        const feeA = relevantFee(getNextDeadline(a, feeType), a.fees.regular, shortFocused);
-        const feeB = relevantFee(getNextDeadline(b, feeType), b.fees.regular, shortFocused);
+        const feeA = relevantFee(getNextOrProjectedDeadline(a, feeType)?.deadline ?? null, a.fees.regular, shortFocused);
+        const feeB = relevantFee(getNextOrProjectedDeadline(b, feeType)?.deadline ?? null, b.fees.regular, shortFocused);
         return feeA - feeB;
       });
     case "name":

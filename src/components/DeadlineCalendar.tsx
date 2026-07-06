@@ -1,10 +1,12 @@
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import type { Festival, Deadline } from "../lib/types";
+import { getForwardDeadlines } from "../lib/festivals";
 
 interface CalendarEvent {
   festival: Festival;
   deadline: Deadline;
   forShorts?: boolean;
+  projected?: boolean;
 }
 
 function formatDate(dateStr: string): string {
@@ -35,14 +37,17 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
 
   const eventsByDate = useMemo(() => {
     const map = new Map<string, CalendarEvent[]>();
-    const add = (festival: Festival, deadline: Deadline, forShorts?: boolean) => {
+    const add = (festival: Festival, deadline: Deadline, forShorts: boolean, projected: boolean) => {
       const existing = map.get(deadline.date) ?? [];
-      existing.push({ festival, deadline, forShorts });
+      existing.push({ festival, deadline, forShorts, projected });
       map.set(deadline.date, existing);
     };
     for (const festival of festivals) {
-      for (const deadline of festival.deadlines) add(festival, deadline);
-      for (const deadline of festival.shortDeadlines ?? []) add(festival, deadline, true);
+      // Each deadline rolled to its next occurrence; closed cycles project forward.
+      for (const { deadline, projected } of getForwardDeadlines(festival)) add(festival, deadline, false, projected);
+      if (festival.shortDeadlines?.length) {
+        for (const { deadline, projected } of getForwardDeadlines(festival, "short")) add(festival, deadline, true, projected);
+      }
     }
     return map;
   }, [festivals]);
@@ -142,7 +147,7 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
                   <span className={`np-cal__dn${isToday ? " today" : ""}`}>{day}</span>
                   <div className="np-evrow">
                     {events.slice(0, 4).map((ev, idx) => (
-                      <span key={idx} className={`np-evdot t-${ev.deadline.type}`} title={`${ev.festival.name} (${ev.deadline.type}${ev.forShorts ? ", shorts" : ""})`} />
+                      <span key={idx} className={`np-evdot t-${ev.deadline.type}`} style={ev.projected ? { opacity: 0.5 } : undefined} title={`${ev.festival.name} (${ev.deadline.type}${ev.forShorts ? ", shorts" : ""}${ev.projected ? ", est. next cycle" : ""})`} />
                     ))}
                     {events.length > 4 && <span className="np-cal__more">+{events.length - 4}</span>}
                   </div>
@@ -164,7 +169,7 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
             {selectedEvents.map((ev, idx) => (
               <div key={idx} className={`np-evitem bl-${ev.deadline.type}`}>
                 <div>
-                  <div className="np-evitem__name">{ev.festival.name}{ev.forShorts && <span className="np-shortstag">Shorts</span>}</div>
+                  <div className="np-evitem__name">{ev.festival.name}{ev.forShorts && <span className="np-shortstag">Shorts</span>}{ev.projected && <span className="np-shortstag" style={{ background: "var(--np-blue)", color: "var(--np-paper)" }}>Est.</span>}</div>
                   <div className="np-evitem__meta">{ev.deadline.type} deadline · {ev.festival.location.city}, {ev.festival.location.country}</div>
                 </div>
                 <span className="np-evitem__fee">{ev.deadline.fee === 0 ? "Free" : `$${ev.deadline.fee}`}</span>
@@ -185,7 +190,7 @@ export default function DeadlineCalendar({ festivals }: { festivals: Festival[] 
                 <span className={`np-up__dot t-${ev.deadline.type}`} />
                 <div style={{ minWidth: 0 }}>
                   <div className="np-up__name" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    {ev.festival.name}{ev.forShorts && <span className="np-shortstag">Shorts</span>}
+                    {ev.festival.name}{ev.forShorts && <span className="np-shortstag">Shorts</span>}{ev.projected && <span className="np-shortstag" style={{ background: "var(--np-blue)", color: "var(--np-paper)" }}>Est.</span>}
                   </div>
                   <div className="np-up__meta">{formatDate(ev.deadline.date)} · {ev.deadline.fee === 0 ? "Free" : `$${ev.deadline.fee}`}</div>
                 </div>

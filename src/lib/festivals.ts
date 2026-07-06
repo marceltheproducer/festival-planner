@@ -78,6 +78,34 @@ export function getNextOrProjectedDeadline(
   return best ? { deadline: best, projected: true } : null;
 }
 
+/**
+ * Every deadline for a film type, rolled forward to its next occurrence. If the
+ * festival still has upcoming deadlines this cycle, those are returned as-is; if
+ * the whole cycle has closed, the entire schedule is shifted forward by whole
+ * years (tagged projected) so the festival keeps surfacing on Browse/Calendar
+ * instead of reading as permanently closed.
+ */
+export function getForwardDeadlines(
+  festival: Festival,
+  filmType?: "short" | "feature",
+  referenceDate?: string
+): { deadline: Deadline; projected: boolean }[] {
+  const ref = referenceDate ?? today();
+  const deadlines = getDeadlines(festival, filmType);
+  if (deadlines.length === 0) return [];
+  const upcoming = deadlines.filter((d) => d.date >= ref);
+  if (upcoming.length > 0) {
+    return [...upcoming].sort((a, b) => a.date.localeCompare(b.date)).map((d) => ({ deadline: d, projected: false }));
+  }
+  // Whole cycle closed — shift the entire schedule forward together.
+  const earliest = [...deadlines].sort((a, b) => a.date.localeCompare(b.date))[0].date;
+  let years = 1;
+  while (addYears(earliest, years) < ref && years < 6) years += 1;
+  return deadlines
+    .map((d) => ({ deadline: { ...d, date: addYears(d.date, years) }, projected: true }))
+    .sort((a, b) => a.deadline.date.localeCompare(b.deadline.date));
+}
+
 export function getAllGenres(festivals: Festival[]): string[] {
   const genres = new Set<string>();
   for (const f of festivals) {

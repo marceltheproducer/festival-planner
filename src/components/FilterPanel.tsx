@@ -111,14 +111,14 @@ export default function FilterPanel({ filters, sort, onChange, onSortChange }: F
               type="text"
               placeholder="Festival, city, country…"
               value={filters.search}
-              onChange={(e) => update({ search: e.target.value })}
+              onChange={(e) => update({ search: e.currentTarget.value })}
               className="np-input"
             />
           </div>
 
           <div>
             <span className="np-fgroup__label">Sort by</span>
-            <select value={sort} onChange={(e) => onSortChange(e.target.value as SortOption)} className="np-select">
+            <select value={sort} onChange={(e) => onSortChange(e.currentTarget.value as SortOption)} className="np-select">
               <option value="deadline">Deadline (soonest)</option>
               <option value="prestige">Prestige (highest)</option>
               <option value="fee">Fee (lowest)</option>
@@ -167,7 +167,7 @@ export default function FilterPanel({ filters, sort, onChange, onSortChange }: F
               step="5"
               value={filters.maxFee ?? 200}
               onChange={(e) => {
-                const val = parseInt(e.target.value);
+                const val = parseInt(e.currentTarget.value);
                 update({ maxFee: val >= 200 ? null : val });
               }}
               className="np-range"

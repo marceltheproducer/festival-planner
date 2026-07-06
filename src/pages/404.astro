@@ -2,26 +2,30 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Page Not Found" description="The page you're looking for doesn't exist.">
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-    <p class="text-gold-400 text-6xl font-bold mb-4">404</p>
-    <h1 class="text-2xl font-bold text-film-50 mb-3">Page not found</h1>
-    <p class="text-film-400 mb-8">
-      The page you're looking for doesn't exist or has been moved.
+<Layout newsprint title="Page Not Found" description="The page you're looking for doesn't exist.">
+  <div class="np-wrap np404">
+    <p class="np-kicker">404 · Story not found</p>
+    <div class="np404__num">404</div>
+    <h1 class="np404__head">This page hit the<br />cutting room floor.</h1>
+    <p class="np404__body">
+      The reel you're looking for isn't here. It may have been recut, moved, or never made the final edit. Head back to the newsroom.
     </p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <a
-        href="/"
-        class="inline-flex items-center px-6 py-3 bg-gold-500 text-film-950 font-semibold rounded-lg hover:bg-gold-400 transition-colors"
-      >
-        Go home
-      </a>
-      <a
-        href="/browse"
-        class="inline-flex items-center px-6 py-3 bg-film-800 text-film-300 font-semibold rounded-lg border border-film-600 hover:border-gold-500/50 transition-colors"
-      >
-        Browse festivals
-      </a>
+    <div class="np404__cta">
+      <a class="np-btn np-btn-solid" href="/">Back to the front page</a>
+      <a class="np-btn np-btn-ghost" href="/browse">Browse the circuit</a>
     </div>
   </div>
 </Layout>
+
+<style>
+  .np404 { max-width: 720px; text-align: center; padding-top: clamp(36px, 8vw, 88px); padding-bottom: 64px; }
+  .np404 .np-kicker { display: block; }
+  .np404__num { font-family: var(--np-display); font-weight: 400; letter-spacing: 0.02em; line-height: 0.78;
+    font-size: clamp(96px, 24vw, 228px); color: var(--np-red); text-shadow: 5px 0 0 rgba(39,75,142,0.55); margin: 8px 0 2px; }
+  .np404__head { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; letter-spacing: 0.01em;
+    line-height: 0.9; font-size: clamp(30px, 6vw, 62px); margin: 0 0 16px; border-top: 4px double var(--np-ink);
+    border-bottom: 4px double var(--np-ink); padding: 14px 0; display: inline-block; }
+  .np404__body { font-family: var(--np-serif); font-size: clamp(15px, 2vw, 18px); line-height: 1.55; color: var(--np-ink-2);
+    max-width: 52ch; margin: 0 auto 26px; }
+  .np404__cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+</style>

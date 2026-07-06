@@ -1,25 +1,19 @@
 ---
 import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import NewsprintHeader from "../components/NewsprintHeader.astro";
 import NewsprintFooter from "../components/NewsprintFooter.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  /** Retained for call-site compatibility; the site is newsprint everywhere. */
   newsprint?: boolean;
 }
 
 const {
   title = "Festival Planner",
   description = "Plan your film festival submissions strategically. Browse festivals, track deadlines, and optimize your premiere status.",
-  newsprint = false,
 } = Astro.props;
-
-const bodyClass = newsprint
-  ? "min-h-screen theme-np flex flex-col"
-  : "min-h-screen bg-film-950 text-film-100 flex flex-col antialiased";
 
 const siteName = "FestivalPlanner";
 const pageTitle = title === "Home" ? `${siteName}: Smart Film Festival Submission Strategy` : `${title} | ${siteName}`;
@@ -35,7 +29,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://festival
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalUrl.href} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a0a12" />
+    <meta name="theme-color" content="#ece3cd" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -71,15 +65,15 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site || "https://festival
       },
     })} />
   </head>
-  <body class={bodyClass}>
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-gold-500 focus:text-film-950 focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold">
+  <body class="min-h-screen theme-np flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-[#1b1712] focus:text-[#ece3cd] focus:px-4 focus:py-2 focus:font-semibold">
       Skip to main content
     </a>
-    {newsprint ? <NewsprintHeader /> : <Header />}
+    <NewsprintHeader />
     <main id="main-content" class="flex-1">
       <slot />
     </main>
-    {newsprint ? <NewsprintFooter /> : <Footer />}
+    <NewsprintFooter />
     <script>
       import { inject } from "@vercel/analytics";
       import { injectSpeedInsights } from "@vercel/speed-insights";

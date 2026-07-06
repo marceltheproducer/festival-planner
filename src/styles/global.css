@@ -63,9 +63,9 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-  background-color: var(--color-film-950);
-  color: var(--color-film-100);
+  font-family: var(--np-serif);
+  background-color: var(--np-paper);
+  color: var(--np-ink);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -85,9 +85,8 @@ html.dyslexic h1, html.dyslexic h2, html.dyslexic h3 {
 
 /* Better keyboard focus indicators */
 *:focus-visible {
-  outline: 2px solid var(--color-gold-400);
+  outline: 2px solid var(--np-ink);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 /* Better touch targets on mobile */
@@ -97,20 +96,22 @@ html.dyslexic h1, html.dyslexic h2, html.dyslexic h3 {
   }
 }
 
-/* Cinematic scrollbar */
+/* Newsprint scrollbar + selection */
+::selection { background: var(--np-mustard); color: var(--np-ink); }
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-film-900);
+  background: var(--np-paper-3);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-film-600);
-  border-radius: 4px;
+  background: var(--np-ink-2);
+  border: 2px solid var(--np-paper-3);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold-600);
+  background: var(--np-red);
 }
+html { scrollbar-color: var(--np-ink-2) var(--np-paper-3); }
 
 /* Thin scrollbar for compact containers */
 .scrollbar-thin::-webkit-scrollbar {
@@ -120,12 +121,12 @@ html.dyslexic h1, html.dyslexic h2, html.dyslexic h3 {
   background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: var(--color-film-600);
-  border-radius: 2px;
+  background: var(--np-ink-2);
+  border-radius: 0;
 }
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-film-600) transparent;
+  scrollbar-color: var(--np-ink-2) transparent;
 }
 
 /* ===========================================================================
@@ -435,6 +436,8 @@ body.theme-np *:focus-visible { outline: 2px solid var(--np-ink); outline-offset
 .np-metatag.mus { background: var(--np-mustard); }
 .np-article__notes { font-family: var(--np-serif); font-size: 15px; line-height: 1.6; color: var(--np-ink-2); margin: 14px 0 18px; max-width: 66ch; }
 .np-article__stamp { position: absolute; top: 30px; right: 4px; z-index: 2; }
+.np-article.has-stamp .np-article__kicker,
+.np-article.has-stamp h1 { padding-right: clamp(64px, 12vw, 88px); }
 .np-panelbox { border: 2.5px solid var(--np-ink); background: var(--np-paper-2); box-shadow: 5px 5px 0 var(--np-ink); }
 .np-panelbox__h { background: var(--np-ink); color: var(--np-paper); font-family: var(--np-display); text-transform: uppercase; font-size: 16px; letter-spacing: 0.03em; padding: 8px 14px; }
 .np-panelbox__body { padding: 6px 14px 12px; }
@@ -453,3 +456,24 @@ body.theme-np *:focus-visible { outline: 2px solid var(--np-ink); outline-offset
 .np-related-card:hover { transform: translate(1px,1px); box-shadow: 2px 2px 0 var(--np-ink); }
 .np-related-card__n { font-family: var(--np-display); text-transform: uppercase; font-size: 18px; line-height: 0.95; color: var(--np-ink); }
 .np-related-card__m { font-family: var(--np-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--np-ink-2); margin-top: 5px; display: flex; gap: 8px; align-items: center; }
+
+/* ── Submit / feedback form ───────────────────────────────────── */
+.np-formcard { border: 2.5px solid var(--np-ink); background: var(--np-paper-2); box-shadow: 6px 6px 0 var(--np-ink); padding: clamp(16px,3vw,26px); }
+.np-formrow { margin-bottom: 18px; }
+.np-formrow:last-child { margin-bottom: 0; }
+.np-label { display: block; font-family: var(--np-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--np-ink-2); margin-bottom: 8px; }
+.np-label .opt { opacity: 0.6; font-weight: 500; }
+.np-label .req { color: var(--np-red); }
+.np-textinput, .np-textarea { width: 100%; border: 2px solid var(--np-ink); background: var(--np-paper); font-family: var(--np-mono); font-size: 14px; padding: 10px 12px; color: var(--np-ink); outline: none; }
+.np-textinput::placeholder, .np-textarea::placeholder { color: var(--np-ink-2); opacity: 0.55; }
+.np-textinput:focus, .np-textarea:focus { box-shadow: 0 0 0 2px var(--np-mustard); }
+.np-textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+.np-radios { display: flex; flex-wrap: wrap; gap: 8px; }
+.np-radio__box { display: block; font-family: var(--np-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; padding: 9px 15px; border: 2px solid var(--np-ink); background: var(--np-paper); color: var(--np-ink); cursor: pointer; }
+.np-radio input:checked + .np-radio__box { background: var(--np-ink); color: var(--np-paper); }
+.np-radio input:focus-visible + .np-radio__box { box-shadow: 0 0 0 2px var(--np-mustard); }
+.np-msg { border: 2.5px solid var(--np-ink); border-left-width: 6px; padding: 16px 18px; margin-top: 24px; }
+.np-msg.ok { border-left-color: var(--np-blue); background: var(--np-paper-2); }
+.np-msg.err { border-left-color: var(--np-red); background: var(--np-paper-2); }
+.np-msg strong { font-family: var(--np-display); text-transform: uppercase; font-size: 18px; letter-spacing: 0.02em; display: block; }
+.np-msg p { font-family: var(--np-serif); font-size: 14px; color: var(--np-ink-2); margin: 4px 0 0; }

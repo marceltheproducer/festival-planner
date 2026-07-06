@@ -83,7 +83,7 @@ const related = allFestivals
     </nav>
 
     <!-- Article header -->
-    <div class="np-article">
+    <div class={`np-article${oscar ? " has-stamp" : ""}`}>
       {oscar && <span class="np-stamp mus np-article__stamp">Oscar<br />Qual.</span>}
       <p class="np-article__kicker">{festival.tier} · {festival.location.region}</p>
       <h1>{festival.name}</h1>

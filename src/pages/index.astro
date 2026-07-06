@@ -176,8 +176,8 @@ const steps = [
   /* HERO — full width */
   .hero { padding: clamp(24px,5vw,52px) 0 clamp(10px,2vw,16px); }
   .hero h1 { font-family: var(--np-display); text-transform: uppercase; font-weight: 400; line-height: 0.9;
-    letter-spacing: 0.002em; margin: 12px 0 0; font-size: clamp(46px, 9.2vw, 122px); white-space: nowrap; }
-  @media (max-width: 480px){ .hero h1 { white-space: normal; } }
+    letter-spacing: 0.002em; margin: 12px 0 0; font-size: clamp(44px, 8.4vw, 112px); white-space: nowrap; max-width: 100%; }
+  @media (max-width: 760px){ .hero h1 { white-space: normal; } }
   .hero h1 .over { color: var(--np-red); }
 
   /* LEDE + CTA — full width: readable lede left, actions right */

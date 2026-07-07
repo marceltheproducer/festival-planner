@@ -102,11 +102,12 @@ const steps = [
           <text x={r.x} y={r.y} class="rlabel">{r.t}</text>
         ))}
         {dots.map((d) => (
-          <a href={`/festivals/${d.id}`} aria-label={d.name}>
-            <circle cx={d.x} cy={d.y} r={d.aList ? 8 : 6} class:list={["dot", { alist: d.aList }]}><title>{d.name}</title></circle>
+          <a href={`/festivals/${d.id}`} aria-label={d.name} data-fest={d.name}>
+            <circle cx={d.x} cy={d.y} r={d.aList ? 8 : 6} class:list={["dot", { alist: d.aList }]}></circle>
           </a>
         ))}
       </svg>
+      <div id="map-tip" class="map-tip" aria-hidden="true"></div>
       <figcaption>
         <span class="fig">Fig. 1</span> · {total} festivals across {regions} regions.
         <span class="lg"><i class="d mus"></i> {aListCount} A-list</span>
@@ -204,6 +205,11 @@ const steps = [
   .mapsvg a { cursor: pointer; }
   .mapsvg a:hover .dot, .mapsvg a:focus-visible .dot { fill: var(--np-ink); stroke: var(--np-paper); r: 10; }
   .mapsvg a:focus-visible { outline: none; }
+  .map-tip { position: fixed; z-index: 60; pointer-events: none; opacity: 0; transform: translate(-50%, calc(-100% - 12px));
+    background: var(--np-ink); color: var(--np-paper); font-family: var(--np-mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 10px; white-space: nowrap; box-shadow: 3px 3px 0 rgba(0,0,0,0.28);
+    transition: opacity 0.08s ease; }
+  .map-tip.on { opacity: 1; }
   .map-fig figcaption { font-family: var(--np-mono); font-size: 12px; color: var(--np-ink-2); margin-top: 10px;
     display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
   .map-fig .fig { font-weight: 700; color: var(--np-ink); letter-spacing: 0.06em; }
@@ -239,3 +245,25 @@ const steps = [
   .closer-h { font-family: var(--np-display); text-transform: uppercase; font-size: clamp(26px,4vw,44px); line-height: 0.9; color: var(--np-mustard); }
   .closer-s { font-family: var(--np-serif); font-style: italic; font-size: clamp(14px,2vw,18px); opacity: 0.9; margin-top: 4px; }
 </style>
+
+<script>
+  // Instant, styled hover tooltip for the Fig. 1 map dots.
+  const svg = document.querySelector(".mapsvg");
+  const tip = document.getElementById("map-tip");
+  if (svg && tip) {
+    svg.addEventListener("pointerover", (e) => {
+      const a = (e.target as Element | null)?.closest("a[data-fest]");
+      if (a) { tip.textContent = a.getAttribute("data-fest"); tip.classList.add("on"); }
+    });
+    svg.addEventListener("pointermove", (e) => {
+      const ev = e as PointerEvent;
+      tip.style.left = ev.clientX + "px";
+      tip.style.top = ev.clientY + "px";
+    });
+    svg.addEventListener("pointerout", (e) => {
+      const a = (e.target as Element | null)?.closest("a[data-fest]");
+      if (a && !a.contains((e as PointerEvent).relatedTarget as Node)) tip.classList.remove("on");
+    });
+    svg.addEventListener("pointerleave", () => tip.classList.remove("on"));
+  }
+</script>
